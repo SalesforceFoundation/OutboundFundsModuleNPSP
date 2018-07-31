@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fields>
+        <fullName>Amount_Available__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <formula>npsp__Total_Allocations__c - Total_Disbursed__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Amount Available</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>First_Disbursement_Date__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>First Disbursement Date</label>
+        <summarizedField>GAU_Expendature__c.CreatedDate</summarizedField>
+        <summaryForeignKey>GAU_Expendature__c.General_Accounting_Unit__c</summaryForeignKey>
+        <summaryOperation>min</summaryOperation>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Summary</type>
+    </fields>
+    <fields>
+        <fullName>Largest_Disbursement__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Largest Disbursement ($)</label>
+        <summarizedField>GAU_Expendature__c.Amount__c</summarizedField>
+        <summaryForeignKey>GAU_Expendature__c.General_Accounting_Unit__c</summaryForeignKey>
+        <summaryOperation>max</summaryOperation>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Summary</type>
+    </fields>
+    <fields>
+        <fullName>Last_Disbursement_Date__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Last Disbursement Date</label>
+        <summarizedField>GAU_Expendature__c.CreatedDate</summarizedField>
+        <summaryForeignKey>GAU_Expendature__c.General_Accounting_Unit__c</summaryForeignKey>
+        <summaryOperation>max</summaryOperation>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Summary</type>
+    </fields>
+    <fields>
+        <fullName>Smallest_Disbursement__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Smallest Disbursement</label>
+        <summarizedField>GAU_Expendature__c.Amount__c</summarizedField>
+        <summaryForeignKey>GAU_Expendature__c.General_Accounting_Unit__c</summaryForeignKey>
+        <summaryOperation>min</summaryOperation>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Summary</type>
+    </fields>
+    <fields>
+        <fullName>Total_Disbursed__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Total Disbursed ($)</label>
+        <summarizedField>GAU_Expendature__c.Amount__c</summarizedField>
+        <summaryForeignKey>GAU_Expendature__c.General_Accounting_Unit__c</summaryForeignKey>
+        <summaryOperation>sum</summaryOperation>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Summary</type>
+    </fields>
+    <fields>
+        <fullName>Total_Number_of_Disbursements__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Total Number of Disbursements</label>
+        <summaryForeignKey>GAU_Expendature__c.General_Accounting_Unit__c</summaryForeignKey>
+        <summaryOperation>count</summaryOperation>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Summary</type>
+    </fields>
+</CustomObject>
