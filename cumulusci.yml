@@ -6,7 +6,7 @@ project:
         api_version: '42.0'
     dependencies:
         - github: 'https://github.com/SalesforceFoundation/Cumulus'
-        - github: 'https://github.com/SalesforceFoundation/OutboundFunds'
+        - github: 'https://github.com/SFDO-Community/OutboundFunds'
 
 
 
