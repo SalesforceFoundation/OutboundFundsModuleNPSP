@@ -19,8 +19,8 @@
         <deprecated>false</deprecated>
         <externalId>false</externalId>
         <label>First Disbursement Date</label>
-        <summarizedField>GAU_Expendature__c.CreatedDate</summarizedField>
-        <summaryForeignKey>GAU_Expendature__c.General_Accounting_Unit__c</summaryForeignKey>
+        <summarizedField>GAU_Expenditure__c.CreatedDate</summarizedField>
+        <summaryForeignKey>GAU_Expenditure__c.General_Accounting_Unit__c</summaryForeignKey>
         <summaryOperation>min</summaryOperation>
         <trackHistory>false</trackHistory>
         <trackTrending>false</trackTrending>
@@ -31,8 +31,8 @@
         <deprecated>false</deprecated>
         <externalId>false</externalId>
         <label>Largest Disbursement ($)</label>
-        <summarizedField>GAU_Expendature__c.Amount__c</summarizedField>
-        <summaryForeignKey>GAU_Expendature__c.General_Accounting_Unit__c</summaryForeignKey>
+        <summarizedField>GAU_Expenditure__c.Amount__c</summarizedField>
+        <summaryForeignKey>GAU_Expenditure__c.General_Accounting_Unit__c</summaryForeignKey>
         <summaryOperation>max</summaryOperation>
         <trackHistory>false</trackHistory>
         <trackTrending>false</trackTrending>
@@ -43,8 +43,8 @@
         <deprecated>false</deprecated>
         <externalId>false</externalId>
         <label>Last Disbursement Date</label>
-        <summarizedField>GAU_Expendature__c.CreatedDate</summarizedField>
-        <summaryForeignKey>GAU_Expendature__c.General_Accounting_Unit__c</summaryForeignKey>
+        <summarizedField>GAU_Expenditure__c.CreatedDate</summarizedField>
+        <summaryForeignKey>GAU_Expenditure__c.General_Accounting_Unit__c</summaryForeignKey>
         <summaryOperation>max</summaryOperation>
         <trackHistory>false</trackHistory>
         <trackTrending>false</trackTrending>
@@ -55,8 +55,8 @@
         <deprecated>false</deprecated>
         <externalId>false</externalId>
         <label>Smallest Disbursement</label>
-        <summarizedField>GAU_Expendature__c.Amount__c</summarizedField>
-        <summaryForeignKey>GAU_Expendature__c.General_Accounting_Unit__c</summaryForeignKey>
+        <summarizedField>GAU_Expenditure__c.Amount__c</summarizedField>
+        <summaryForeignKey>GAU_Expenditure__c.General_Accounting_Unit__c</summaryForeignKey>
         <summaryOperation>min</summaryOperation>
         <trackHistory>false</trackHistory>
         <trackTrending>false</trackTrending>
@@ -67,8 +67,8 @@
         <deprecated>false</deprecated>
         <externalId>false</externalId>
         <label>Total Disbursed ($)</label>
-        <summarizedField>GAU_Expendature__c.Amount__c</summarizedField>
-        <summaryForeignKey>GAU_Expendature__c.General_Accounting_Unit__c</summaryForeignKey>
+        <summarizedField>GAU_Expenditure__c.Amount__c</summarizedField>
+        <summaryForeignKey>GAU_Expenditure__c.General_Accounting_Unit__c</summaryForeignKey>
         <summaryOperation>sum</summaryOperation>
         <trackHistory>false</trackHistory>
         <trackTrending>false</trackTrending>
@@ -79,7 +79,7 @@
         <deprecated>false</deprecated>
         <externalId>false</externalId>
         <label>Total Number of Disbursements</label>
-        <summaryForeignKey>GAU_Expendature__c.General_Accounting_Unit__c</summaryForeignKey>
+        <summaryForeignKey>GAU_Expenditure__c.General_Accounting_Unit__c</summaryForeignKey>
         <summaryOperation>count</summaryOperation>
         <trackHistory>false</trackHistory>
         <trackTrending>false</trackTrending>

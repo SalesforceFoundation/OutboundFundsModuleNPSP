@@ -43,12 +43,12 @@
     <allowInChatterGroups>false</allowInChatterGroups>
     <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
     <compactLayouts>
-        <fullName>GAU_Expendature_Compact_Layout</fullName>
+        <fullName>GAU_Expenditure_Compact_Layout</fullName>
         <fields>Name</fields>
         <fields>Disbursement__c</fields>
         <fields>Amount__c</fields>
         <fields>General_Accounting_Unit__c</fields>
-        <label>GAU Expendature Compact Layout</label>
+        <label>GAU Expenditure Compact Layout</label>
     </compactLayouts>
     <deploymentStatus>Deployed</deploymentStatus>
     <deprecated>false</deprecated>
@@ -81,7 +81,6 @@
         <externalId>false</externalId>
         <label>Disbursement</label>
         <referenceTo>outfunds__Disbursement__c</referenceTo>
-        <relationshipLabel>GAU Expendatures</relationshipLabel>
         <relationshipName>GAU_Expendatures</relationshipName>
         <required>false</required>
         <trackTrending>false</trackTrending>
@@ -94,7 +93,6 @@
         <externalId>false</externalId>
         <label>General Accounting Unit</label>
         <referenceTo>npsp__General_Accounting_Unit__c</referenceTo>
-        <relationshipLabel>GAU Expendatures</relationshipLabel>
         <relationshipName>GAU_Expendatures</relationshipName>
         <relationshipOrder>0</relationshipOrder>
         <reparentableMasterDetail>true</reparentableMasterDetail>
@@ -102,13 +100,13 @@
         <type>MasterDetail</type>
         <writeRequiresMasterRead>true</writeRequiresMasterRead>
     </fields>
-    <label>GAU Expendature</label>
+    <label>GAU Expenditure</label>
     <nameField>
         <displayFormat>GAUE-{00000}</displayFormat>
-        <label>GAU Expendature Number</label>
+        <label>GAU Expenditure Number</label>
         <type>AutoNumber</type>
     </nameField>
-    <pluralLabel>GAU Expendatures</pluralLabel>
+    <pluralLabel>GAU Expenditures</pluralLabel>
     <searchLayouts/>
     <sharingModel>ControlledByParent</sharingModel>
     <visibility>Public</visibility>

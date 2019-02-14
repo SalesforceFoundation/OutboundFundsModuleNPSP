@@ -22,8 +22,8 @@
         <name>main</name>
         <type>Region</type>
     </flexiPageRegions>
-    <masterLabel>GAU Expendature Record Page</masterLabel>
-    <sobjectType>GAU_Expendature__c</sobjectType>
+    <masterLabel>GAU Expenditure Record Page</masterLabel>
+    <sobjectType>GAU_Expenditure__c</sobjectType>
     <template>
         <name>flexipage:recordHomeSingleColTemplateDesktop</name>
     </template>
