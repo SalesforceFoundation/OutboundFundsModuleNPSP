@@ -1,9 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Package xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Outbound Funds %28npsp%29</fullName>
-    <apiAccessLevel>Unrestricted</apiAccessLevel>
-    <description>Extension package to connect Outbound Funds to the NPSP.</description>
-    <namespacePrefix>outfundsnpspext</namespacePrefix>
     <types>
         <members>GAU_Expenditure__c.GAU_Expenditure_Compact_Layout</members>
         <name>CompactLayout</name>
