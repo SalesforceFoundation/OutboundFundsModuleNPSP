@@ -34,5 +34,9 @@
         <members>outfunds__Disbursement__c-Disbursement NPSP Layout</members>
         <name>Layout</name>
     </types>
-    <version>42.0</version>
+    <types>
+      <members>LookupSearchResult</members>
+      <name>ApexClass</name>
+    </types>
+    <version>47.0</version>
 </Package>

@@ -55,7 +55,6 @@
     <description>Record for the attribution of disbursements to specific funds. Creating these records draws revenue from the related fund. This object can be repurposed for other expendatures from GAUs as well.</description>
     <enableActivities>false</enableActivities>
     <enableBulkApi>true</enableBulkApi>
-    <enableChangeDataCapture>false</enableChangeDataCapture>
     <enableFeeds>false</enableFeeds>
     <enableHistory>false</enableHistory>
     <enableReports>true</enableReports>
