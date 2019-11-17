@@ -43,3 +43,7 @@ testdata/dev_org/test_data.db
 .pmdCache
 .localdevserver
 .cci
+node_modules/
+package-lock.json
+package.json
+.prettierrc

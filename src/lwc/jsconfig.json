@@ -6,14 +6,15 @@
             "c/lookup": [
                 "lookup/lookup.js"
             ],
-            "c/sampleLookupContainer": [
-                "../../../../src-sample/main/default/lwc/sampleLookupContainer/sampleLookupContainer.js"
+            "c/gauExpenditureRow": [
+                "gauExpenditureRow/gauExpenditureRow.js"
             ]
         }
     },
     "include": [
         "**/*",
-        "../../../../.sfdx/typings/lwc/**/*.d.ts"
+        "../../../../.sfdx/typings/lwc/**/*.d.ts",
+        "../../.sfdx/typings/lwc/**/*.d.ts"
     ],
     "typeAcquisition": {
         "include": [
