@@ -8,6 +8,12 @@
             ],
             "c/lookup": [
                 "lookup/lookup.js"
+            ],
+            "c/manageExpenditures": [
+                "manageExpenditures/manageExpenditures.js"
+            ],
+            "c/manageExpendituresHeader": [
+                "manageExpendituresHeader/manageExpendituresHeader.js"
             ]
         }
     },

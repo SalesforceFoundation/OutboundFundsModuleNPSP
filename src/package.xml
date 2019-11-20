@@ -43,6 +43,8 @@
     <types>
       <members>lookup</members>
       <members>gauExpenditureRow</members>
+      <members>manageExpenditures</members>
+      <members>manageExpendituresHeader</members>
       <name>LightningComponentBundle</name>
     </types>
     <version>47.0</version>
