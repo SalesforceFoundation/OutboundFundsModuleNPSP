@@ -4,17 +4,16 @@
  *
  * @description Class containing LWC exposed static search methods & helpers
  */
-public with sharing class LookupController {
-
+public with sharing class GauLookupController {
   /*****************************************************************************
    * @description dictates maximum number of results returned from query
    */
   public final static Integer MAX_RESULTS = 5;
 
   /*****************************************************************************
-  * @description dictates icon to be used alongside results - see link below
-  * https://www.lightningdesignsystem.com/icons/
-  */
+   * @description dictates icon to be used alongside results - see link below
+   * https://www.lightningdesignsystem.com/icons/
+   */
   public final static String ICON_NAME = 'custom:custom87';
 
   /*****************************************************************************
@@ -25,7 +24,7 @@ public with sharing class LookupController {
    * @example
    */
   @AuraEnabled(Cacheable=true)
-  public static List<LookupSearchResult> gauSearch(
+  public static List<LookupSearchResult> search(
     String searchTerm,
     List<String> selectedIds
   ) {
@@ -38,9 +37,7 @@ public with sharing class LookupController {
     ];
 
     List<LookupSearchResult> lookupSearchResults = new List<LookupSearchResult>();
-    for (
-      npsp__General_Accounting_Unit__c eachGau : gaus
-    ) {
+    for (npsp__General_Accounting_Unit__c eachGau : gaus) {
       lookupSearchResults.add(
         new lookupSearchResult(
           eachGau.Id,

@@ -36,8 +36,8 @@
     </types>
     <types>
       <members>LookupSearchResult</members>
-      <members>LookupController</members>
-      <members>LookupControllerTest</members>
+      <members>GauLookupController</members>
+      <members>GauLookupControllerTest</members>
       <name>ApexClass</name>
     </types>
     <types>

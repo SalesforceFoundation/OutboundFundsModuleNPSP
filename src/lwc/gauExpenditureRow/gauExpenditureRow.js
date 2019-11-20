@@ -1,9 +1,11 @@
-import { LightningElement } from "lwc";
-import apexSearch from "@salesforce/apex/LookupController.gauSearch";
+import { LightningElement, track } from "lwc";
+import apexSearch from "@salesforce/apex/GauLookupController.search";
 
 export default class GauExpenditureRow extends LightningElement {
-  handleSearch(event) {
+  @track gauId = "";
+  @track amount = "";
 
+  handleSearch(event) {
     const target = event.target;
     apexSearch(event.detail)
       .then(results => {
@@ -19,5 +21,18 @@ export default class GauExpenditureRow extends LightningElement {
         console.error("Lookup error", JSON.stringify(error));
         this.errors = [error];
       });
+  }
+
+  handleSelectionChange(event) {
+    const selection = event.target.getSelection();
+    if (selection.length > 0) {
+      this.gauId = selection[0].id;
+    } else {
+      this.gauId = "";
+    }
+  }
+
+  amountChange(event) {
+    this.amount = event.target.value;
   }
 }

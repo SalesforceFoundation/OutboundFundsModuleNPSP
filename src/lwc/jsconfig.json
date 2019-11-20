@@ -3,11 +3,11 @@
         "experimentalDecorators": true,
         "baseUrl": ".",
         "paths": {
-            "c/lookup": [
-                "lookup/lookup.js"
-            ],
             "c/gauExpenditureRow": [
                 "gauExpenditureRow/gauExpenditureRow.js"
+            ],
+            "c/lookup": [
+                "lookup/lookup.js"
             ]
         }
     },
