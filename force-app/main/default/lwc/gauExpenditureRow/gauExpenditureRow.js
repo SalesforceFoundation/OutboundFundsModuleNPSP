@@ -1,9 +1,10 @@
-import { LightningElement, track } from "lwc";
+import { LightningElement, track, api } from "lwc";
 import apexSearch from "@salesforce/apex/GauLookupController.search";
 
 export default class GauExpenditureRow extends LightningElement {
   @track gauId = "";
   @track amount = "";
+  @api number = "";
 
   handleSearch(event) {
     const target = event.target;
@@ -34,5 +35,9 @@ export default class GauExpenditureRow extends LightningElement {
 
   amountChange(event) {
     this.amount = event.target.value;
+  }
+
+  handleDelete() {
+    this.dispatchEvent(new CustomEvent("delete", { detail: this.number }));
   }
 }

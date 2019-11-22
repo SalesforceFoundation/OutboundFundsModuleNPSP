@@ -1,15 +1,13 @@
 <template>
-  <lightning-layout vertical-align="end" style="background-color: white;">
-    <lightning-layout-item padding="around-small" size="7">
+  <lightning-layout vertical-align="end">
+    <lightning-layout-item padding="horizontal-small" size="7">
       <c-lookup
         onsearch={handleSearch}
         onselectionchange={handleSelectionChange}
-        placeholder="General Accounting Units"
       >
       </c-lookup>
-      {gauId}
     </lightning-layout-item>
-    <lightning-layout-item padding="around-small" size="2">
+    <lightning-layout-item padding="horizontal-small" size="2">
       <lightning-input
         type="number"
         formatter="currency"
@@ -17,9 +15,8 @@
         onchange={amountChange}
         variant="label-hidden"
       ></lightning-input>
-      {amount}
     </lightning-layout-item>
-    <lightning-layout-item padding="around-small" size="2">
+    <lightning-layout-item padding="horizontal-small" size="2">
       <div class="slds-grid slds-grid_vertical-align-center">
         <div class="slds-col">
           <lightning-input
@@ -29,14 +26,18 @@
           ></lightning-input>
         </div>
         <div
-          class="slds-col slds-shrink slds-text-heading_small custom-percent-style"
+          class="slds-col slds-shrink slds-text-title_caps custom-percent-style"
         >
           %
         </div>
       </div>
     </lightning-layout-item>
-    <lightning-layout-item padding="around-small" size="1">
-      <lightning-button variant="destructive" label="Delete"></lightning-button>
+    <lightning-layout-item padding="horizontal-small" size="1">
+      <lightning-button
+        variant="destructive"
+        label="Delete"
+        onclick={handleDelete}
+      ></lightning-button>
     </lightning-layout-item>
   </lightning-layout>
 </template>
