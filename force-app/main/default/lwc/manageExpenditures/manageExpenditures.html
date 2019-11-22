@@ -1,5 +1,15 @@
 <template>
   <c-manage-expenditures-header></c-manage-expenditures-header>
   <c-manage-expenditures-table-header></c-manage-expenditures-table-header>
-  <c-gau-expenditure-row></c-gau-expenditure-row>
+  <table
+    class="slds-table slds-table_cell-buffer slds-table_bordered slds-table_striped"
+  >
+    <tbody>
+      <tr class="slds-hint-parent">
+        <th data-label="Opportunity Name" scope="row">
+          <c-gau-expenditure-row></c-gau-expenditure-row>
+        </th>
+      </tr>
+    </tbody>
+  </table>
 </template>
