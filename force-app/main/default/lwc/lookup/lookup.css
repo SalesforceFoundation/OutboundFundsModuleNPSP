@@ -28,3 +28,7 @@
     color: rgb(194, 57, 52);
     display: block;
 }
+
+label {
+  display: none;
+}

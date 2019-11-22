@@ -1,5 +1,8 @@
 .custom-percent-style {
-  padding-top: 1rem;
+  padding-top: .5rem;
   padding-left: .25rem;
+}
 
+.slds-form-element__label{
+  display: none;
 }

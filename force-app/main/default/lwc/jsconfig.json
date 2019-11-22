@@ -1,0 +1,32 @@
+{
+    "compilerOptions": {
+        "experimentalDecorators": true,
+        "baseUrl": ".",
+        "paths": {
+            "c/gauExpenditureRow": [
+                "gauExpenditureRow/gauExpenditureRow.js"
+            ],
+            "c/lookup": [
+                "lookup/lookup.js"
+            ],
+            "c/manageExpenditures": [
+                "manageExpenditures/manageExpenditures.js"
+            ],
+            "c/manageExpendituresHeader": [
+                "manageExpendituresHeader/manageExpendituresHeader.js"
+            ],
+            "c/manageExpendituresTableHeader": [
+                "manageExpendituresTableHeader/manageExpendituresTableHeader.js"
+            ]
+        }
+    },
+    "include": [
+        "**/*",
+        "../../../../.sfdx/typings/lwc/**/*.d.ts"
+    ],
+    "typeAcquisition": {
+        "include": [
+            "jest"
+        ]
+    }
+}
