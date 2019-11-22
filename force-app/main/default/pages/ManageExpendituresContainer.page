@@ -1,0 +1,15 @@
+<apex:page standardController="GAU_Expenditure__c" recordSetVar="expenditures">
+  <apex:includeLightning/>
+  <div id="container"></div>
+
+  <script>
+    $Lightning.use("c:ManageExpendituresApp", function () {
+      $Lightning.createComponent(
+        "c:manageExpenditures",
+        {},
+        "container",
+        function (cmp) { }
+      );
+    });
+  </script>
+</apex:page>
