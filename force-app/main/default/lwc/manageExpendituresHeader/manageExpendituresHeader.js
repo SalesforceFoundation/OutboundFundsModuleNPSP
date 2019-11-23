@@ -1,3 +1,9 @@
-import { LightningElement } from 'lwc';
+import { LightningElement, api } from 'lwc';
 
-export default class ManageExpendituresHeader extends LightningElement {}
+export default class ManageExpendituresHeader extends LightningElement {
+  @api parentname;
+
+  handleCancel() {
+      this.dispatchEvent(new CustomEvent("cancel"));
+  }
+}

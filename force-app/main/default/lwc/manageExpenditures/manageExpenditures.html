@@ -1,5 +1,9 @@
 <template>
-  <c-manage-expenditures-header></c-manage-expenditures-header>
+  <c-manage-expenditures-header
+    parentname={parentName}
+    oncancel={handleCancel}
+  ></c-manage-expenditures-header>
+  {parentId}
   <c-manage-expenditures-table-header></c-manage-expenditures-table-header>
   <table class="slds-table slds-table_cell-buffer slds-table_bordered">
     <tbody>

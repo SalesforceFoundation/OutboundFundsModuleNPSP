@@ -1,15 +1,22 @@
-<apex:page standardController="GAU_Expenditure__c" recordSetVar="expenditures">
+<apex:page standardController="GAU_Expenditure__c" recordSetVar="expenditures" extensions="ManageExpendituresContainerCtrl">
   <apex:includeLightning/>
+
+  <!-- overwriting styles in AuraAlohaContentFrame.css -->
+  <style type="text/CSS">
+    html body.sfdcBody { padding: 0rem; }
+  </style>
+  {!parentId}
   <div id="container"></div>
 
   <script>
     $Lightning.use("c:ManageExpendituresApp", function () {
       $Lightning.createComponent(
         "c:manageExpenditures",
-        {},
-        "container",
-        function (cmp) { }
-      );
+        { "parentId": "{!JSENCODE(parentId)}",
+          "parentName": "{!JSENCODE(parentName)}"},
+      "container",
+      function (cmp) { }
+    );
     });
   </script>
 </apex:page>
