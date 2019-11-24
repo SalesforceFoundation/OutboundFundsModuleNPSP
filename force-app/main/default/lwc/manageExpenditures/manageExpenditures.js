@@ -1,7 +1,8 @@
 import { LightningElement, track, api } from "lwc";
-import { NavigationMixin } from "lightning/navigation";
 
-export default class ManageExpenditures extends NavigationMixin(LightningElement) {
+export default class ManageExpenditures extends LightningElement(
+  LightningElement
+) {
   @api parentId;
   @api parentName;
   @track numbers = [1];
@@ -15,27 +16,4 @@ export default class ManageExpenditures extends NavigationMixin(LightningElement
       this.numbers.splice(this.numbers.indexOf(event.detail), 1);
     }
   }
-
-  handleCancel() {
-    // TODO: debug this
-    console.log('made it to the parent');
-    this[NavigationMixin.Navigate]({
-      type: 'standard__objectPage',
-      attributes: {
-          objectApiName: 'Account',
-          actionName: 'home'
-      }
-    });
-    /*
-    this[NavigationMixin.Navigate]({
-      type: "standard__RecordPage",
-      attributes: {
-        "recordId": this.parentId,
-        "objectApiName": "outfunds__Disbursement__c",
-        "actionName": "view"
-      },
-    });
-  */
-  }
-
 }

@@ -17,6 +17,9 @@
             ],
             "c/manageExpendituresTableHeader": [
                 "manageExpendituresTableHeader/manageExpendituresTableHeader.js"
+            ],
+            "c/navigationLinkExample": [
+                "navigationLinkExample/navigationLinkExample.js"
             ]
         }
     },

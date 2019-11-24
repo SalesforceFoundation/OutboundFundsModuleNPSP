@@ -1,13 +1,12 @@
-import { LightningElement, api, track } from "lwc";
+// navigationLinkExample.js
+import { LightningElement, wire, track } from "lwc";
 import { NavigationMixin } from "lightning/navigation";
 
-export default class ManageExpendituresHeader extends NavigationMixin(
+export default class NavigationLinkExample extends NavigationMixin(
   LightningElement
 ) {
-  @api parentname;
-  @api parentid;
-  @track url;
-  @track accountHomePageRef;
+  @track
+  url;
 
   connectedCallback() {
     // Store the PageReference in a variable to use in handleClick.
@@ -26,14 +25,12 @@ export default class ManageExpendituresHeader extends NavigationMixin(
     );
   }
 
-  handleCancel(evt) {
+  handleClick(evt) {
     // Stop the event's default behavior.
     // Stop the event from bubbling up in the DOM.
-    console.log(JSON.stringify(this.accountHomePageRef));
     evt.preventDefault();
     evt.stopPropagation();
     // Navigate to the Account Home page.
     this[NavigationMixin.Navigate](this.accountHomePageRef);
-    console.log('end of handler');
   }
 }
