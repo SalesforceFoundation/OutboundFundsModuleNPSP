@@ -18,6 +18,15 @@ export default class ManageExpenditures extends NavigationMixin(LightningElement
 
   handleCancel() {
     // TODO: debug this
+    console.log('made it to the parent');
+    this[NavigationMixin.Navigate]({
+      type: 'standard__objectPage',
+      attributes: {
+          objectApiName: 'Account',
+          actionName: 'home'
+      }
+    });
+    /*
     this[NavigationMixin.Navigate]({
       type: "standard__RecordPage",
       attributes: {
@@ -26,5 +35,7 @@ export default class ManageExpenditures extends NavigationMixin(LightningElement
         "actionName": "view"
       },
     });
+  */
   }
+
 }
