@@ -5,7 +5,6 @@
   <style type="text/CSS">
     html body.sfdcBody { padding: 0rem; }
   </style>
-  {!parentId}
   <div id="container"></div>
 
   <script>
