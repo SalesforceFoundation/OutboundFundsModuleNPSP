@@ -5,6 +5,7 @@ export default class ManageExpenditures extends LightningElement(
 ) {
   @api parentId;
   @api parentName;
+  @api gauExpenditures;
   @track numbers = [1];
 
   addRow() {

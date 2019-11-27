@@ -11,11 +11,14 @@
     $Lightning.use("c:ManageExpendituresApp", function () {
       $Lightning.createComponent(
         "c:manageExpenditures",
-        { "parentId": "{!JSENCODE(parentId)}",
-          "parentName": "{!JSENCODE(parentName)}"},
-      "container",
-      function (cmp) { }
-    );
+        {
+          "parentId": "{!JSENCODE(parentId)}",
+          "parentName": "{!JSENCODE(parentName)}",
+          "gauExpenditures": "{!JSENCODE(gauExpenditures)}"
+},
+        "container",
+        function (cmp) { }
+      );
     });
   </script>
 </apex:page>
