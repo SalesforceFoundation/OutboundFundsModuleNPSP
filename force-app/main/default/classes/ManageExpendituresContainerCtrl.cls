@@ -6,7 +6,7 @@ public with sharing class ManageExpendituresContainerCtrl {
   public String parentName { get; set; }
 
   /** @description List of expenditures, represented in JSON */
-  public String gauExpenditures { get; set; }
+  public String gauExpenditureWrappers { get; set; }
 
   /*****************************************************************************
    * @description Constructor queries for the parent object id - all inner logic
@@ -20,7 +20,7 @@ public with sharing class ManageExpendituresContainerCtrl {
         Id,
         Name,
         (
-          SELECT Id, Name, General_Accounting_Unit__c, Amount__c
+          SELECT Id, General_Accounting_Unit__c, General_Accounting_Unit__r.Name, Amount__c, Disbursement__c
           FROM GAU_Expendatures__r
           LIMIT 500
         )
@@ -36,7 +36,28 @@ public with sharing class ManageExpendituresContainerCtrl {
 
     parentName = disbursement.Name;
 
-    // TODO: stringify
-    gauExpenditures = JSON.serialize(disbursement.GAU_Expendatures__r);
+    List<GauExpenditureWrapper> gauExpenditureWrapperlist = new List<GauExpenditureWrapper>();
+
+    for (GAU_Expenditure__c gauExpenditure : disbursement.GAU_Expendatures__r) {
+      gauExpenditureWrapperlist.add(new GauExpenditureWrapper(gauExpenditure));
+    }
+
+    gauExpenditureWrappers = JSON.serialize(gauExpenditureWrapperlist);
+  }
+
+  public class GauExpenditureWrapper {
+    Id recordId;
+    Id disbursementId;
+    Id gauId;
+    String gauName;
+    Decimal amount;
+
+    public GauExpenditureWrapper(GAU_Expenditure__c gaue) {
+      this.recordId = gaue.Id;
+      this.disbursementId = gaue.Disbursement__c;
+      this.gauId = gaue.General_Accounting_Unit__c;
+      this.gauName = gaue.General_Accounting_Unit__r.Name;
+      this.amount = gaue.Amount__c;
+    }
   }
 }
