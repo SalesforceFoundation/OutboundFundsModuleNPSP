@@ -4,7 +4,7 @@ import apexSearch from "@salesforce/apex/GauLookupController.search";
 export default class GauExpenditureRow extends LightningElement {
   @track gauId = "";
   @track amount = "";
-  @api number = "";
+  @api recordId = "";
 
   handleSearch(event) {
     const target = event.target;
@@ -38,6 +38,6 @@ export default class GauExpenditureRow extends LightningElement {
   }
 
   handleDelete() {
-    this.dispatchEvent(new CustomEvent("delete", { detail: this.number }));
+    this.dispatchEvent(new CustomEvent("delete", { detail: this.recordId }));
   }
 }

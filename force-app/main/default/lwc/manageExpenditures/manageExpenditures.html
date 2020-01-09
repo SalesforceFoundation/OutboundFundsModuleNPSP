@@ -2,12 +2,12 @@
   <c-manage-expenditures-header
     parentname={parentName}
   ></c-manage-expenditures-header>
-  {gauExpenditures}
+  {gaueString}
   <c-manage-expenditures-table-header></c-manage-expenditures-table-header>
   <table class="slds-table slds-table_cell-buffer slds-table_bordered">
     <tbody>
-      <template for:each={numbers} for:item="number">
-        <tr class="slds-hint-parent" key={number}>
+      <template for:each={gauExpenditures} for:item="gauExpenditure">
+        <tr class="slds-hint-parent" key={gauExpenditure.recordId}>
           <th scope="row">
             <c-gau-expenditure-row
               number={number}
