@@ -4,6 +4,9 @@ const MINIMAL_SEARCH_TERM_LENGTH = 2; // Min number of chars required to search
 const SEARCH_DELAY = 300; // Wait 300 ms after user stops typing then, peform search
 
 export default class Lookup extends LightningElement {
+    // @api prefillTitle;
+    // @api prefillId;
+
     @api label;
     @api selection = [];
     @api placeholder = '';
@@ -19,6 +22,14 @@ export default class Lookup extends LightningElement {
     cleanSearchTerm;
     blurTimeout;
     searchThrottlingTimeout;
+
+    /* connectedCallback() {
+      if(this.prefillId && this.prefillTitle) {
+        const selectedItem = {title: this.prefillTitle, icon: 'custom:custom87'};
+        // eslint-disable-next-line no-unused-expressions
+        this.selection.push[selectedItem];
+      }
+    } */
 
     // EXPOSED FUNCTIONS
 

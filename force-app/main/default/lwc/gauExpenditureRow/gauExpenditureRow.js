@@ -2,9 +2,17 @@ import { LightningElement, track, api } from "lwc";
 import apexSearch from "@salesforce/apex/GauLookupController.search";
 
 export default class GauExpenditureRow extends LightningElement {
-  @track gauId = "";
-  @track amount = "";
-  @api recordId = "";
+  @api prefillExpenditure;
+  @track gauExpenditure;
+
+  prefillExpenditureString;
+  prefillSelection;
+
+
+  connectedCallback() {
+    this.gauExpenditure = Object.assign({}, this.prefillExpenditure);
+    this.prefillSelection = [{title: this.gauExpenditure.gauName, icon: 'custom:custom87'}];
+  }
 
   handleSearch(event) {
     const target = event.target;
@@ -27,17 +35,17 @@ export default class GauExpenditureRow extends LightningElement {
   handleSelectionChange(event) {
     const selection = event.target.getSelection();
     if (selection.length > 0) {
-      this.gauId = selection[0].id;
+      this.gauExpenditure.gauId = selection[0].id;
     } else {
-      this.gauId = "";
+      this.gauExpenditure.gauId = "";
     }
   }
 
   amountChange(event) {
-    this.amount = event.target.value;
+    this.gauExpenditure.amount = event.target.value;
   }
 
   handleDelete() {
-    this.dispatchEvent(new CustomEvent("delete", { detail: this.recordId }));
+    this.dispatchEvent(new CustomEvent("delete", { detail: this.gauExpenditure.recordId }));
   }
 }

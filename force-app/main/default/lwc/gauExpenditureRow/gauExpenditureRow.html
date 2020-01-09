@@ -2,6 +2,7 @@
   <lightning-layout vertical-align="end">
     <lightning-layout-item padding="horizontal-small" size="7">
       <c-lookup
+        selection={prefillSelection}
         onsearch={handleSearch}
         onselectionchange={handleSelectionChange}
       >
@@ -9,6 +10,7 @@
     </lightning-layout-item>
     <lightning-layout-item padding="horizontal-small" size="2">
       <lightning-input
+        value={gauExpenditure.amount}
         type="number"
         formatter="currency"
         step="0.01"
