@@ -6,12 +6,15 @@ export default class GauExpenditureRow extends LightningElement {
   @track gauExpenditure;
 
   prefillExpenditureString;
-  prefillSelection;
+  prefillSelection = [];
 
 
   connectedCallback() {
     this.gauExpenditure = Object.assign({}, this.prefillExpenditure);
-    this.prefillSelection = [{title: this.prefillExpenditure.gauName, icon: 'custom:custom87'}];
+    if(this.gauExpenditure.gauName) {
+      this.prefillSelection.push({title: this.gauExpenditure.gauName, icon: 'custom:custom87'});
+      delete this.gauExpenditure.gauName;
+    }
   }
 
   handleSearch(event) {
@@ -43,10 +46,14 @@ export default class GauExpenditureRow extends LightningElement {
 
   amountChange(event) {
     this.gauExpenditure.amount = event.target.value;
-    console.log(JSON.stringify(this.gauExpenditure));
+    this.handleUpdate();
+  }
+
+  handleUpdate() {
+    this.dispatchEvent(new CustomEvent("update", {detail: this.gauExpenditure}));
   }
 
   handleDelete() {
-    this.dispatchEvent(new CustomEvent("delete", { detail: this.gauExpenditure.recordId }));
+    this.dispatchEvent(new CustomEvent("delete", { detail: this.gauExpenditure}));
   }
 }

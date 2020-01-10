@@ -5,8 +5,7 @@
   <!-- for debugging purposes only -->
   <template for:each={gauExpenditures} for:item="gauExpenditure">
     <p key={gauExpenditure.recordId}>
-      recordId: {gauExpenditure.recordId};
-      gauName: {gauExpenditure.gauName};
+      rowId: {gauExpenditure.rowId};
       gauId: {gauExpenditure.gauId};
       amount: {gauExpenditure.amount}<br/>
     </p>
@@ -16,11 +15,12 @@
   <table class="slds-table slds-table_cell-buffer slds-table_bordered">
     <tbody>
       <template for:each={gauExpenditures} for:item="gauExpenditure">
-        <tr class="slds-hint-parent" key={gauExpenditure.recordId}>
+        <tr class="slds-hint-parent" key={gauExpenditure.rowId}>
           <th scope="row">
             <c-gau-expenditure-row
               prefill-expenditure={gauExpenditure}
               ondelete={handleDelete}
+              onupdate={handleUpdate}
             ></c-gau-expenditure-row>
           </th>
         </tr>
