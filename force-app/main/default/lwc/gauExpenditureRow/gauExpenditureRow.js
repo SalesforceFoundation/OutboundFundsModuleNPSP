@@ -8,11 +8,13 @@ export default class GauExpenditureRow extends LightningElement {
   prefillExpenditureString;
   prefillSelection = [];
 
-
   connectedCallback() {
     this.gauExpenditure = Object.assign({}, this.prefillExpenditure);
-    if(this.gauExpenditure.gauName) {
-      this.prefillSelection.push({title: this.gauExpenditure.gauName, icon: 'custom:custom87'});
+    if (this.gauExpenditure.gauName) {
+      this.prefillSelection.push({
+        title: this.gauExpenditure.gauName,
+        icon: "custom:custom87"
+      });
       delete this.gauExpenditure.gauName;
     }
   }
@@ -42,6 +44,7 @@ export default class GauExpenditureRow extends LightningElement {
     } else {
       this.gauExpenditure.gauId = "";
     }
+    this.handleUpdate();
   }
 
   amountChange(event) {
@@ -50,10 +53,14 @@ export default class GauExpenditureRow extends LightningElement {
   }
 
   handleUpdate() {
-    this.dispatchEvent(new CustomEvent("update", {detail: this.gauExpenditure}));
+    this.dispatchEvent(
+      new CustomEvent("update", { detail: this.gauExpenditure })
+    );
   }
 
   handleDelete() {
-    this.dispatchEvent(new CustomEvent("delete", { detail: this.gauExpenditure}));
+    this.dispatchEvent(
+      new CustomEvent("delete", { detail: this.gauExpenditure })
+    );
   }
 }

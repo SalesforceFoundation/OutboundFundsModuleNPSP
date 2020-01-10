@@ -20,32 +20,27 @@ export default class ManageExpenditures extends LightningElement(
 
   addRow() {
     let rowId = this.gauExpenditures[this.gauExpenditures.length - 1].rowId + 1;
-    this.gauExpenditures.push({rowId: rowId});
+    this.gauExpenditures.push({ rowId: rowId });
   }
 
   handleUpdate(event) {
-    let updatedRow = event.detail;
-
     let index = this.gauExpenditures
       .map(expenditure => {
         return expenditure.rowId;
       })
-      .indexOf(updatedRow.rowId);
+      .indexOf(event.detail.rowId);
 
-    this.gauExpenditures[index] = updatedRow;
-  }
-
-  handleDelete(event) {
-    let deletedRow = event.detail;
-
-    let index = this.gauExpenditures
-      .map(expenditure => {
-        return expenditure.rowId;
-      })
-      .indexOf(deletedRow.rowId);
-
-    if (this.gauExpenditures.length > 1) {
-      this.gauExpenditures.splice(index, 1);
+    switch (event.type) {
+      case "update":
+        this.gauExpenditures[index] = event.detail;
+        break;
+      case "delete":
+        if (this.gauExpenditures.length > 1) {
+          this.gauExpenditures.splice(index, 1);
+        }
+        break;
+      default:
+        break;
     }
   }
 }
