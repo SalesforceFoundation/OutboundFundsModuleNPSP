@@ -32,16 +32,18 @@
             </lightning-layout-item>
             <lightning-layout-item
               padding="horizontal-small"
-              class="slds-m-left_small"
+              class="slds-m-left_small color:red;"
               size="2"
             >
-              <lightning-formatted-number
-                value={remainingAmount}
-                format-style="currency"
-                currency-code="USD"
-                minimum-fraction-digits="2"
-                maximum-fraction-digits="2"
-              ></lightning-formatted-number>
+              <div class={remainingAmountStatus}>
+                <lightning-formatted-number
+                  value={remainingAmount}
+                  format-style="currency"
+                  currency-code="USD"
+                  minimum-fraction-digits="2"
+                  maximum-fraction-digits="2"
+                ></lightning-formatted-number>
+              </div>
             </lightning-layout-item>
           </lightning-layout>
         </th>

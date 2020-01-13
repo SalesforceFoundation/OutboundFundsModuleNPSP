@@ -10,6 +10,7 @@ export default class ManageExpenditures extends LightningElement(
 
   @track gauExpenditures;
   @track remainingAmount;
+  @track remainingAmountStatus;
 
   connectedCallback() {
     let rowId = 1;
@@ -48,12 +49,10 @@ export default class ManageExpenditures extends LightningElement(
   }
 
   updateRemainingAmount() {
-    console.log('parentAmount: ' + this.parentAmount);
     let usedAmount = this.gauExpenditures.reduce(function(total, eachExpenditure) {
       return parseFloat(total) + parseFloat(eachExpenditure.amount);
     }, 0);
-    console.log('usedAmount: ' + usedAmount);
     this.remainingAmount = this.parentAmount - usedAmount;
-      console.log('remainingAmount: ' + this.remainingAmount);
+    this.remainingAmountStatus = this.remainingAmount < 0 ? 'INVALID' : 'VALID';
   }
 }
