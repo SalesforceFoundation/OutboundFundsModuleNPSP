@@ -30,10 +30,18 @@
           <lightning-layout vertical-align="end">
             <lightning-layout-item padding="horizontal-small" size="7">
             </lightning-layout-item>
-            <lightning-layout-item padding="horizontal-small" class="slds-m-left_small" size="2">
-              <lightning-formatted-number value={remainingAmount} format-style="currency" currency-code="USD" minimum-fraction-digits="2" maximum-fraction-digits="2"></lightning-formatted-number>
-            </lightning-layout-item>
-            <lightning-layout-item padding="horizontal-small" size="2">
+            <lightning-layout-item
+              padding="horizontal-small"
+              class="slds-m-left_small"
+              size="2"
+            >
+              <lightning-formatted-number
+                value={remainingAmount}
+                format-style="currency"
+                currency-code="USD"
+                minimum-fraction-digits="2"
+                maximum-fraction-digits="2"
+              ></lightning-formatted-number>
             </lightning-layout-item>
           </lightning-layout>
         </th>
