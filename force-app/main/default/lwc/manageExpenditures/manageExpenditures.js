@@ -5,17 +5,19 @@ export default class ManageExpenditures extends LightningElement(
 ) {
   @api parentId;
   @api parentName;
-  @api gaueString;
+  @api parentAmount;
+  @api gauExpendituresString;
 
   @track gauExpenditures;
-  @track numbers = [1];
+  @track remainingAmount;
 
   connectedCallback() {
     let rowId = 1;
-    this.gauExpenditures = JSON.parse(this.gaueString);
+    this.gauExpenditures = JSON.parse(this.gauExpendituresString);
     this.gauExpenditures.forEach(function(eachExpenditure) {
       eachExpenditure.rowId = rowId++;
     });
+    this.updateRemainingAmount();
   }
 
   addRow() {
@@ -42,5 +44,16 @@ export default class ManageExpenditures extends LightningElement(
       default:
         break;
     }
+    this.updateRemainingAmount();
+  }
+
+  updateRemainingAmount() {
+    console.log('parentAmount: ' + this.parentAmount);
+    let usedAmount = this.gauExpenditures.reduce(function(total, eachExpenditure) {
+      return parseFloat(total) + parseFloat(eachExpenditure.amount);
+    }, 0);
+    console.log('usedAmount: ' + usedAmount);
+    this.remainingAmount = this.parentAmount - usedAmount;
+      console.log('remainingAmount: ' + this.remainingAmount);
   }
 }

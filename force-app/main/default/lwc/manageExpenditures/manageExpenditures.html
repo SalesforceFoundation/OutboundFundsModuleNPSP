@@ -2,12 +2,12 @@
   <c-manage-expenditures-header
     parentname={parentName}
   ></c-manage-expenditures-header>
+  {parentAmount}
   <!-- for debugging purposes only -->
   <template for:each={gauExpenditures} for:item="gauExpenditure">
     <p key={gauExpenditure.recordId}>
-      rowId: {gauExpenditure.rowId};
-      gauId: {gauExpenditure.gauId};
-      amount: {gauExpenditure.amount}<br/>
+      rowId: {gauExpenditure.rowId}; gauId: {gauExpenditure.gauId}; amount:
+      {gauExpenditure.amount}<br />
     </p>
   </template>
   <!-- end debugger -->
@@ -25,6 +25,19 @@
           </th>
         </tr>
       </template>
+      <tr>
+        <th scope="row">
+          <lightning-layout vertical-align="end">
+            <lightning-layout-item padding="horizontal-small" size="7">
+            </lightning-layout-item>
+            <lightning-layout-item padding="horizontal-small" class="slds-m-left_small" size="2">
+              ${remainingAmount}
+            </lightning-layout-item>
+            <lightning-layout-item padding="horizontal-small" size="2">
+            </lightning-layout-item>
+          </lightning-layout>
+        </th>
+      </tr>
     </tbody>
   </table>
   <lightning-button

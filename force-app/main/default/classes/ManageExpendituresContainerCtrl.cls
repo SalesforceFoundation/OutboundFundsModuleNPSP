@@ -5,6 +5,9 @@ public with sharing class ManageExpendituresContainerCtrl {
   /** @description The Name of the parent Disbursement */
   public String parentName { get; set; }
 
+  /** @description The Amount of the parent Disbursement */
+  public Decimal parentAmount { get; set; }
+
   /** @description List of expenditures, represented in JSON */
   public String gauExpenditureWrappers { get; set; }
 
@@ -19,8 +22,13 @@ public with sharing class ManageExpendituresContainerCtrl {
       SELECT
         Id,
         Name,
+        outfunds__Amount__c,
         (
-          SELECT Id, General_Accounting_Unit__c, General_Accounting_Unit__r.Name, Amount__c, Disbursement__c
+          SELECT
+            Id,
+            General_Accounting_Unit__c,
+            General_Accounting_Unit__r.Name,
+            Amount__c
           FROM GAU_Expendatures__r
           LIMIT 500
         )
@@ -35,6 +43,7 @@ public with sharing class ManageExpendituresContainerCtrl {
     // TODO: error check for null case
 
     parentName = disbursement.Name;
+    parentAmount = disbursement.outfunds__Amount__c;
 
     List<GauExpenditureWrapper> gauExpenditureWrapperlist = new List<GauExpenditureWrapper>();
 
@@ -47,14 +56,12 @@ public with sharing class ManageExpendituresContainerCtrl {
 
   public class GauExpenditureWrapper {
     Id recordId;
-    Id disbursementId;
     Id gauId;
     String gauName;
     Decimal amount;
 
     public GauExpenditureWrapper(GAU_Expenditure__c gaue) {
       this.recordId = gaue.Id;
-      this.disbursementId = gaue.Disbursement__c;
       this.gauId = gaue.General_Accounting_Unit__c;
       this.gauName = gaue.General_Accounting_Unit__r.Name;
       this.amount = gaue.Amount__c;

@@ -48,8 +48,14 @@ export default class GauExpenditureRow extends LightningElement {
   }
 
   amountChange(event) {
-    this.gauExpenditure.amount = event.target.value;
+    this.enforceValidAmount(event);
     this.handleUpdate();
+  }
+
+  enforceValidAmount(event) {
+    let amount =
+      event.target.value ? event.target.value : 0;
+    this.gauExpenditure.amount = amount;
   }
 
   handleUpdate() {

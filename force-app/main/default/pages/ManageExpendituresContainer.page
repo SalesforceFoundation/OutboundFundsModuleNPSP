@@ -14,7 +14,8 @@
         {
           "parentId": "{!JSENCODE(parentId)}",
           "parentName": "{!JSENCODE(parentName)}",
-          "gaueString": "{!JSENCODE(gauExpenditureWrappers)}"
+          "parentAmount": "{!JSENCODE(TEXT(parentAmount))}",
+          "gauExpendituresString": "{!JSENCODE(gauExpenditureWrappers)}"
 },
         "container",
         function (cmp) { }
