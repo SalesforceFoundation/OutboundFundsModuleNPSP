@@ -1,8 +1,8 @@
 <template>
   <c-manage-expenditures-header
     parentname={parentName}
+    disable-save={disableSave}
   ></c-manage-expenditures-header>
-  {parentAmount}
   <!-- for debugging purposes only -->
   <template for:each={gauExpenditures} for:item="gauExpenditure">
     <p key={gauExpenditure.recordId}>
@@ -19,6 +19,7 @@
           <th scope="row">
             <c-gau-expenditure-row
               prefill-expenditure={gauExpenditure}
+              parent-amount={parentAmount}
               onupdate={handleUpdate}
               ondelete={handleUpdate}
             ></c-gau-expenditure-row>

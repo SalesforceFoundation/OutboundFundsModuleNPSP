@@ -16,11 +16,11 @@
     <lightning-layout-item padding="horizontal-small" size="2">
       <lightning-input
         value={gauExpenditure.amount}
+        onchange={amountChange}
+        disabled={amountDisabled}
         type="number"
         formatter="currency"
         step="0.01"
-        onchange={amountChange}
-        onkeyup={enforceValidAmount}
         variant="label-hidden"
       ></lightning-input>
     </lightning-layout-item>
@@ -28,6 +28,9 @@
       <div class="slds-grid slds-grid_vertical-align-center">
         <div class="slds-col">
           <lightning-input
+            value={percent}
+            onchange={percentChange}
+            disabled={percentDisabled}
             type="number"
             step="0.5"
             variant="label-hidden"

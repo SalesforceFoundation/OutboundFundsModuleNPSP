@@ -3,7 +3,12 @@ import apexSearch from "@salesforce/apex/GauLookupController.search";
 
 export default class GauExpenditureRow extends LightningElement {
   @api prefillExpenditure;
+  @api parentAmount;
   @track gauExpenditure;
+
+  @track percent;
+  @track amountDisabled;
+  @track percentDisabled;
 
   prefillExpenditureString;
   prefillSelection = [];
@@ -17,6 +22,11 @@ export default class GauExpenditureRow extends LightningElement {
       });
       delete this.gauExpenditure.gauName;
     }
+
+    if (this.gauExpenditure.amount) {
+      this.percentDisabled = true;
+    }
+    this.amountDisabled = false;
   }
 
   handleSearch(event) {
@@ -48,14 +58,21 @@ export default class GauExpenditureRow extends LightningElement {
   }
 
   amountChange(event) {
-    this.enforceValidAmount(event);
+    this.gauExpenditure.amount = this.enforceValidValue(event);
+    this.percentDisabled = this.gauExpenditure.amount > 0 ? true : false;
     this.handleUpdate();
   }
 
-  enforceValidAmount(event) {
-    let amount =
-      event.target.value ? event.target.value : 0;
-    this.gauExpenditure.amount = amount;
+  percentChange(event) {
+    this.percent = this.enforceValidValue(event);
+    this.gauExpenditure.amount =
+      parseFloat(this.percent/100) * parseFloat(this.parentAmount);
+    this.amountDisabled = this.percent > 0 ? true : false;
+    this.handleUpdate();
+  }
+
+  enforceValidValue(event) {
+    return event.target.value ? event.target.value : 0;
   }
 
   handleUpdate() {
