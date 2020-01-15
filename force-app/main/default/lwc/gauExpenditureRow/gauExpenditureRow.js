@@ -58,6 +58,7 @@ export default class GauExpenditureRow extends LightningElement {
   }
 
   amountChange(event) {
+    // '+' sign to remove leading zeroes
     this.gauExpenditure.amount = this.enforceValidValue(event);
     this.percentDisabled = this.gauExpenditure.amount > 0 ? true : false;
     this.handleUpdate();
@@ -72,7 +73,7 @@ export default class GauExpenditureRow extends LightningElement {
   }
 
   enforceValidValue(event) {
-    return event.target.value ? event.target.value : 0;
+    return event.target.value ? +Math.abs(event.target.value) : 0;
   }
 
   handleUpdate() {

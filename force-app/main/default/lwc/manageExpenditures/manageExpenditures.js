@@ -50,18 +50,24 @@ export default class ManageExpenditures extends LightningElement(
   }
 
   updateRemainingAmount() {
-    let usedAmount = this.gauExpenditures.reduce(function(total, eachExpenditure) {
-      return parseFloat(total) + parseFloat(eachExpenditure.amount);
-    }, 0);
+    let usedAmount = this.gauExpenditures.reduce(function(
+      total,
+      eachExpenditure
+    ) {
+      if (eachExpenditure.amount) {
+        return parseFloat(total) + parseFloat(eachExpenditure.amount);
+      }
+      return parseFloat(total);
+    },
+    0);
 
     this.remainingAmount = this.parentAmount - usedAmount;
-    if(this.remainingAmount < 0) {
-      this.remainingAmountStatus = 'INVALID';
+    if (this.remainingAmount < 0) {
+      this.remainingAmountStatus = "INVALID";
       this.disableSave = true;
     } else {
-      this.remainingAmountStatus = 'VALID';
+      this.remainingAmountStatus = "VALID";
       this.disableSave = false;
     }
-
   }
 }
