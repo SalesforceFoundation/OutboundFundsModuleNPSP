@@ -1,4 +1,4 @@
-import { LightningElement, api, wire, track } from "lwc";
+import { LightningElement, api, track } from "lwc";
 import getDisbursement from "@salesforce/apex/GauExpendituresManager.getDisbursement";
 
 export default class RecordPagePoc extends LightningElement {
@@ -6,14 +6,15 @@ export default class RecordPagePoc extends LightningElement {
   @track disbursement;
   @track error;
 
-  @wire(getDisbursement, { disbursementId: "$recordId" })
-  wiredDisbursement({ error, data }) {
-    if (data) {
-      this.disbursement = JSON.stringify(data);
-      this.error = undefined;
-    } else if (error) {
-      this.error = error;
-      this.disbursement = undefined;
-    }
+  connectedCallback() {
+    getDisbursement({ disbursementId: this.recordId })
+      .then(result => {
+        this.disbursement = JSON.stringify(result);
+        this.error = undefined;
+      })
+      .catch(error => {
+        this.disbursement = undefined;
+        this.error = error;
+      });
   }
 }
