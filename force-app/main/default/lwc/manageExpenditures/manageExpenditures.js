@@ -1,5 +1,6 @@
 import { LightningElement, track, api } from "lwc";
 import getDisbursement from "@salesforce/apex/GauExpendituresManager.getDisbursement";
+import upsertGauExpenditures from "@salesforce/apex/GauExpendituresManager.upsertGauExpenditures";
 export default class ManageExpenditures extends LightningElement(
   LightningElement
 ) {
@@ -78,5 +79,20 @@ export default class ManageExpenditures extends LightningElement(
       this.remainingAmountStatus = "VALID";
       this.disableSave = false;
     }
+  }
+
+  handleSave() {
+    upsertGauExpenditures({
+      expendituresString: JSON.stringify(this.gauExpenditures),
+      disbursementId: this.parentId
+    })
+      .then(result => {
+        console.log("success");
+      })
+      .catch(error => {
+        console.log("error");
+        this.disbursement = undefined;
+        this.error = error;
+      });
   }
 }
