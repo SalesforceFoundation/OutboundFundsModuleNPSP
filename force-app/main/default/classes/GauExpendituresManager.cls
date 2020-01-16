@@ -23,6 +23,53 @@ public with sharing class GauExpendituresManager {
       ? disbursements.get(0)
       : null;
 
+    if (disbursement == null) {
+      return null;
+    }
+
     return new DisbursementWrapper(disbursement);
+  }
+
+  public class DisbursementWrapper {
+    @AuraEnabled
+    public Id recordId;
+    @AuraEnabled
+    public String name;
+    @AuraEnabled
+    public Decimal amount;
+    @AuraEnabled
+    public List<GauExpenditureWrapper> expenditures;
+    public DisbursementWrapper(outfunds__Disbursement__c disbursement) {
+      this.recordId = disbursement.Id;
+      this.name = disbursement.Name;
+      this.amount = disbursement.outfunds__Amount__c;
+      this.expenditures = new List<GauExpenditureWrapper>();
+      for (
+        GAU_Expenditure__c gauExpenditure : disbursement.GAU_Expendatures__r
+      ) {
+        this.expenditures.add(new GauExpenditureWrapper(gauExpenditure));
+      }
+    }
+  }
+
+  public class GauExpenditureWrapper {
+    @AuraEnabled
+    public Id recordId;
+    @AuraEnabled
+    public Id gauId;
+    @AuraEnabled
+    public String gauName;
+    @AuraEnabled
+    public Decimal amount;
+    @AuraEnabled
+    public Integer rowId;
+    public GauExpenditureWrapper(GAU_Expenditure__c gauExpenditure) {
+      this.recordId = gauExpenditure.Id;
+      this.gauId = gauExpenditure.General_Accounting_Unit__c;
+      if (this.gauId != null) {
+        this.gauName = gauExpenditure.General_Accounting_Unit__r.Name;
+      }
+      this.amount = gauExpenditure.Amount__c;
+    }
   }
 }

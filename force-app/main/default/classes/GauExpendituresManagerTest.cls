@@ -69,7 +69,7 @@ public with sharing class GauExpendituresManagerTest {
       gaus
     );
     Test.startTest();
-    DisbursementWrapper queriedDisbursement = GauExpendituresManager.getDisbursement(
+    GauExpendituresManager.DisbursementWrapper queriedDisbursement = GauExpendituresManager.getDisbursement(
       String.valueOf(disbursement.Id)
     );
     Test.stopTest();
@@ -78,18 +78,18 @@ public with sharing class GauExpendituresManagerTest {
       queriedDisbursement.amount,
       'expected disbursement amount of 10000'
     );
-    /* system.assertEquals(
+    system.assertEquals(
       5,
-      queriedDisbursement.GAU_Expendatures__r.size(),
+      queriedDisbursement.expenditures.size(),
       'expected list of 5 expenditures'
-    ); */
+    );
     System.debug('hello world');
   }
 
   @IsTest
   public static void badIdGetDisbursement() {
     Test.startTest();
-    DisbursementWrapper queriedDisbursement = GauExpendituresManager.getDisbursement(
+    GauExpendituresManager.DisbursementWrapper queriedDisbursement = GauExpendituresManager.getDisbursement(
       'I am not a record Id'
     );
     Test.stopTest();
