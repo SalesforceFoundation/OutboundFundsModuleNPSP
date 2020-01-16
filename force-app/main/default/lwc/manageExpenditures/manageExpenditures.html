@@ -1,8 +1,8 @@
 <template>
-  <c-manage-expenditures-header
+  <!--<c-manage-expenditures-header
     parentname={parentName}
     disable-save={disableSave}
-  ></c-manage-expenditures-header>
+  ></c-manage-expenditures-header>-->
   <!-- for debugging purposes only
   <template for:each={gauExpenditures} for:item="gauExpenditure">
     <p key={gauExpenditure.recordId}>
@@ -57,5 +57,26 @@
     onclick={addRow}
     class="slds-m-left_x-small"
   ></lightning-button>
+  <div class="slds-page-header__col-actions">
+    <div class="slds-page-header__controls">
+      <div class="slds-page-header__control">
+        <ul class="slds-button-group-list">
+          <li>
+            <button class="slds-button slds-button_neutral">
+              Cancel
+            </button>
+          </li>
+          <li>
+            <button
+              class="slds-button slds-button_brand"
+              disabled={disableSave}
+            >
+              Save
+            </button>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
   <div style="height:200px;"></div>
 </template>

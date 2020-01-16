@@ -1,25 +1,33 @@
 import { LightningElement, track, api } from "lwc";
-
+import getDisbursement from "@salesforce/apex/GauExpendituresManager.getDisbursement";
 export default class ManageExpenditures extends LightningElement(
   LightningElement
 ) {
-  @api parentId;
-  @api parentName;
-  @api parentAmount;
-  @api gauExpendituresString;
+  @api recordId;
+  @track parentId;
+  @track parentName;
+  @track parentAmount;
 
   @track gauExpenditures;
   @track remainingAmount;
   @track remainingAmountStatus;
   @track disableSave;
+  @track error;
 
   connectedCallback() {
-    let rowId = 1;
-    this.gauExpenditures = JSON.parse(this.gauExpendituresString);
-    this.gauExpenditures.forEach(function(eachExpenditure) {
-      eachExpenditure.rowId = rowId++;
-    });
-    this.updateRemainingAmount();
+    getDisbursement({ disbursementId: this.recordId })
+      .then(result => {
+        this.parentId = result.recordId;
+        this.parentName = result.name;
+        this.parentAmount = result.amount;
+        this.gauExpenditures = result.expenditures;
+        this.updateRemainingAmount();
+        this.error = undefined;
+      })
+      .catch(error => {
+        this.disbursement = undefined;
+        this.error = error;
+      });
   }
 
   addRow() {
@@ -33,7 +41,6 @@ export default class ManageExpenditures extends LightningElement(
         return expenditure.rowId;
       })
       .indexOf(event.detail.rowId);
-
     switch (event.type) {
       case "update":
         this.gauExpenditures[index] = event.detail;
@@ -46,7 +53,9 @@ export default class ManageExpenditures extends LightningElement(
       default:
         break;
     }
+    console.log("what");
     this.updateRemainingAmount();
+    console.log("do");
   }
 
   updateRemainingAmount() {

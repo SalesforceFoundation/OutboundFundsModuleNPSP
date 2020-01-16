@@ -60,6 +60,9 @@ public with sharing class GauExpendituresManagerTest {
     return gauExpenditures;
   }
 
+  /*****************************************************************************
+   * @description Test expected use case of retrieving disbursement with several expenditures
+   */
   @IsTest
   public static void validGetDisbursement() {
     outfunds__Disbursement__c disbursement = makeData();
@@ -86,6 +89,9 @@ public with sharing class GauExpendituresManagerTest {
     System.debug('hello world');
   }
 
+  /*****************************************************************************
+   * @description Test case of no disbursement returned due to invalid Id
+   */
   @IsTest
   public static void badIdGetDisbursement() {
     Test.startTest();
@@ -94,5 +100,143 @@ public with sharing class GauExpendituresManagerTest {
     );
     Test.stopTest();
     System.assertEquals(null, queriedDisbursement, 'expected null');
+  }
+
+  /*****************************************************************************
+   * @description Test update ability of new GAU Expenditure wrappers added
+   */
+  @IsTest
+  public static void testValidUpdate() {
+    outfunds__Disbursement__c disbursement = makeData();
+    List<npsp__General_Accounting_Unit__c> gaus = createGaus('GAU', 5);
+    List<GAU_Expenditure__c> gauExpenditures = createGauExpenditures(
+      disbursement.Id,
+      gaus
+    );
+    GauExpendituresManager.DisbursementWrapper queriedDisbursement = GauExpendituresManager.getDisbursement(
+      String.valueOf(disbursement.Id)
+    );
+    // test update ability of list items
+    for (
+      GauExpendituresManager.GauExpenditureWrapper expenditure : queriedDisbursement.expenditures
+    ) {
+      expenditure.amount = 56.78;
+    }
+    String expendituresString = JSON.serialize(
+      queriedDisbursement.expenditures
+    );
+    Test.startTest();
+    GauExpendituresManager.upsertGauExpenditures(
+      expendituresString,
+      disbursement.Id
+    );
+    Test.stopTest();
+    List<GAU_Expenditure__c> queriedExpenditures = [
+      SELECT Id, Amount__c, Disbursement__c
+      FROM GAU_Expenditure__c
+    ];
+    /* System.assertEquals(
+      6,
+      queriedExpenditures.size(),
+      'expected 6 expenditures'
+    ); */
+    for (GAU_Expenditure__c queriedExpenditure : queriedExpenditures) {
+      System.assertEquals(
+        disbursement.Id,
+        queriedExpenditure.Disbursement__c,
+        'expected matching disbursement id'
+      );
+      System.assertEquals(
+        56.78,
+        queriedExpenditure.Amount__c,
+        'amount did not match assign values'
+      );
+    }
+  }
+  /*****************************************************************************
+   * @description Test insert ability of new GAU Expenditure wrappers added
+   */
+  @IsTest
+  public static void testValidInsert() {
+    outfunds__Disbursement__c disbursement = makeData();
+    List<npsp__General_Accounting_Unit__c> gaus = createGaus('GAU', 5);
+    List<GAU_Expenditure__c> gauExpenditures = createGauExpenditures(
+      disbursement.Id,
+      gaus
+    );
+    GauExpendituresManager.DisbursementWrapper queriedDisbursement = GauExpendituresManager.getDisbursement(
+      String.valueOf(disbursement.Id)
+    );
+    List<npsp__General_Accounting_Unit__c> newGaus = createGaus('newGAU', 1);
+
+    GauExpendituresManager.GauExpenditureWrapper newExpenditureWrapper = new GauExpendituresManager.GauExpenditureWrapper(
+      new GAU_Expenditure__c(General_Accounting_Unit__c = newGaus[0].Id),
+      1
+    );
+    queriedDisbursement.expenditures.add(newExpenditureWrapper);
+    String expendituresString = JSON.serialize(
+      queriedDisbursement.expenditures
+    );
+    GauExpendituresManager.upsertGauExpenditures(
+      expendituresString,
+      disbursement.Id
+    );
+    List<GAU_Expenditure__c> queriedExpenditures = [
+      SELECT Id, Disbursement__c
+      FROM GAU_Expenditure__c
+    ];
+    System.assertEquals(
+      6,
+      queriedExpenditures.size(),
+      'expected 6 expenditures'
+    );
+    for (GAU_Expenditure__c expenditure : queriedExpenditures) {
+      System.assertEquals(
+        disbursement.Id,
+        expenditure.Disbursement__c,
+        'Disbursement Id does not match'
+      );
+    }
+  }
+  /*****************************************************************************
+   * @description Test delete ability of new GAU Expenditure wrappers added
+   */
+  @IsTest
+  public static void testValidDelete() {
+    outfunds__Disbursement__c disbursement = makeData();
+    List<npsp__General_Accounting_Unit__c> gaus = createGaus('GAU', 5);
+    List<GAU_Expenditure__c> gauExpenditures = createGauExpenditures(
+      disbursement.Id,
+      gaus
+    );
+    GauExpendituresManager.DisbursementWrapper queriedDisbursement = GauExpendituresManager.getDisbursement(
+      String.valueOf(disbursement.Id)
+    );
+
+    List<GauExpendituresManager.GauExpenditureWrapper> newExpendituresList = new List<GauExpendituresManager.GauExpenditureWrapper>{
+      queriedDisbursement.expenditures[0]
+    };
+
+    String expendituresString = JSON.serialize(newExpendituresList);
+    GauExpendituresManager.upsertGauExpenditures(
+      expendituresString,
+      disbursement.Id
+    );
+    List<GAU_Expenditure__c> queriedExpenditures = [
+      SELECT Id, Disbursement__c
+      FROM GAU_Expenditure__c
+    ];
+    System.assertEquals(
+      1,
+      queriedExpenditures.size(),
+      'expected 1 expenditure'
+    );
+    for (GAU_Expenditure__c expenditure : queriedExpenditures) {
+      System.assertEquals(
+        disbursement.Id,
+        expenditure.Disbursement__c,
+        'Disbursement Id does not match'
+      );
+    }
   }
 }
