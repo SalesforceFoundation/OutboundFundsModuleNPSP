@@ -1,8 +1,6 @@
 public with sharing class GauExpendituresManager {
   @AuraEnabled(cacheable=true)
-  public static outfunds__Disbursement__c getDisbursement(
-    String disbursementId
-  ) {
+  public static DisbursementWrapper getDisbursement(String disbursementId) {
     List<outfunds__Disbursement__c> disbursements = [
       SELECT
         Id,
@@ -25,6 +23,6 @@ public with sharing class GauExpendituresManager {
       ? disbursements.get(0)
       : null;
 
-    return disbursement;
+    return new DisbursementWrapper(disbursement);
   }
 }
