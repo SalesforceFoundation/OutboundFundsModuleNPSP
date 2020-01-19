@@ -20,6 +20,9 @@
             ],
             "c/recordPagePoc": [
                 "recordPagePoc/recordPagePoc.js"
+            ],
+            "c/warningBanner": [
+                "warningBanner/warningBanner.js"
             ]
         }
     },

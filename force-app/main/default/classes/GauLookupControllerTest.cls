@@ -17,6 +17,25 @@ public with sharing class GauLookupControllerTest {
   }
 
   @IsTest
+  public static void testInactive() {
+    insert new npsp__General_Accounting_Unit__c(
+      Name = 'Unit 1',
+      npsp__Active__c = false
+    );
+    Test.startTest();
+    List<LookupSearchResult> lookupSearchResults = GauLookupController.search(
+      'Unit 1',
+      new List<Id>()
+    );
+    Test.stopTest();
+    System.assertEquals(
+      0,
+      lookupSearchResults.size(),
+      'did not expect to receive inactive GAUs'
+    );
+  }
+
+  @IsTest
   public static void testMaxResults() {
     List<npsp__General_Accounting_Unit__c> gaus = new List<npsp__General_Accounting_Unit__c>();
     Integer tooMany = GauLookupController.MAX_RESULTS + 1;

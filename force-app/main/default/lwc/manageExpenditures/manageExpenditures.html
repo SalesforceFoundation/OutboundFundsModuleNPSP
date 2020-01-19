@@ -11,73 +11,98 @@
     </p>
   </template>
   end debugger -->
-  <c-manage-expenditures-table-header></c-manage-expenditures-table-header>
-  <table class="slds-table slds-table_cell-buffer slds-table_bordered">
-    <tbody>
-      <template for:each={gauExpenditures} for:item="gauExpenditure">
-        <tr class="slds-hint-parent" key={gauExpenditure.rowId}>
-          <th scope="row">
-            <c-gau-expenditure-row
-              prefill-expenditure={gauExpenditure}
-              parent-amount={parentAmount}
-              onupdate={handleUpdate}
-              ondelete={handleUpdate}
-            ></c-gau-expenditure-row>
-          </th>
-        </tr>
+  <template if:true={isDisbursement}>
+    <template if:true={loaded}>
+      <template if:false={nonZeroAmount}>
+        <c-warning-banner
+          message="Please give this Disbursement an amount before managing the expenditures."
+        ></c-warning-banner>
       </template>
-      <tr>
-        <th scope="row">
-          <lightning-layout vertical-align="end">
-            <lightning-layout-item padding="horizontal-small" size="7">
-            </lightning-layout-item>
-            <lightning-layout-item
-              padding="horizontal-small"
-              class="slds-m-left_small color:red;"
-              size="2"
-            >
-              <div class={remainingAmountStatus}>
-                <lightning-formatted-number
-                  value={remainingAmount}
-                  format-style="currency"
-                  currency-code="USD"
-                  minimum-fraction-digits="2"
-                  maximum-fraction-digits="2"
-                ></lightning-formatted-number>
-              </div>
-            </lightning-layout-item>
-          </lightning-layout>
-        </th>
-      </tr>
-    </tbody>
-  </table>
-  <lightning-button
-    variant="base"
-    label="Add Row"
-    onclick={addRow}
-    class="slds-m-left_x-small"
-  ></lightning-button>
-  <div class="slds-page-header__col-actions">
-    <div class="slds-page-header__controls">
-      <div class="slds-page-header__control">
-        <ul class="slds-button-group-list">
-          <li>
-            <button class="slds-button slds-button_neutral">
-              Cancel
-            </button>
-          </li>
-          <li>
-            <button
-              class="slds-button slds-button_brand"
-              disabled={disableSave}
-              onclick={handleSave}
-            >
-              Save
-            </button>
-          </li>
-        </ul>
+      <c-manage-expenditures-table-header></c-manage-expenditures-table-header>
+      <table class="slds-table slds-table_cell-buffer slds-table_bordered">
+        <tbody>
+          <template for:each={gauExpenditures} for:item="gauExpenditure">
+            <tr class="slds-hint-parent" key={gauExpenditure.rowId}>
+              <th scope="row">
+                <c-gau-expenditure-row
+                  prefill-expenditure={gauExpenditure}
+                  parent-amount={parentAmount}
+                  onupdate={handleUpdate}
+                  ondelete={handleUpdate}
+                ></c-gau-expenditure-row>
+              </th>
+            </tr>
+          </template>
+          <tr>
+            <th scope="row">
+              <lightning-layout vertical-align="end">
+                <lightning-layout-item padding="horizontal-small" size="7">
+                </lightning-layout-item>
+                <lightning-layout-item
+                  padding="horizontal-small"
+                  class="slds-m-left_small color:red;"
+                  size="2"
+                >
+                  <div class={remainingAmountStatus}>
+                    <lightning-formatted-number
+                      value={remainingAmount}
+                      format-style="currency"
+                      currency-code="USD"
+                      minimum-fraction-digits="2"
+                      maximum-fraction-digits="2"
+                    ></lightning-formatted-number>
+                  </div>
+                </lightning-layout-item>
+              </lightning-layout>
+            </th>
+          </tr>
+        </tbody>
+      </table>
+      <lightning-button
+        variant="base"
+        label="Add Row"
+        onclick={addRow}
+        class="slds-m-left_x-small"
+      ></lightning-button>
+      <div class="slds-page-header__col-actions">
+        <div class="slds-page-header__controls">
+          <div class="slds-page-header__control">
+            <ul class="slds-button-group-list">
+              <li>
+                <button
+                  class="slds-button slds-button_brand"
+                  disabled={disableSave}
+                  onclick={handleSave}
+                >
+                  Save Updates
+                </button>
+              </li>
+              <li>
+                <button
+                  class="slds-button slds-button_neutral"
+                  disabled={disableRefresh}
+                  onclick={refreshList}
+                >
+                  Refresh List
+                </button>
+              </li>
+            </ul>
+          </div>
+        </div>
       </div>
-    </div>
-  </div>
-  <div style="height:200px;"></div>
+      <div style="height:200px;"></div>
+    </template>
+    <template if:false={loaded}>
+      <lightning-spinner
+        alternative-text="Loading"
+        variant="brand"
+      ></lightning-spinner>
+    </template>
+  </template>
+  <template if:false={isDisbursement}>
+    <c-warning-banner
+      message="This component is meant for use on a Disbursement lightning page.
+      Questions? Visit the Power Of Us Hub."
+    ></c-warning-banner>
+  </template>
 </template>

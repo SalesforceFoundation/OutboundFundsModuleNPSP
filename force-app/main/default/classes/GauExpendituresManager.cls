@@ -54,8 +54,14 @@ public with sharing class GauExpendituresManager {
       expenditures,
       disbursementId
     );
-    delete expendituresToDelete;
-    upsert expenditures;
+    Savepoint sp = Database.setSavepoint();
+    try {
+      upsert expenditures;
+      delete expendituresToDelete;
+    } catch (Exception e) {
+      Database.rollback(sp);
+      throw new AuraHandledException(e.getMessage());
+    }
   }
 
   private static List<GAU_Expenditure__c> queryDeletedExpenditures(

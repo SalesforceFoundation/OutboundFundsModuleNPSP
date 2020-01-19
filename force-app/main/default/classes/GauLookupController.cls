@@ -32,7 +32,7 @@ public with sharing class GauLookupController {
     List<npsp__General_Accounting_Unit__c> gaus = [
       SELECT Name, Id, npsp__Description__c
       FROM npsp__General_Accounting_Unit__c
-      WHERE Name LIKE :searchTerm
+      WHERE Name LIKE :searchTerm AND npsp__Active__c = true
       LIMIT :MAX_RESULTS
     ];
 
