@@ -46,46 +46,35 @@
           </tr>
         </tbody>
       </table>
-      <lightning-button
-        variant="base"
-        label="Add Row"
+      <button
         onclick={addRow}
-        class="slds-m-left_x-small"
-      ></lightning-button>
-      <div class="slds-page-header__col-actions">
-        <div class="slds-page-header__controls">
-          <div class="slds-page-header__control">
-            <ul class="slds-button-group-list">
-              <li>
-                <button
-                  class="slds-button slds-button_brand"
-                  disabled={disableSave}
-                  onclick={handleSave}
-                >
-                  Save Updates
-                  <lightning-icon
-                    icon-name="utility:save"
-                    alternative-text="Save"
-                    size="x-small"
-                  ></lightning-icon>
-                </button>
-              </li>
-              <li>
-                <button
-                  class="slds-button slds-button_neutral"
-                  disabled={disableRefresh}
-                  onclick={refreshList}
-                >
-                  Refresh List
-                </button>
-              </li>
-            </ul>
-          </div>
-        </div>
+        class="slds-button slds-p-left_small slds-p-top_x-small"
+      >
+        Add Row
+      </button>
+      <div
+        class="slds-button-group slds-float_right slds-p-top_small"
+        role="group"
+      >
+        <button
+          class="slds-button slds-button_outline-brand slds-button_text-destructive slds-float_right"
+          disabled={disableRefresh}
+          onclick={refreshList}
+        >
+          Refresh List
+        </button>
+        <button
+          class="slds-button slds-button_brand slds-float_right"
+          disabled={disableSave}
+          onclick={handleSave}
+        >
+          Save Updates
+        </button>
       </div>
       <div style="height:200px;"></div>
     </template>
     <template if:false={loaded}>
+      <div style="height:200px;"></div>
       <lightning-spinner
         alternative-text="Loading"
         variant="brand"
