@@ -69,8 +69,11 @@ export default class GauExpenditureRow extends LightningElement {
 
   percentChange(event) {
     this.percent = this.enforceValidValue(event);
-    this.gauExpenditure.amount =
-      parseFloat(this.percent / 100) * parseFloat(this.parentAmount);
+    this.gauExpenditure.amount = parseFloat(
+      (parseFloat(this.percent / 100) * parseFloat(this.parentAmount)).toFixed(
+        2
+      )
+    );
     this.amountDisabled = this.percent > 0 ? true : false;
     this.handleUpdate();
   }
