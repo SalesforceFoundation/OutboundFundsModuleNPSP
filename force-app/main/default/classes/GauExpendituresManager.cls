@@ -13,6 +13,7 @@ public with sharing class GauExpendituresManager {
             General_Accounting_Unit__r.Name,
             Amount__c
           FROM GAU_Expendatures__r
+          ORDER BY CreatedDate ASC
           LIMIT 200
         )
       FROM outfunds__Disbursement__c
@@ -35,10 +36,12 @@ public with sharing class GauExpendituresManager {
     String expendituresString,
     String disbursementId
   ) {
+    System.debug('*** string recieved: ' + expendituresString);
     List<GauExpenditureWrapper> expenditureWrappers = (List<GauExpenditureWrapper>) JSON.deserialize(
       expendituresString,
       List<GauExpenditureWrapper>.class
     );
+    System.debug('*** wrapper list: ' + expenditureWrappers);
     List<GAU_Expenditure__c> expenditures = new List<GAU_Expenditure__c>();
     for (GauExpenditureWrapper expenditureWrapper : expenditureWrappers) {
       expenditures.add(
@@ -50,10 +53,12 @@ public with sharing class GauExpendituresManager {
         )
       );
     }
+    System.debug('*** record list: ' + expenditures);
     List<Gau_Expenditure__c> expendituresToDelete = queryDeletedExpenditures(
       expenditures,
       disbursementId
     );
+    System.debug('*** deletion list: ' + expendituresToDelete);
     Savepoint sp = Database.setSavepoint();
     try {
       upsert expenditures;

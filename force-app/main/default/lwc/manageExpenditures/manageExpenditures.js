@@ -25,6 +25,10 @@ export default class ManageExpenditures extends LightningElement(
     this.refreshList();
   }
 
+  testChild() {
+    console.log(this.template.querySelector("c-test-composition").print());
+  }
+
   refreshList() {
     this.loaded = false;
     this.gauExpenditures = [];
@@ -82,6 +86,12 @@ export default class ManageExpenditures extends LightningElement(
   }
 
   updateRemainingAmount() {
+    let validRows = this.validateRows();
+    this.disableSave = !validRows;
+    if (this.disableSave) {
+      return;
+    }
+
     let usedAmount = this.gauExpenditures.reduce(function(
       total,
       eachExpenditure
@@ -103,6 +113,15 @@ export default class ManageExpenditures extends LightningElement(
     }
   }
 
+  validateRows() {
+    return [...this.template.querySelectorAll("c-gau-expenditure-row")].reduce(
+      (validSoFar, childComponent) => {
+        return validSoFar && childComponent.returnValidity();
+      },
+      true
+    );
+  }
+
   handleSave() {
     if (!this.validate()) {
       this.showErrorToast("Please remove any incomplete rows, then try again.");
@@ -110,8 +129,8 @@ export default class ManageExpenditures extends LightningElement(
     }
     if (
       this.gauExpenditures.length === 1 &&
-      !this.gauExpenditures.gauId &&
-      !this.gauExpenditures.amount
+      !this.gauExpenditures[0].gauId &&
+      !this.gauExpenditures[0].amount
     ) {
       this.gauExpenditures = [];
     }

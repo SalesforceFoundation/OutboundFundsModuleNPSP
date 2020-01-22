@@ -6,6 +6,8 @@
           message="Please give this Disbursement an amount before managing the expenditures."
         ></c-warning-banner>
       </template>
+      <c-test-composition></c-test-composition>
+      <button onclick={testChild}>button</button>
       <c-manage-expenditures-table-header></c-manage-expenditures-table-header>
       <table class="slds-table slds-table_cell-buffer slds-table_bordered">
         <tbody>
@@ -48,7 +50,7 @@
       </table>
       <button
         onclick={addRow}
-        class="slds-button slds-p-left_small slds-p-top_x-small"
+        class="slds-button slds-m-left_small slds-m-top_x-small"
       >
         Add Row
       </button>

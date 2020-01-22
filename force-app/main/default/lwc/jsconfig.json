@@ -21,6 +21,9 @@
             "c/recordPagePoc": [
                 "recordPagePoc/recordPagePoc.js"
             ],
+            "c/testComposition": [
+                "testComposition/testComposition.js"
+            ],
             "c/warningBanner": [
                 "warningBanner/warningBanner.js"
             ]
