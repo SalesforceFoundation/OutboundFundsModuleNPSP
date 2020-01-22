@@ -12,9 +12,6 @@
             "c/manageExpenditures": [
                 "manageExpenditures/manageExpenditures.js"
             ],
-            "c/manageExpendituresHeader": [
-                "manageExpendituresHeader/manageExpendituresHeader.js"
-            ],
             "c/manageExpendituresTableHeader": [
                 "manageExpendituresTableHeader/manageExpendituresTableHeader.js"
             ],
