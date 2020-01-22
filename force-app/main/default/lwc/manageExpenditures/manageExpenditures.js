@@ -7,8 +7,6 @@ export default class ManageExpenditures extends LightningElement(
 ) {
   @api objectApiName;
   @api recordId;
-  @track parentId;
-  @track parentName;
   @track parentAmount;
 
   @track gauExpenditures;
@@ -25,17 +23,11 @@ export default class ManageExpenditures extends LightningElement(
     this.refreshList();
   }
 
-  testChild() {
-    console.log(this.template.querySelector("c-test-composition").print());
-  }
-
   refreshList() {
     this.loaded = false;
     this.gauExpenditures = [];
     getDisbursement({ disbursementId: this.recordId })
       .then(result => {
-        this.parentId = result.recordId;
-        this.parentName = result.name;
         this.parentAmount = result.amount;
         this.nonZeroAmount = result.amount > 0;
         this.gauExpenditures = result.expenditures;
@@ -138,7 +130,7 @@ export default class ManageExpenditures extends LightningElement(
     this.loaded = false;
     upsertGauExpenditures({
       expendituresString: JSON.stringify(this.gauExpenditures),
-      disbursementId: this.parentId
+      disbursementId: this.recordId
     })
       .then(result => {
         this.showSuccessToast("Expenditures updates successfully!");
