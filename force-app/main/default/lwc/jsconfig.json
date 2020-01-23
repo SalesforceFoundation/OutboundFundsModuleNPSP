@@ -15,9 +15,6 @@
             "c/manageExpendituresTableHeader": [
                 "manageExpendituresTableHeader/manageExpendituresTableHeader.js"
             ],
-            "c/recordPagePoc": [
-                "recordPagePoc/recordPagePoc.js"
-            ],
             "c/warningBanner": [
                 "warningBanner/warningBanner.js"
             ]
