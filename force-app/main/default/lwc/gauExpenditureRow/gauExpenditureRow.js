@@ -43,7 +43,7 @@ export default class GauExpenditureRow extends LightningElement {
   /*****************************************************************************
    * @description  carry out construction tasks
    * @returnType void
-   * @sideEffects sets gauExpenditure, prefillSelection, and percent/amount flags
+   * @sideEffects gauExpenditure, prefillSelection, percentDisabled, amountDisabled
    */
   connectedCallback() {
     // move expenditure to mutable structure
@@ -84,7 +84,7 @@ export default class GauExpenditureRow extends LightningElement {
   /*****************************************************************************
    * @description handle event when gau selection is changed. required by c-lookup
    * @returnType void
-   * @sideEffects update guaExpenditure, call event dispatcher.
+   * @sideEffects update guaExpenditure, handleUpdate()
    */
   handleSelectionChange(event) {
     const selection = event.target.getSelection();
@@ -102,7 +102,7 @@ export default class GauExpenditureRow extends LightningElement {
   /*****************************************************************************
    * @description handle event when amount is changed
    * @returnType void
-   * @sideEffects update gauExpenditure, percent flag, call event dispatcher
+   * @sideEffects gauExpenditure, percentDisabled, handleUpdate()
    */
   amountChange(event) {
     // if no change, do nothing
@@ -117,7 +117,7 @@ export default class GauExpenditureRow extends LightningElement {
   /*****************************************************************************
    * @description handle event when percent is changed
    * @returnType void
-   * @sideEffects update gauExpenditure, amount flag, call event dispatcher
+   * @sideEffects percent, gauExpenditure, amountDiabled, handleUpdate()
    */
   percentChange(event) {
     this.percent = this.enforceValidValue(event);

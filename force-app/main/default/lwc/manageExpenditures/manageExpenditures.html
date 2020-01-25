@@ -1,15 +1,21 @@
 <template>
+  <!-- control error message for wrong object type -->
   <template if:true={isDisbursement}>
+    <!-- control setting spinner during server calls -->
     <template if:true={loaded}>
+      <!-- control error message for disbursement without an amount -->
       <template if:false={nonZeroAmount}>
         <c-warning-banner
           message="Please give this Disbursement an amount before managing the expenditures."
         ></c-warning-banner>
       </template>
+      <!-- end error message for disbursement without an amount -->
       <c-manage-expenditures-table-header></c-manage-expenditures-table-header>
+      <!-- table to match Manage Allocations from NPSP -->
       <table class="slds-table slds-table_cell-buffer slds-table_bordered">
         <tbody>
           <template for:each={gauExpenditures} for:item="gauExpenditure">
+            <!-- rowId set when row is created, or by server for preexisting rows-->
             <tr class="slds-hint-parent" key={gauExpenditure.rowId}>
               <th scope="row">
                 <c-gau-expenditure-row
@@ -26,11 +32,8 @@
               <lightning-layout vertical-align="end">
                 <lightning-layout-item padding="horizontal-small" size="7">
                 </lightning-layout-item>
-                <lightning-layout-item
-                  padding="horizontal-small"
-                  class="slds-m-left_small color:red;"
-                  size="2"
-                >
+                <lightning-layout-item padding="horizontal-small" size="2">
+                  <!-- css class set dynamically in js controller -->
                   <div class={remainingAmountStatus}>
                     <lightning-formatted-number
                       value={remainingAmount}
@@ -71,15 +74,18 @@
           Save Updates
         </button>
       </div>
+      <!-- empty div employed so that dropdown menus don't go beyond length of container -->
       <div style="height:200px;"></div>
     </template>
     <template if:false={loaded}>
+      <!-- empty div employed so that component includes some substance when table disappears on spinner -->
       <div style="height:200px;"></div>
       <lightning-spinner
         alternative-text="Loading"
         variant="brand"
       ></lightning-spinner>
     </template>
+    <!-- end spinner conditional template -->
   </template>
   <template if:false={isDisbursement}>
     <c-warning-banner
@@ -87,4 +93,5 @@
       Questions? Visit the Power Of Us Hub."
     ></c-warning-banner>
   </template>
+  <!-- end wrong object banner template -->
 </template>
