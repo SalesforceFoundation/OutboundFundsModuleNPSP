@@ -1,4 +1,23 @@
+/*******************************************************************************
+ * @author Thom Behrens
+ * @date 2020-01-25
+ *
+ * @description Class made in support of the manageExpenditures lwc. selector and update method made so that as much
+ * logic as possible can be handle on this end, and as such, some assumptions about what is being passed from the UI
+ * are made. E.g. when a list of GAU Expenditures is recieved along with a disbursement Id, we assume that any expenditures
+ * not in that list should be deleted, since they've been deleted in the UI.
+ */
 public with sharing class GauExpendituresManager {
+  /*****************************************************************************
+   * @description using a disbursementId (Passed from a lightning record page), return a wrapper for the disbursement object.
+   * One of the properties of this wrapper is a list of wrappers for the GAU Expenditure object, with the disbursements children.
+   * @param String disbursementId
+   * @return DisbursementWrapper
+   * @example
+   * GauExpendituresManager.DisbursementWrapper queriedDisbursement = GauExpendituresManager.getDisbursement(
+   *   String.valueOf(disbursement.Id)
+   * );
+   */
   @AuraEnabled
   public static DisbursementWrapper getDisbursement(String disbursementId) {
     List<outfunds__Disbursement__c> disbursements = [
@@ -30,18 +49,26 @@ public with sharing class GauExpendituresManager {
 
     return new DisbursementWrapper(disbursement);
   }
-
+  /*****************************************************************************
+   * @description Recieve stringified version of the gau expenditures, with the id of the parent. Upsert and delete children as needed.
+   * @param String expenditureString
+   * @param String disbursementId
+   * @return void
+   * @example
+   * GauExpendituresManager.upsertGauExpenditures(
+   *   expendituresString,
+   *   disbursement.Id
+   * );
+   */
   @AuraEnabled
   public static void upsertGauExpenditures(
     String expendituresString,
     String disbursementId
   ) {
-    System.debug('*** string recieved: ' + expendituresString);
     List<GauExpenditureWrapper> expenditureWrappers = (List<GauExpenditureWrapper>) JSON.deserialize(
       expendituresString,
       List<GauExpenditureWrapper>.class
     );
-    System.debug('*** wrapper list: ' + expenditureWrappers);
     List<GAU_Expenditure__c> expenditures = new List<GAU_Expenditure__c>();
     for (GauExpenditureWrapper expenditureWrapper : expenditureWrappers) {
       expenditures.add(
@@ -53,22 +80,31 @@ public with sharing class GauExpendituresManager {
         )
       );
     }
-    System.debug('*** record list: ' + expenditures);
     List<Gau_Expenditure__c> expendituresToDelete = queryDeletedExpenditures(
       expenditures,
       disbursementId
     );
-    System.debug('*** deletion list: ' + expendituresToDelete);
     Savepoint sp = Database.setSavepoint();
     try {
-      upsert expenditures;
       delete expendituresToDelete;
+      upsert expenditures;
     } catch (Exception e) {
       Database.rollback(sp);
       throw new AuraHandledException(e.getMessage());
     }
   }
-
+  /*****************************************************************************
+   * @description deduce which expenditures should be deleted by querying all expenditures, and checking to see which
+   * ones are not in the list of those to be preserved.
+   * @param List<GAU_Expenditure__c> remainingExpenditures
+   * @param String disbursementId
+   * @return List<GAU_Expenditure__c> - records to be deleted
+   * @example
+   * List<Gau_Expenditure__c> expendituresToDelete = queryDeletedExpenditures(
+   *   expenditures,
+   *   disbursementId
+   * );
+   */
   private static List<GAU_Expenditure__c> queryDeletedExpenditures(
     List<GAU_Expenditure__c> remainingExpenditures,
     String disbursementId
@@ -91,6 +127,12 @@ public with sharing class GauExpendituresManager {
     return expendituresToDelete;
   }
 
+  /*******************************************************************************
+   * @author Thom Behrens
+   * @date 2020-01-25
+   *
+   * @description Wrapper class for the outfunds__Disbursement__c object
+   */
   public class DisbursementWrapper {
     @AuraEnabled
     public Id recordId;
@@ -115,7 +157,12 @@ public with sharing class GauExpendituresManager {
       }
     }
   }
-
+  /*******************************************************************************
+   * @author Thom Behrens
+   * @date 2020-01-25
+   *
+   * @description Wrapper class for the GAU_Expenditure__c object.
+   */
   public class GauExpenditureWrapper {
     @AuraEnabled
     public Id recordId;
