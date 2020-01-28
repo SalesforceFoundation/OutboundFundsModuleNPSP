@@ -90,7 +90,11 @@ public with sharing class GauExpendituresManager {
       upsert expenditures;
     } catch (Exception e) {
       Database.rollback(sp);
-      throw new AuraHandledException(e.getMessage());
+      if (Test.isRunningTest()) {
+        throw new ConstructedException(e.getMessage());
+      } else {
+        throw new AuraHandledException(e.getMessage());
+      }
     }
   }
   /*****************************************************************************
@@ -186,5 +190,8 @@ public with sharing class GauExpendituresManager {
       this.amount = gauExpenditure.Amount__c;
       this.rowId = rowId;
     }
+  }
+
+  public class ConstructedException extends Exception {
   }
 }
