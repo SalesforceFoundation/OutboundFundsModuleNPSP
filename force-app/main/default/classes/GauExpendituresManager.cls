@@ -113,7 +113,7 @@ public with sharing class GauExpendituresManager {
     List<GAU_Expenditure__c> remainingExpenditures,
     String disbursementId
   ) {
-    List<Id> remainingExpenditureIds = new List<Id>();
+    Set<Id> remainingExpenditureIds = new Set<Id>();
     for (GAU_Expenditure__c expenditure : remainingExpenditures) {
       remainingExpenditureIds.add(expenditure.Id);
     }
