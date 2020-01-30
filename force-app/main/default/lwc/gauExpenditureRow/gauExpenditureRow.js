@@ -61,6 +61,7 @@ export default class GauExpenditureRow extends LightningElement {
     // disable percent if amount present.
     if (this.gauExpenditure.amount) {
       this.percentDisabled = true;
+      this.recalculatePercent();
     }
     this.amountDisabled = false;
   }
@@ -109,8 +110,8 @@ export default class GauExpenditureRow extends LightningElement {
     if (event.target.value === this.gauExpenditure.amount) {
       return;
     }
-
     this.gauExpenditure.amount = this.enforceValidValue(event);
+    this.recalculatePercent();
     this.percentDisabled = this.gauExpenditure.amount > 0 ? true : false;
     this.handleUpdate();
   }
@@ -121,15 +122,36 @@ export default class GauExpenditureRow extends LightningElement {
    */
   percentChange(event) {
     this.percent = this.enforceValidValue(event);
-
+    this.recalculateAmount();
+    this.amountDisabled = this.percent > 0 ? true : false;
+    this.handleUpdate();
+  }
+  /*****************************************************************************
+   * @description recalculate amount based on percent and parent total
+   * @returnType none
+   * @sideEffects percent
+   */
+  recalculateAmount() {
     // parseFloat((...).toFixed(2)) syntax is used to round to .01
     this.gauExpenditure.amount = parseFloat(
       (parseFloat(this.percent / 100) * parseFloat(this.parentAmount)).toFixed(
         2
       )
     );
-    this.amountDisabled = this.percent > 0 ? true : false;
-    this.handleUpdate();
+  }
+  /*****************************************************************************
+   * @description recalculate percent based on amount and parent total
+   * @returnType none
+   * @sideEffects percent
+   */
+  recalculatePercent() {
+    // parseFloat((...).toFixed(2)) syntax is used to round to .01
+    this.percent = parseFloat(
+      (
+        (parseFloat(this.gauExpenditure.amount) * 100) /
+        parseFloat(this.parentAmount)
+      ).toFixed(4)
+    );
   }
   /*****************************************************************************
    * @description perform common operations to make sure numbers are in valid range
