@@ -230,7 +230,7 @@ export default class ManageExpenditures extends LightningElement(
       disbursementId: this.recordId
     })
       .then(() => {
-        this.showSuccessToast("Expenditures updates successfully!");
+        this.showSuccessToast("Expenditures updated successfully!");
         this.refreshList();
       })
       .catch(error => {
