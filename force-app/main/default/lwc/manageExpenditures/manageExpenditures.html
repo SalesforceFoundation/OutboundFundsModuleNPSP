@@ -3,6 +3,11 @@
   <template if:true={isDisbursement}>
     <!-- control setting spinner during server calls -->
     <template if:true={loaded}>
+      <template if:false={eligibleStatus}>
+        <c-warning-banner
+          message="Disbursements with a status of 'Paid' or 'Cancelled' are not eligible for update here"
+        ></c-warning-banner>
+      </template>
       <!-- control error message for disbursement without an amount -->
       <template if:false={nonZeroAmount}>
         <c-warning-banner

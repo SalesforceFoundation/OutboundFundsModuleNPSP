@@ -25,6 +25,7 @@ public with sharing class GauExpendituresManager {
         Id,
         Name,
         outfunds__Amount__c,
+        outfunds__Status__c,
         (
           SELECT
             Id,
@@ -145,11 +146,14 @@ public with sharing class GauExpendituresManager {
     @AuraEnabled
     public Decimal amount;
     @AuraEnabled
+    public String status;
+    @AuraEnabled
     public List<GauExpenditureWrapper> expenditures;
     public DisbursementWrapper(outfunds__Disbursement__c disbursement) {
       this.recordId = disbursement.Id;
       this.name = disbursement.Name;
       this.amount = disbursement.outfunds__Amount__c;
+      this.status = disbursement.outfunds__Status__c;
       this.expenditures = new List<GauExpenditureWrapper>();
       Integer rowId = 1;
       for (

@@ -64,6 +64,12 @@ export default class ManageExpenditures extends LightningElement(
    * Dictates whether to show the warning about a Disbursement with no amount.
    */
   @track nonZeroAmount = false;
+  /*****************************************************************************
+   * @type Boolean
+   * @description calculated on component creation
+   * Dictates whether to show the warning about a Disbursement with an ineligble status.
+   */
+  @track eligibleStatus = false;
 
   /*****************************************************************************
    * @description  carry out construction tasks
@@ -98,11 +104,28 @@ export default class ManageExpenditures extends LightningElement(
         this.padEmpty();
         // update remaining amount and needed css values.
         this.updateRemainingAmount();
+        // check disbursement status for update eligibility
+        this.validateStatus(result);
         this.loaded = true;
       })
       .catch(() => {
         this.loaded = true;
       });
+  }
+  /*****************************************************************************
+   * @description  check to see if Disbursement status allows for updates
+   * @returnType void
+   * @sideEffects eligibleStatus, disableSave
+   */
+  validateStatus(result) {
+    console.log(0);
+    if (result.status === "Paid" || result.status === "Cancelled") {
+      console.log(1);
+      this.disableSave = true;
+    } else {
+      console.log(2);
+      this.eligibleStatus = true;
+    }
   }
 
   /*****************************************************************************
