@@ -178,9 +178,10 @@ export default class ManageExpenditures extends LightningElement(
       return parseFloat(total);
     },
     0);
-
-    // set css based on total used
+    // parseFloat((...).toFixed(2)) syntax is used to round to .01
+    usedAmount = parseFloat(usedAmount.toFixed(2));
     this.remainingAmount = this.parentAmount - usedAmount;
+    // set css based on total used
     if (this.remainingAmount >= 0) {
       this.remainingAmountStatus = "VALID";
       this.disableSave = false;
