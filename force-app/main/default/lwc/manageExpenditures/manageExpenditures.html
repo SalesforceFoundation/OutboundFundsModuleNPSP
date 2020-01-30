@@ -50,6 +50,16 @@
                     ></lightning-formatted-number>
                   </div>
                 </lightning-layout-item>
+                <lightning-layout-item padding="horizontal-small" size="2">
+                  <div class={remainingAmountStatus}>
+                    <lightning-formatted-number
+                      value={remainingPercentage}
+                      format-style="percent"
+                      minimum-fraction-digits="4"
+                      maximum-fraction-digits="4"
+                    ></lightning-formatted-number>
+                  </div>
+                </lightning-layout-item>
               </lightning-layout>
             </th>
           </tr>

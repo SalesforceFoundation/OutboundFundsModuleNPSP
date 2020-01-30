@@ -145,7 +145,7 @@ export default class GauExpenditureRow extends LightningElement {
    * @sideEffects percent
    */
   recalculatePercent() {
-    // parseFloat((...).toFixed(2)) syntax is used to round to .01
+    // parseFloat((...).toFixed(x)) syntax is used to round
     this.percent = parseFloat(
       (
         (parseFloat(this.gauExpenditure.amount) * 100) /

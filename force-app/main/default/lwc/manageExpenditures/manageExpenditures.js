@@ -31,6 +31,11 @@ export default class ManageExpenditures extends LightningElement(
    */
   @track remainingAmount;
   /*****************************************************************************
+   * @type Number
+   * @description calculated on expenditure update. displayed at bottom of table.
+   */
+  @track remainingPercentage;
+  /*****************************************************************************
    * @type String
    * @description calculated on expenditure update. String value corresponds to
    * the name of the *css selector* which is applied to the remainingAmount element
@@ -178,9 +183,16 @@ export default class ManageExpenditures extends LightningElement(
       return parseFloat(total);
     },
     0);
-    // parseFloat((...).toFixed(2)) syntax is used to round to .01
+    // parseFloat((...).toFixed(x)) syntax is used to round as needed
+    // using 6 places instead of 4 to conform with formatted-number specification
+    usedAmount = parseFloat(usedAmount.toFixed(6));
+    this.remainingPercentage = parseFloat(
+      ((this.parentAmount - usedAmount) / this.parentAmount).toFixed(6)
+    );
     usedAmount = parseFloat(usedAmount.toFixed(2));
-    this.remainingAmount = this.parentAmount - usedAmount;
+    this.remainingAmount = parseFloat(
+      (this.parentAmount - usedAmount).toFixed(2)
+    );
     // set css based on total used
     if (this.remainingAmount >= 0) {
       this.remainingAmountStatus = "VALID";
