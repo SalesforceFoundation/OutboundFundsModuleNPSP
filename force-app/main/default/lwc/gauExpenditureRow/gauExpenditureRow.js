@@ -140,6 +140,9 @@ export default class GauExpenditureRow extends LightningElement {
         parseFloat(this.parentAmount)
       ).toFixed(4)
     );
+    if (isNaN(this.percent)) {
+      this.percent = 0;
+    }
   }
   /*****************************************************************************
    * @description perform common operations to make sure numbers are in valid range

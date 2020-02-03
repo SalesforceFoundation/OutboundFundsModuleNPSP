@@ -1,17 +1,23 @@
 <template>
   <!-- control error message for wrong object type -->
   <template if:true={isDisbursement}>
+    <c-warning-banner
+      message="Click 'Refresh List' to start with the latest data."
+      variant="info-dismissable"
+    ></c-warning-banner>
     <!-- control setting spinner during server calls -->
     <template if:true={loaded}>
       <template if:false={eligibleStatus}>
         <c-warning-banner
           message="Disbursements with a status of 'Paid' or 'Cancelled' are not eligible for update here"
+          variant="warning"
         ></c-warning-banner>
       </template>
       <!-- control error message for disbursement without an amount -->
       <template if:false={nonZeroAmount}>
         <c-warning-banner
           message="Please give this Disbursement an amount before managing the expenditures."
+          variant="warning"
         ></c-warning-banner>
       </template>
       <!-- end error message for disbursement without an amount -->
@@ -112,6 +118,7 @@
     <c-warning-banner
       message="This component is meant for use on a Disbursement lightning page.
       Questions? Visit the Power Of Us Hub."
+      variant="warning"
     ></c-warning-banner>
   </template>
   <!-- end wrong object banner template -->
