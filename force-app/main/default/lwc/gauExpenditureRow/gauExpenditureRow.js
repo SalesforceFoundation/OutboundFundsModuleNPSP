@@ -23,16 +23,6 @@ export default class GauExpenditureRow extends LightningElement {
    * @description  percent is used to calculate expenditure.amount
    */
   @track percent;
-  /*****************************************************************************
-   * @type boolean
-   * @description  flag to make amount read-only when percent is populated
-   */
-  @track amountDisabled;
-  /*****************************************************************************
-   * @type boolean
-   * @description  flag to make percent read-only when amount is populated
-   */
-  @track percentDisabled;
 
   /*****************************************************************************
    * @type array(Object)
@@ -43,7 +33,7 @@ export default class GauExpenditureRow extends LightningElement {
   /*****************************************************************************
    * @description  carry out construction tasks
    * @returnType void
-   * @sideEffects gauExpenditure, prefillSelection, percentDisabled, amountDisabled
+   * @sideEffects gauExpenditure, prefillSelection
    */
   connectedCallback() {
     // move expenditure to mutable structure
@@ -60,10 +50,8 @@ export default class GauExpenditureRow extends LightningElement {
 
     // disable percent if amount present.
     if (this.gauExpenditure.amount) {
-      this.percentDisabled = true;
       this.recalculatePercent();
     }
-    this.amountDisabled = false;
   }
   /*****************************************************************************
    * @description handle event when searchstring is changed. required by c-lookup
@@ -103,7 +91,7 @@ export default class GauExpenditureRow extends LightningElement {
   /*****************************************************************************
    * @description handle event when amount is changed
    * @returnType void
-   * @sideEffects gauExpenditure, percentDisabled, handleUpdate()
+   * @sideEffects gauExpenditure, handleUpdate()
    */
   amountChange(event) {
     // if no change, do nothing
@@ -112,18 +100,18 @@ export default class GauExpenditureRow extends LightningElement {
     }
     this.gauExpenditure.amount = this.enforceValidValue(event);
     this.recalculatePercent();
-    this.percentDisabled = this.gauExpenditure.amount > 0 ? true : false;
+    this.returnValidity();
     this.handleUpdate();
   }
   /*****************************************************************************
    * @description handle event when percent is changed
    * @returnType void
-   * @sideEffects percent, gauExpenditure, amountDiabled, handleUpdate()
+   * @sideEffects percent, gauExpenditure, handleUpdate()
    */
   percentChange(event) {
     this.percent = this.enforceValidValue(event);
     this.recalculateAmount();
-    this.amountDisabled = this.percent > 0 ? true : false;
+    this.returnValidity();
     this.handleUpdate();
   }
   /*****************************************************************************
