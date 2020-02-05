@@ -13,6 +13,12 @@ export default class GauExpenditureRow extends LightningElement {
    */
   @api parentAmount;
   /*****************************************************************************
+   * @type boolean
+   * @description disables inputs if parent detects bad conditions
+   */
+  @api disabled = false;
+
+  /*****************************************************************************
    * @type object
    * @description mutable object used for storing updates. Passed to parent.
    */

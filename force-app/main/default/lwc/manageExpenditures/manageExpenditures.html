@@ -34,6 +34,7 @@
                   parent-amount={parentAmount}
                   onupdate={handleUpdate}
                   ondelete={handleUpdate}
+                  disabled={disableRows}
                 ></c-gau-expenditure-row>
               </th>
             </tr>
@@ -78,6 +79,7 @@
       </table>
       <button
         onclick={addRow}
+        disabled={disableRows}
         class="slds-button slds-m-left_small slds-m-top_x-small"
       >
         Add Row
@@ -88,7 +90,6 @@
       >
         <button
           class="slds-button slds-button_outline-brand slds-button_text-destructive slds-float_right"
-          disabled={disableRefresh}
           onclick={refreshList}
         >
           Refresh List

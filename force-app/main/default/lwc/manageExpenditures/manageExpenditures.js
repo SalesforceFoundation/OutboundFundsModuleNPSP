@@ -70,6 +70,12 @@ export default class ManageExpenditures extends LightningElement(
    * Dictates whether to show the warning about a Disbursement with an ineligble status.
    */
   @track eligibleStatus = false;
+  /*****************************************************************************
+   * @type Boolean
+   * @description calculated on component creation
+   * Passed to table rows to disable when needed
+   */
+  @track disableRows = false;
 
   /*****************************************************************************
    * @description  carry out construction tasks
@@ -106,6 +112,8 @@ export default class ManageExpenditures extends LightningElement(
         this.updateRemainingAmount();
         // check disbursement status for update eligibility
         this.validateStatus(result);
+
+        this.disableRows = !this.eligibleStatus;
         this.loaded = true;
       })
       .catch(() => {
@@ -118,12 +126,10 @@ export default class ManageExpenditures extends LightningElement(
    * @sideEffects eligibleStatus, disableSave
    */
   validateStatus(result) {
-    console.log(0);
     if (result.status === "Paid" || result.status === "Cancelled") {
-      console.log(1);
       this.disableSave = true;
+      this.eligibleStatus = false;
     } else {
-      console.log(2);
       this.eligibleStatus = true;
     }
   }

@@ -36,6 +36,7 @@
               onfocus={handleFocus}
               onblur={handleBlur}
               oninput={handleInput}
+              disabled={disabled}
             />
 
             <!-- Spinner -->
@@ -54,28 +55,32 @@
             </div>
 
             <!-- Search icon -->
-            <lightning-icon
-              icon-name="utility:search"
-              size="x-small"
-              alternative-text="Search icon"
-              class={getSearchIconClass}
-            ></lightning-icon>
+            <template if:false={disabled}>
+              <lightning-icon
+                icon-name="utility:search"
+                size="x-small"
+                alternative-text="Search icon"
+                class={getSearchIconClass}
+              ></lightning-icon>
+            </template>
 
             <!-- Clear selection button icon for single entry lookups -->
             <template if:false={isMultiEntry}>
-              <button
-                title="Remove selected option"
-                type="button"
-                onclick={handleClearSelection}
-                class={getClearSelectionButtonClass}
-              >
-                <lightning-icon
-                  icon-name="utility:close"
-                  size="x-small"
-                  alternative-text="Remove selected option"
-                  class="slds-button__icon"
-                ></lightning-icon>
-              </button>
+              <template if:false={disabled}>
+                <button
+                  title="Remove selected option"
+                  type="button"
+                  onclick={handleClearSelection}
+                  class={getClearSelectionButtonClass}
+                >
+                  <lightning-icon
+                    icon-name="utility:close"
+                    size="x-small"
+                    alternative-text="Remove selected option"
+                    class="slds-button__icon"
+                  ></lightning-icon>
+                </button>
+              </template>
             </template>
           </div>
           <!-- Search input end -->
