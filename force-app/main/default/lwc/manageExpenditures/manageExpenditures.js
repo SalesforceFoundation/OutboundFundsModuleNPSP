@@ -93,7 +93,7 @@ export default class ManageExpenditures extends LightningElement(
    * @description  retrieve disbursement and expenditures from server, process as needed
    * @returnType void
    * @sideEffects loaded, gauExpenditures, parentAmount, nonZeroAmount, gauExpenditures, loaded,
-   * padEmpty(), updateRemainingExpenditures()
+   * pad(), updateRemainingExpenditures()
    */
   refreshList() {
     // set spinner to empty
@@ -107,7 +107,7 @@ export default class ManageExpenditures extends LightningElement(
         this.nonZeroAmount = result.amount > 0;
         this.gauExpenditures = result.expenditures;
         // add empty row if gauExpenditures is empty
-        this.padEmpty();
+        this.pad(0);
         // update remaining amount and needed css values.
         this.updateRemainingAmount();
         // check disbursement status for update eligibility
@@ -126,7 +126,11 @@ export default class ManageExpenditures extends LightningElement(
    * @sideEffects eligibleStatus, disableSave
    */
   validateStatus(result) {
-    if (result.status === "Paid" || result.status === "Cancelled") {
+    console.log(!this.listIsEmpty(this.gauExpenditures));
+    if (
+      (result.status === "Paid" && !this.listIsEmpty(this.gauExpenditures)) ||
+      result.status === "Cancelled"
+    ) {
       this.disableSave = true;
       this.eligibleStatus = false;
     } else {
@@ -152,7 +156,7 @@ export default class ManageExpenditures extends LightningElement(
   /*****************************************************************************
    * @description  handle events from children - update and delete.
    * @returnType void
-   * @sideEffects gauExpenditures, padEmpty(), updateRemainingAmount()
+   * @sideEffects gauExpenditures, pad(), updateRemainingAmount()
    */
   handleUpdate(event) {
     // get index from rowId of expenditure passed from child
@@ -168,8 +172,8 @@ export default class ManageExpenditures extends LightningElement(
         break;
       case "delete":
         // delete and add row if it was the last row
+        this.pad(1);
         this.gauExpenditures.splice(index, 1);
-        this.padEmpty();
         break;
       default:
         break;
@@ -182,8 +186,8 @@ export default class ManageExpenditures extends LightningElement(
    * @returnType void
    * @sideEffects gauExpenditures, addRow()
    */
-  padEmpty() {
-    if (this.gauExpenditures.length === 0) {
+  pad(length) {
+    if (this.gauExpenditures.length === length) {
       this.addRow();
     }
   }
@@ -257,11 +261,7 @@ export default class ManageExpenditures extends LightningElement(
       return;
     }
     // if there is only an empty row in the list, remove it.
-    if (
-      this.gauExpenditures.length === 1 &&
-      !this.gauExpenditures[0].gauId &&
-      !this.gauExpenditures[0].amount
-    ) {
+    if (this.listIsEmpty(this.gauExpenditures)) {
       this.gauExpenditures = [];
     }
     // turn on spinner
@@ -279,6 +279,13 @@ export default class ManageExpenditures extends LightningElement(
         this.loaded = true;
         this.showErrorToast(error.body.message);
       });
+  }
+  listIsEmpty(gauExpenditures) {
+    return (
+      gauExpenditures.length === 1 &&
+      !gauExpenditures[0].gauId &&
+      !gauExpenditures[0].amount
+    );
   }
   /*****************************************************************************
    * @description  ensure each row has a gauId and an amount
