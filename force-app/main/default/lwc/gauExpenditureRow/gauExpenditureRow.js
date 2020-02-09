@@ -58,6 +58,10 @@ export default class GauExpenditureRow extends LightningElement {
     if (this.gauExpenditure.amount) {
       this.recalculatePercent();
     }
+
+    if (!this.gauExpenditure.gauIsActive) {
+      this.disabled = true;
+    }
   }
   /*****************************************************************************
    * @description handle event when searchstring is changed. required by c-lookup

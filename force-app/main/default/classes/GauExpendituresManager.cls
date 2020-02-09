@@ -31,6 +31,7 @@ public with sharing class GauExpendituresManager {
             Id,
             General_Accounting_Unit__c,
             General_Accounting_Unit__r.Name,
+            General_Accounting_Unit__r.npsp__Active__c,
             Amount__c
           FROM GAU_Expendatures__r
           ORDER BY CreatedDate ASC
@@ -181,6 +182,8 @@ public with sharing class GauExpendituresManager {
     @AuraEnabled
     public Decimal amount;
     @AuraEnabled
+    public Boolean gauIsActive;
+    @AuraEnabled
     public Integer rowId;
     public GauExpenditureWrapper(
       GAU_Expenditure__c gauExpenditure,
@@ -192,6 +195,7 @@ public with sharing class GauExpendituresManager {
         this.gauName = gauExpenditure.General_Accounting_Unit__r.Name;
       }
       this.amount = gauExpenditure.Amount__c;
+      this.gauIsActive = gauExpenditure.General_Accounting_Unit__r.npsp__Active__c;
       this.rowId = rowId;
     }
   }
