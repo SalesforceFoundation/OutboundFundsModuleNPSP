@@ -59,7 +59,7 @@ export default class GauExpenditureRow extends LightningElement {
       this.recalculatePercent();
     }
 
-    if (!this.gauExpenditure.gauIsActive) {
+    if (this.gauExpenditure.gauId && !this.gauExpenditure.gauIsActive) {
       this.disabled = true;
     }
   }
