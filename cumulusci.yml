@@ -7,8 +7,7 @@ project:
     dependencies:
         - github: 'https://github.com/SalesforceFoundation/NPSP'
         - github: 'https://github.com/SFDO-Community/OutboundFunds'
-
-
+    source_format: sfdx
 
 orgs:
     scratch:

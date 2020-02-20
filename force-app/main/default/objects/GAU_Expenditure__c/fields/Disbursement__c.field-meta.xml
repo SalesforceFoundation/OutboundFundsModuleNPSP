@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Disbursement__c</fullName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <deprecated>false</deprecated>
+    <description>Relationship to the Disbursement being paid.</description>
+    <externalId>false</externalId>
+    <label>Disbursement</label>
+    <referenceTo>outfunds__Disbursement__c</referenceTo>
+    <relationshipName>GAU_Expendatures</relationshipName>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Lookup</type>
+</CustomField>

@@ -1,1 +1,10 @@
-{"sourceApiVersion": "42.0", "packageDirectories": [{"default": true, "path": "force-app"}], "namespace": "outfundsnpspext"}
+{
+    "sourceApiVersion": "47.0",
+    "packageDirectories": [
+        {
+            "default": true,
+            "path": "force-app"
+        }
+    ],
+    "namespace": "outfundsnpspext"
+}
