@@ -2,7 +2,7 @@ project:
     name: OutboundFundsNPSP
     package:
         name:  Outbound Funds (npsp)
-        namespace: outfundsnpsp
+        namespace: outfundsnpspext
         api_version: '47.0'
     dependencies:
         - github: 'https://github.com/SalesforceFoundation/NPSP'
