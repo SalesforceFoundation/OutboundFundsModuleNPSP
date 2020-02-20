@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>General_Accounting_Unit__c</fullName>
+    <deprecated>false</deprecated>
+    <description>Relationship to the general accounting unit being disbursed.</description>
+    <externalId>false</externalId>
+    <label>General Accounting Unit</label>
+    <referenceTo>npsp__General_Accounting_Unit__c</referenceTo>
+    <relationshipName>GAU_Expendatures</relationshipName>
+    <relationshipOrder>0</relationshipOrder>
+    <reparentableMasterDetail>true</reparentableMasterDetail>
+    <trackTrending>false</trackTrending>
+    <type>MasterDetail</type>
+    <writeRequiresMasterRead>true</writeRequiresMasterRead>
+</CustomField>

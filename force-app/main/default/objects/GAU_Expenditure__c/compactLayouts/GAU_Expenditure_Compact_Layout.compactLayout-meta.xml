@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CompactLayout xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>GAU_Expenditure_Compact_Layout</fullName>
+    <fields>Name</fields>
+    <fields>Disbursement__c</fields>
+    <fields>Amount__c</fields>
+    <fields>General_Accounting_Unit__c</fields>
+    <label>GAU Expenditure Compact Layout</label>
+</CompactLayout>
