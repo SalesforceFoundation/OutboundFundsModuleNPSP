@@ -5,11 +5,9 @@ project:
         namespace: outfundsnpspext
         api_version: '47.0'
     dependencies:
-        - github: 'https://github.com/SalesforceFoundation/Cumulus'
-        - github: 'https://github.com/SalesforceFoundation/OutboundFunds'
+        - github: 'https://github.com/SalesforceFoundation/NPSP'
+        - github: 'https://github.com/SFDO-Community/OutboundFunds'
     source_format: sfdx
-
-
 
 orgs:
     scratch:
