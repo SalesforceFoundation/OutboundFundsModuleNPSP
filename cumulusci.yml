@@ -3,9 +3,9 @@ project:
     package:
         name:  Outbound Funds (npsp)
         namespace: outfundsnpsp
-        api_version: '42.0'
+        api_version: '47.0'
     dependencies:
-        - github: 'https://github.com/SalesforceFoundation/Cumulus'
+        - github: 'https://github.com/SalesforceFoundation/NPSP'
         - github: 'https://github.com/SFDO-Community/OutboundFunds'
 
 
