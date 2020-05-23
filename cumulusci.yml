@@ -15,3 +15,7 @@ orgs:
             config_file: orgs/dev.json
             days: 7
             namespaced: True
+        prerelease:
+            config_file: orgs/prerelease.json
+        beta_prerelease:
+            config_file: orgs/beta_prerelease.json
