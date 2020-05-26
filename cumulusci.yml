@@ -15,3 +15,19 @@ orgs:
             config_file: orgs/dev.json
             days: 7
             namespaced: True
+        prerelease:
+            config_file: orgs/prerelease.json
+        beta_prerelease:
+            config_file: orgs/beta_prerelease.json
+
+tasks:
+    robot:
+        options:
+            suites: robot/OutboundFundsNPSP/tests
+            options:
+                outputdir: robot/OutboundFundsNPSP/results
+
+    robot_testdoc:
+        options:
+            path: robot/OutboundFundsNPSP/tests
+            output: robot/OutboundFundsNPSP/doc/OutboundFundsNPSP_tests.html
