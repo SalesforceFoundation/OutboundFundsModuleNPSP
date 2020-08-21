@@ -1,18 +1,18 @@
 {
-  "orgName": "Outbound Funds (npsp) - Release Test Org",
-  "edition": "Enterprise",
-  "settings": {
-    "chatterSettings": {
-      "enableChatter": true
-    },
-    "apexSettings": {
-      "enableDisableParallelApexTesting": true
-    },
-    "enhancedNotesSettings": {
-      "enableEnhancedNotes": true
-    },
-    "lightningExperienceSettings": {
-      "enableS1DesktopEnabled": true
+    "orgName": "Outbound Funds (npsp) - Release Test Org",
+    "edition": "Enterprise",
+    "settings": {
+        "chatterSettings": {
+            "enableChatter": true
+        },
+        "apexSettings": {
+            "enableDisableParallelApexTesting": true
+        },
+        "enhancedNotesSettings": {
+            "enableEnhancedNotes": true
+        },
+        "lightningExperienceSettings": {
+            "enableS1DesktopEnabled": true
+        }
     }
-  }
 }
