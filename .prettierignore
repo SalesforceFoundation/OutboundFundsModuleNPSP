@@ -1,0 +1,40 @@
+# Development dependencies
+node_modules
+venv
+yarn.lock
+.cci
+.github
+.sfdx
+.vscode
+.pytest_cache
+.localdevserver
+
+# Ignore files
+.gitignore
+.prettierignore
+.eslintignore
+
+# Images
+*.png
+*.jpg
+
+# Files with no parser
+*.py
+*.robot
+*.pdf
+*.design
+
+# Filetypes to ignore
+*.sql
+*.xml
+
+# Robot
+robot/Grants-Management/results
+robot/Grants-Management/resources/axe.js
+
+# Configuration files
+**/lwc/jsconfig.json
+
+# Test results
+coverage
+test_results.json
