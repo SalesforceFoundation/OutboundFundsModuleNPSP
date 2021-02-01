@@ -1,49 +1,66 @@
+# This file is used for Git repositories to specify intentionally untracked files that Git should ignore. 
+# If you are not using git, you can delete this file. For more information see: https://git-scm.com/docs/gitignore
+# For useful gitignore templates see: https://github.com/github/gitignore
+
+# Salesforce cache
+.sfdx/
+.localdevserver/
+
+# LWC VSCode autocomplete
+**/lwc/jsconfig.json
+
+# LWC Jest coverage reports
+coverage/
+
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+test_results.json
+test_results.xml
+
+# Node cache
+node_modules/
+.node_hash
+
+# Eslint cache
+.eslintcache
+
+# MacOS system files
 .DS_Store
-.appcloud
-.externalToolBuilders
-.project
-.settings
-build.properties
-salesforce.schema
-Referenced Packages
-/destructiveChanges.xml
-/admin_profile
-/browser_tests
-/uninstall
-/uninstallsrc
-/installdeploy
-/installedPackages
-/org_unpackaged
+
+# Windows system files
+Thumbs.db
+ehthumbs.db
+[Dd]esktop.ini
+$RECYCLE.BIN/
+
+# CCI
+.cci
 /src.orig
-/unpackaged/*/*/*.zip
-/unpackaged/namespaced_zipped
-/unpackaged/zipped
-/unpackaged_stage
-/packaged
-/test_results.json
-/test_results.xml
-/test_results_junit.xml
-/venv
-.*.swp
+/src
+
+# Python
 *.pyc
+__pycache__
+venv
+.python_hash
+.coverage
+htmlcov
+
+# Robot Framework results
+robot/**/results/
+
+# Editors
 *.sublime-project
 *.sublime-workspace
-**/.sfdx/
-**/.vscode/
-**/.idea/
-/config/
-log.html
-output.xml
-report.html
-*.png
-testdata/dev_org/test_data.db
-*.db
-*.db
-testdata/dev_org/test_data.db
-.pmdCache
-.localdevserver
-.cci
-node_modules/
-package-lock.json
-package.json
-.prettierrc
+.vscode
+.vscode.bak
+.idea
+.project
+.settings
+
+# Research and Development scripts
+/test.apex
