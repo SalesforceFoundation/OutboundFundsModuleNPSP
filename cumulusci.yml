@@ -31,3 +31,23 @@ tasks:
         options:
             path: robot/OutboundFundsNPSP/tests
             output: robot/OutboundFundsNPSP/doc/OutboundFundsNPSP_tests.html
+
+    load_storytelling_data:
+        class_path: cumulusci.tasks.bulkdata.LoadData
+        description: ""
+        options:
+            mapping: datasets/mapping.yml
+            sql_path: datasets/data.sql
+
+    extract_storytelling_data:
+        class_path: cumulusci.tasks.bulkdata.ExtractData
+        description: ""
+        options:
+            mapping: datasets/mapping.yml
+            sql_path: datasets/data.sql
+
+flows:
+    config_dev:
+        steps:
+            3:
+                task: load_storytelling_data

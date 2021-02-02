@@ -1,0 +1,171 @@
+# See Storytelling data sheet link in README
+
+Account:
+  sf_object: Account
+  table: Account
+  fields:
+    - Name
+    - AccountNumber
+    - Site
+    - Type
+    - Industry
+    - AnnualRevenue
+    - Rating
+    - Phone
+    - Fax
+    - Website
+    - Ownership
+    - Sic
+    - TickerSymbol
+    - BillingStreet
+    - BillingCity
+    - BillingState
+    - BillingPostalCode
+    - BillingCountry
+    - ShippingStreet
+    - ShippingCity
+    - ShippingState
+    - ShippingPostalCode
+    - ShippingCountry
+    - Description
+  anchor_date: "2020-07-01"
+
+Contact:
+  sf_object: Contact
+  table: Contact
+  anchor_date: "2020-07-01"
+  fields:
+    - Salutation
+    - FirstName
+    - LastName
+    - Title
+    - Email
+    - Department
+    - Birthdate
+    - LeadSource
+    - Phone
+    - HomePhone
+    - OtherPhone
+    - Fax
+    - AssistantName
+    - AssistantPhone
+    - MailingStreet
+    - MailingCity
+    - MailingState
+    - MailingPostalCode
+    - MailingCountry
+    - OtherStreet
+    - OtherCity
+    - OtherState
+    - OtherPostalCode
+    - OtherCountry
+    - Description
+  lookups:
+    AccountId:
+      key_field: account_id
+      table: Account
+    ReportsToId:
+      key_field: reports_to_id
+      table: Contact
+      after: Contact
+
+outfunds__Funding_Program__c:
+  sf_object: outfunds__Funding_Program__c
+  table: outfunds__Funding_Program__c
+  anchor_date: "2020-07-01"
+  fields:
+    - Name
+    - outfunds__Description__c
+    - outfunds__End_Date__c
+    - outfunds__Start_Date__c
+    - outfunds__Status__c
+    - outfunds__Top_Level__c
+    - outfunds__Total_Program_Amount__c
+  lookups:
+    outfunds__Parent_Funding_Program__c:
+      table: outfunds__Funding_Program__c
+      after: outfunds__Funding_Program__c
+
+outfunds__Funding_Request__c:
+  sf_object: outfunds__Funding_Request__c
+  table: outfunds__Funding_Request__c
+  anchor_date: "2020-07-01"
+  fields:
+    - Name
+    - outfunds__Application_Date__c
+    - outfunds__Awarded_Amount__c
+    - outfunds__Awarded_Date__c
+    - outfunds__Close_Date__c
+    - outfunds__Closed_reason__c
+    - outfunds__Geographical_Area_Served__c
+    - outfunds__Population_Served__c
+    - outfunds__Recommended_Amount__c
+    - outfunds__Requested_Amount__c
+    - outfunds__Requested_For__c
+    - outfunds__Status__c
+    - outfunds__Term_End_Date__c
+    - outfunds__Term_Start_Date__c
+    - outfunds__Terms__c
+  lookups:
+    outfunds__Applying_Contact__c:
+      key_field: applying_contact_id
+      table: Contact
+    outfunds__Applying_Organization__c:
+      key_field: applying_organization_id
+      table: Account
+    outfunds__FundingProgram__c:
+      key_field: funding_program_id
+      table: outfunds__Funding_Program__c
+
+outfunds__Funding_Request_Role__c:
+  sf_object: outfunds__Funding_Request_Role__c
+  table: outfunds__Funding_Request_Role__c
+  anchor_date: "2020-07-01"
+  fields:
+    - outfunds__Role__c
+    - outfunds__Status__c
+  lookups:
+    outfunds__Contact__c:
+      key_field: outfunds__contact__c
+      table: Contact
+    outfunds__Funding_Request__c:
+      key_field: outfunds__funding_request__c
+      table: outfunds__Funding_Request__c
+
+outfunds__Disbursement__c:
+  sf_object: outfunds__Disbursement__c
+  table: outfunds__Disbursement__c
+  anchor_date: "2020-07-01"
+  fields:
+    - outfunds__Amount__c
+    - outfunds__Disbursement_Date__c
+    - outfunds__Disbursement_Method__c
+    - outfunds__Scheduled_Date__c
+    - outfunds__Status__c
+    - outfunds__Type__c
+  lookups:
+    outfunds__Funding_Request__c:
+      key_field: outfunds__funding_request__c
+      table: outfunds__Funding_Request__c
+
+outfunds__Requirement__c:
+  sf_object: outfunds__Requirement__c
+  table: outfunds__Requirement__c
+  anchor_date: "2020-07-01"
+  fields:
+    - Name
+    - outfunds__Completed_Date__c
+    - outfunds__Due_Date__c
+    - outfunds__Requirements__c
+    - outfunds__Status__c
+    - outfunds__Type__c
+  lookups:
+    outfunds__Disbursement__c:
+      key_field: outfunds__disbursement__c
+      table: outfunds__Disbursement__c
+    outfunds__Funding_Request__c:
+      key_field: outfunds__funding_request__c
+      table: outfunds__Funding_Request__c
+    outfunds__Primary_Contact__c:
+      key_field: outfunds__primary_contact__c
+      table: Contact
