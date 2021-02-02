@@ -37,6 +37,7 @@
     "ISNULL",
     "noopener",
     "noreferrer",
+    "reparentable",
     // LWC
     "onrowselection",
     "onrowaction",
