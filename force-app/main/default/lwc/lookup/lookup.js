@@ -9,12 +9,15 @@ const LOADING_LABEL = "Loading";
 const SEARCH_ICON_ALTERNATIVE_TEXT = "Search icon";
 const REMOVE_BUTTON_ALTERNATIVE_TEXT = "Remove selected option";
 const RESULT_ICON_ALTERNATIVE_TEXT = "Result item icon";
+const MULTI_ENTRY_ARIA_LABEL = "Selected Options:";
 export default class Lookup extends LightningElement {
     labels = {
         selectIcon: {
             alternativeText: SELECT_ICON_ALTERNATIVE_TEXT,
         },
-        loading: LOADING_LABEL,
+        loading: {
+            assistiveText: LOADING_LABEL,
+        },
         searchIcon: {
             alternativeText: SEARCH_ICON_ALTERNATIVE_TEXT,
         },
@@ -23,6 +26,9 @@ export default class Lookup extends LightningElement {
         },
         resultIcon: {
             alternativeText: RESULT_ICON_ALTERNATIVE_TEXT,
+        },
+        multiEntry: {
+            ariaLabel: MULTI_ENTRY_ARIA_LABEL,
         },
     };
 

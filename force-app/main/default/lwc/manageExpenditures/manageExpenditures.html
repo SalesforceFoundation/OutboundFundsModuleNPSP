@@ -2,21 +2,21 @@
     <!-- control error message for wrong object type -->
     <template if:true={isDisbursement}>
         <c-warning-banner
-            message="Click 'Refresh List' to start with the latest data."
+            message={labels.isDisbursement.warningBanner.message}
             variant="info-dismissable"
         ></c-warning-banner>
         <!-- control setting spinner during server calls -->
         <template if:true={loaded}>
             <template if:false={eligibleStatus}>
                 <c-warning-banner
-                    message="Disbursements with a status of 'Paid' or 'Cancelled' are not eligible for update here"
+                    message={labels.eligibleStatus.warningBanner.message}
                     variant="warning"
                 ></c-warning-banner>
             </template>
             <!-- control error message for disbursement without an amount -->
             <template if:false={nonZeroAmount}>
                 <c-warning-banner
-                    message="Please give this Disbursement an amount before managing the expenditures."
+                    message={labels.nonZeroAmount.warningBanner.message}
                     variant="warning"
                 ></c-warning-banner>
             </template>
@@ -48,9 +48,9 @@
                                 >
                                     <div
                                         class="slds-truncate slds-text-title_caps slds-float_right slds-p-bottom_xxx-small"
-                                        title="General Accounting Unit"
+                                        title={labels.generalAccountingUnit}
                                     >
-                                        <b>Total Amount Remaining:</b>
+                                        <b>{labels.totalAmountRemaining}</b>
                                     </div>
                                 </lightning-layout-item>
                                 <lightning-layout-item
@@ -90,21 +90,21 @@
                 disabled={disableRows}
                 class="slds-button slds-m-left_small slds-m-top_x-small"
             >
-                Add Row
+                {labels.buttons.addRow}
             </button>
             <div class="slds-button-group slds-float_right slds-p-top_small" role="group">
                 <button
                     class="slds-button slds-button_outline-brand slds-button_text-destructive slds-float_right"
                     onclick={refreshList}
                 >
-                    Refresh List
+                    {labels.buttons.refreshList}
                 </button>
                 <button
                     class="slds-button slds-button_brand slds-float_right"
                     disabled={disableSave}
                     onclick={handleSave}
                 >
-                    Save Updates
+                    {labels.buttons.saveUpdates}
                 </button>
             </div>
             <!-- empty div employed so that dropdown menus don't go beyond length of container -->
@@ -114,7 +114,7 @@
             <!-- empty div employed so that component includes some substance when table disappears on spinner -->
             <div style="height: 200px"></div>
             <lightning-spinner
-                alternative-text="Loading"
+                alternative-text={labels.loading.alternativeText}
                 variant="brand"
             ></lightning-spinner>
         </template>
@@ -122,8 +122,7 @@
     </template>
     <template if:false={isDisbursement}>
         <c-warning-banner
-            message="This component is meant for use on a Disbursement lightning page.
-      Questions? Visit the Power Of Us Hub."
+            message={labels.isNotDisbursement.warningBanner.message}
             variant="warning"
         ></c-warning-banner>
     </template>

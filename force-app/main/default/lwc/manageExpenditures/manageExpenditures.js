@@ -21,72 +21,132 @@ const ERROR_TOAST_TITLE = "Oops! Something Went Wrong";
 const ERROR_TOAST_VARIANT = "error";
 const ERROR_TOAST_MODE = "dismissable";
 
+const IS_NOT_DISBURSEMENT_WARNING_BANNER_MESSAGE =
+    "This component is meant for use on a Disbursement lightning page. Questions? Visit the Power Of Us Hub.";
+const IS_DISBURSEMENT_WARNING_BANNER_MESSAGE =
+    "Click 'Refresh List' to start with the latest data.";
+const ELIGIBLE_STATUS_WARNING_BANNER_MESSAGE =
+    "Disbursements with a status of 'Paid' or 'Cancelled' are not eligible for update here";
+const NON_ZERO_AMOUNT_WARNING_BANNER_MESSAGE =
+    "Please give this Disbursement an amount before managing the expenditures.";
+const GENERAL_ACCOUNTING_UNIT = "General Accounting Unit";
+const TOTAL_AMOUNT_REMAINING = "Total Amount Remaining:";
+const ADD_ROW_LABEL = "Add Row";
+const REFRESH_LABEL = "Refresh List";
+const SAVE_UPDATES_LABEL = "Save Updates";
+const LOADING_ALTERNATIVE_TEXT = "Loading";
+
 export default class ManageExpenditures extends LightningElement(LightningElement) {
+    labels = {
+        isNotDisbursement: {
+            warningBanner: {
+                message: IS_NOT_DISBURSEMENT_WARNING_BANNER_MESSAGE,
+            },
+        },
+        isDisbursement: {
+            warningBanner: {
+                message: IS_DISBURSEMENT_WARNING_BANNER_MESSAGE,
+            },
+        },
+        eligibleStatus: {
+            warningBanner: {
+                message: ELIGIBLE_STATUS_WARNING_BANNER_MESSAGE,
+            },
+        },
+        nonZeroAmount: {
+            warningBanner: {
+                message: NON_ZERO_AMOUNT_WARNING_BANNER_MESSAGE,
+            },
+        },
+        generalAccountingUnit: GENERAL_ACCOUNTING_UNIT,
+        totalAmountRemaining: TOTAL_AMOUNT_REMAINING,
+        buttons: {
+            addRow: ADD_ROW_LABEL,
+            refreshList: REFRESH_LABEL,
+            saveUpdates: SAVE_UPDATES_LABEL,
+        },
+        loading: {
+            alternativeText: LOADING_ALTERNATIVE_TEXT,
+        },
+    };
+
     /*****************************************************************************
      * @type String
      * @description Received from lightning page. Name of object.
      */
     @api objectApiName;
+
     /*****************************************************************************
      * @type String
      * @description Received from lightning page. Id of Disbursement.
      */
     @api recordId;
+
     /*****************************************************************************
      * @type Number
      * @description Queried based on recordId. Amount associated w/ disbursement.
      */
     @track parentAmount;
+
     /*****************************************************************************
      * @type Array(Object)
      * @description List of expenditures - passed to c-gau-expenditure-row components.
      */
     @track gauExpenditures;
+
     /*****************************************************************************
      * @type Number
      * @description calculated on expenditure update. displayed at bottom of table.
      */
     @track remainingAmount;
+
     /*****************************************************************************
      * @type Number
      * @description calculated on expenditure update. displayed at bottom of table.
      */
     @track remainingPercentage;
+
     /*****************************************************************************
      * @type String
      * @description calculated on expenditure update. String value corresponds to
      * the name of the *css selector* which is applied to the remainingAmount element
      */
     @track remainingAmountStatus;
+
     /*****************************************************************************
      * @type Boolean
      * @description calculated on expenditure update.
      * populates the 'disabled' attribute on the save button.
      */
     @track disableSave;
+
     /*****************************************************************************
      * @type Boolean
      * @description set on load to ensure component is only on Disbursement Layout. Error message displayed otherwise.
      */
     @track isDisbursement = false;
+
     /*****************************************************************************
      * @type Boolean
      * @description calculated on expenditure update.
      * populates the 'disabled' attribute on the save button.
      */
     @track loaded = false;
+
     /*****************************************************************************
      * @type Boolean
      * @description calculated on expenditure update.
      * Dictates whether to show the warning about a Disbursement with no amount.
      */
     @track nonZeroAmount = false;
+
     /*****************************************************************************
      * @type Boolean
      * @description calculated on component creation
      * Dictates whether to show the warning about a Disbursement with an ineligible status.
      */
     @track eligibleStatus = false;
+
     /*****************************************************************************
      * @type Boolean
      * @description calculated on component creation
@@ -197,6 +257,7 @@ export default class ManageExpenditures extends LightningElement(LightningElemen
         // reset remaining total and css values
         this.updateRemainingAmount();
     }
+
     /*****************************************************************************
      * @description  wrap some logic to create an empty row when gauExpenditures is in a position when it might become empty.
      * @returnType void
@@ -245,6 +306,7 @@ export default class ManageExpenditures extends LightningElement(LightningElemen
             this.disableSave = true;
         }
     }
+
     /*****************************************************************************
      * @description  get reportValidity() from each of the children
      * @returnType boolean
@@ -258,6 +320,7 @@ export default class ManageExpenditures extends LightningElement(LightningElemen
             true
         );
     }
+
     /*****************************************************************************
      * @description  call validation and send updated list to server
      * @returnType void
@@ -297,6 +360,7 @@ export default class ManageExpenditures extends LightningElement(LightningElemen
             !gauExpenditures[0].amount
         );
     }
+
     /*****************************************************************************
      * @description  ensure each row has a gauId and an amount
      * @returnType Boolean
@@ -315,6 +379,7 @@ export default class ManageExpenditures extends LightningElement(LightningElemen
 
         return valid;
     }
+
     /*****************************************************************************
      * @description Invoke success toast event
      * @returnType void
@@ -328,6 +393,7 @@ export default class ManageExpenditures extends LightningElement(LightningElemen
         });
         this.dispatchEvent(event);
     }
+
     /*****************************************************************************
      * @description Invoke error toast event
      * @returnType void

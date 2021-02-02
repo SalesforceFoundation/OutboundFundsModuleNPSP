@@ -48,7 +48,9 @@
                                 role="status"
                                 class="slds-spinner slds-spinner_xx-small slds-spinner_delayed"
                             >
-                                <span class="slds-assistive-text">{labels.loading}</span>
+                                <span class="slds-assistive-text"
+                                    >{labels.loading.assistiveText}</span
+                                >
                                 <div class="slds-spinner__dot-a"></div>
                                 <div class="slds-spinner__dot-b"></div>
                             </div>
@@ -132,7 +134,7 @@
                     <ul
                         class="slds-listbox slds-listbox_inline slds-p-top_xxx-small"
                         role="group"
-                        aria-label="Selected Options:"
+                        aria-label={labels.multiEntry.ariaLabel}
                     >
                         <template for:each={selection} for:item="item">
                             <li

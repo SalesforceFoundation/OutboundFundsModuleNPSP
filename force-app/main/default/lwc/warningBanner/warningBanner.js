@@ -10,6 +10,7 @@ const INFO_TITLE = "Description of icon when needed";
 const INFO_ICON_ALTERNATIVE_TEXT = "Information";
 
 const CLOSE_ICON_ALTERNATIVE_TEXT = "close";
+
 export default class WarningBanner extends LightningElement {
     labels = {
         warning: {
