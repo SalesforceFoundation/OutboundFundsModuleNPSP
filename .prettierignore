@@ -29,8 +29,8 @@ yarn.lock
 *.xml
 
 # Robot
-robot/Grants-Management/results
-robot/Grants-Management/resources/axe.js
+robot/OutboundFundsNPSP/results
+robot/OutboundFundsNPSP/resources/axe.js
 
 # Configuration files
 **/lwc/jsconfig.json
