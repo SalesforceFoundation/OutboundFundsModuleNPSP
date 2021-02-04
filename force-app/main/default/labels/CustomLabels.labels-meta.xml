@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomLabels xmlns="http://soap.sforce.com/2006/04/metadata">
+    <labels>
+        <fullName>DatabaseService_NoDeleteAccessException</fullName>
+        <categories>DatabaseService,Exception</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>The user does not have delete access to the object.</shortDescription>
+        <value>You don’t have delete access to this object. Ask your Salesforce admin for help.</value>
+    </labels>
+    <labels>
+        <fullName>DatabaseService_NoUpsertFlsException</fullName>
+        <categories>Error Handling</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>The user does not have insert or edit/update access to required fields.</shortDescription>
+        <value>You don’t have field-level access to insert/edit this record. Contact your system administrator for help.</value>
+    </labels>
+    <labels>
+        <fullName>DatabaseService_NoUpdateFlsException</fullName>
+        <categories>Error Handling</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>The user does not have edit or update access to required fields.</shortDescription>
+        <value>You don’t have field-level access to edit this record. Contact your system administrator for help.</value>
+    </labels>
+</CustomLabels>
