@@ -1,6 +1,6 @@
 *** Settings ***
 
-Resource       robot/OutboundFundsNPSP/resources/OutfundsNPSP.robot
+Resource       robot/OutboundFundsNPSP/resources/OutboundfundsNPSP.robot
 Library        cumulusci.robotframework.PageObjects
 ...            robot/OutboundFundsNPSP/resources/FundingProgramPageObject.py
 ...            robot/OutboundFundsNPSP/resources/OutboundFundsNPSP.py
