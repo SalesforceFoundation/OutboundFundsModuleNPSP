@@ -29,8 +29,8 @@ tasks:
 
     robot_testdoc:
         options:
-            path: robot/OutboundFundsNPSP/resources/OutboundFundsNPSP.py,robot/OutboundFundsNPSP/resources/OutboundFundsNPSP.robot,robot/OutboundFundsNPSP/resources/*PageObject.py
-                output: robot/OutboundFundsNPSP/doc/Keywords.html
+            path: robot/OutboundFundsNPSP/tests
+            output: robot/OutboundFundsNPSP/doc/OutboundFundsNPSP_tests.html
 
     load_storytelling_data:
         class_path: cumulusci.tasks.bulkdata.LoadData
