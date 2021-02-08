@@ -27,10 +27,10 @@ tasks:
             options:
                 outputdir: robot/OutboundFundsNPSP/results
 
-    robot_testdoc:
+    robot_libdoc:
         options:
-            path: robot/OutboundFundsNPSP/tests
-            output: robot/OutboundFundsNPSP/doc/OutboundFundsNPSP_tests.html
+            path: robot/OutboundFundsNPSP/resources/OutboundFundsNPSP.py,robot/OutboundFundsNPSP/resources/OutboundFundsNPSP.robot,robot/OutboundFundsNPSP/resources/*PageObject.py
+            output: robot/OutboundFundsNPSP/doc/Keywords.html
 
     load_storytelling_data:
         class_path: cumulusci.tasks.bulkdata.LoadData
