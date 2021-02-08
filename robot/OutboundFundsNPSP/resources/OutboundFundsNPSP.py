@@ -91,6 +91,7 @@ class OutboundFundsNPSP(BaseOutboundFundsNPSPPage):
             PREFIX=prefix, RANDOM=self.new_random_string(len=5), SUFFIX=suffix
         )
 
+    @capture_screenshot_on_error
     def click_link_with_text(self, text):
         """Click on link with passed text"""
         locator = outboundfundsnpsp_lex_locators["link"].format(text)
@@ -98,6 +99,7 @@ class OutboundFundsNPSP(BaseOutboundFundsNPSPPage):
         element = self.selenium.driver.find_element_by_xpath(locator)
         self.selenium.driver.execute_script("arguments[0].click()", element)
 
+    @capture_screenshot_on_error
     def click_save(self):
         """Click Save button in modal's footer"""
         locator = outboundfundsnpsp_lex_locators["new_record"]["footer_button"].format(
@@ -106,6 +108,7 @@ class OutboundFundsNPSP(BaseOutboundFundsNPSPPage):
         self.selenium.scroll_element_into_view(locator)
         self.salesforce._jsclick(locator)
 
+    @capture_screenshot_on_error
     def validate_field_value(self, field, status, value, section=None):
         """If status is 'contains' then the specified value should be present in the field
         'does not contain' then the specified value should not be present in the field
@@ -141,6 +144,7 @@ class OutboundFundsNPSP(BaseOutboundFundsNPSPPage):
 
         assert list_found, "locator not found"
 
+    @capture_screenshot_on_error
     def click_tab(self, label):
         """Click on a tab on a record page"""
         locator = outboundfundsnpsp_lex_locators["tab"]["tab_header"].format(label)

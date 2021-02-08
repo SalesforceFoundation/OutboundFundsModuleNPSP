@@ -9,6 +9,7 @@ from cumulusci.robotframework.utils import capture_screenshot_on_error
 class FundingRequestListingPage(BaseOutboundFundsNPSPPage, ListingPage):
     object_name = "outfunds__Funding_Request__c"
 
+    @capture_screenshot_on_error
     def _is_current_page(self):
         """Verify we are on the Funding Request Listing page
         by verifying that the url contains '/view'
@@ -23,6 +24,7 @@ class FundingRequestListingPage(BaseOutboundFundsNPSPPage, ListingPage):
 class FundingRequestDetailPage(BaseOutboundFundsNPSPPage, DetailPage):
     object_name = "outfunds__Funding_Request__c"
 
+    @capture_screenshot_on_error
     def _is_current_page(self):
         """Verify we are on the Funding Request detail page
         by verifying that the url contains '/view'
