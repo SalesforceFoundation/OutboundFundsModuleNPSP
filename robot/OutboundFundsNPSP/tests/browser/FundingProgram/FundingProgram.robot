@@ -21,7 +21,7 @@ Create Funding Program Via API
     [Documentation]                             Creates a Funding Program via API.
     ...                                         Verifies that Funding Program is created and
     ...                                         displays under recently viewed Funding Program
-    [tags]                                      W-041880          feature:FundingProgram
+    [tags]                                      W-8865873        feature:FundingProgram
     Go To Page                                  Listing          outfunds__Funding_Program__c
     Click Link With Text                        ${fundingprogram}[Name]
     Wait Until Loading Is Complete
@@ -30,7 +30,7 @@ Create Funding Program Via API
 Create Funding Program via UI
     [Documentation]                             Creates a Funding Program via UI.
      ...                                        Verifies that Funding Program is created.
-     [tags]                                     W-041879         feature:FundingProgram
+     [tags]                                     W-8865863       feature:FundingProgram
      Go To Page                                 Listing          outfunds__Funding_Program__c
      Click Object Button                        New
      Wait Until Modal Is Open

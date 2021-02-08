@@ -35,7 +35,7 @@ Create Funding Request Via API
     [Documentation]                             Creates a Funding Request via API.
     ...                                         Verifies that Funding Request is created and
     ...                                         displays under recently viewed Funding Request
-    [tags]                                      feature:FundingRequest
+    [tags]                                      W-8865884        feature:FundingRequest
     Go To Page                                  Listing          outfunds__Funding_Request__c
     Click Link With Text                        ${funding_request}[Name]
     Wait Until Loading Is Complete
@@ -46,7 +46,7 @@ Create Funding Request Via API
 Create Funding Request via UI in Grants Management
      [Documentation]                            Creates a Funding Request via UI.
      ...                                        Verifies that Funding Request is created.
-     [tags]                                     feature:FundingRequest
+     [tags]                                     W-8865897       feature:FundingRequest
      Go To Page                                 Listing          outfunds__Funding_Request__c
      Click Object Button                        New
      wait until modal is open
