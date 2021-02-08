@@ -1,12 +1,12 @@
 project:
     name: OutboundFundsNPSP
     package:
-        name:  Outbound Funds (npsp)
+        name: Outbound Funds (npsp)
         namespace: outfundsnpspext
-        api_version: '47.0'
+        api_version: "50.0"
     dependencies:
-        - github: 'https://github.com/SalesforceFoundation/NPSP'
-        - github: 'https://github.com/SFDO-Community/OutboundFunds'
+        - github: "https://github.com/SalesforceFoundation/NPSP"
+        - github: "https://github.com/SFDO-Community/OutboundFunds"
     source_format: sfdx
 
 orgs:
@@ -31,3 +31,23 @@ tasks:
         options:
             path: robot/OutboundFundsNPSP/tests
             output: robot/OutboundFundsNPSP/doc/OutboundFundsNPSP_tests.html
+
+    load_storytelling_data:
+        class_path: cumulusci.tasks.bulkdata.LoadData
+        description: ""
+        options:
+            mapping: datasets/mapping.yml
+            sql_path: datasets/data.sql
+
+    extract_storytelling_data:
+        class_path: cumulusci.tasks.bulkdata.ExtractData
+        description: ""
+        options:
+            mapping: datasets/mapping.yml
+            sql_path: datasets/data.sql
+
+flows:
+    config_dev:
+        steps:
+            3:
+                task: load_storytelling_data

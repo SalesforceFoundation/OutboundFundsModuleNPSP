@@ -1,0 +1,18 @@
+{
+    "*.{cls,apex,js,html,md,yml,yaml,json}": [
+        "prettier --write"
+    ],
+    "*.{cls,apex,js,html,md,xml,sql,py,yml,yaml}": [
+        "cspell"
+    ],
+    "*.js": [
+        "eslint"
+    ],
+    "*.py": [
+        "venv/bin/black --check --diff",
+        "venv/bin/flake8"
+    ],
+    "yarn.lock": [
+        "lockfile-lint"
+    ]
+}

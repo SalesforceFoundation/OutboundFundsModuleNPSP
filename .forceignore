@@ -1,3 +1,10 @@
-**/jsconfig.json
+# LWC Jest tests
+**/__mocks__/**
+**/__tests__/**
 
+# eslint config for Lightning Web Components
+**/jsconfig.json
 **/.eslintrc.json
+
+# All markdown files.  This means you can add READMEs to class and component directories.
+**/*.md 
