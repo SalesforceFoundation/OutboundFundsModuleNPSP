@@ -8,6 +8,9 @@
  * not in that list should be deleted, since they've been deleted in the UI.
  */
 public with sharing class GauExpendituresManager {
+    @TestVisible
+    private static GanExpenditureSelector gauExpenditureSelector = new GanExpenditureSelector();
+
     /*****************************************************************************
      * @description using a disbursementId (Passed from a lightning record page), return a wrapper for the disbursement object.
      * One of the properties of this wrapper is a list of wrappers for the GAU Expenditure object, with the disbursements children.
@@ -20,36 +23,23 @@ public with sharing class GauExpendituresManager {
      */
     @AuraEnabled
     public static DisbursementWrapper getDisbursement(String disbursementId) {
-        List<outfunds__Disbursement__c> disbursements = [
-            SELECT
-                Id,
-                Name,
-                outfunds__Amount__c,
-                outfunds__Status__c,
-                (
-                    SELECT
-                        Id,
-                        General_Accounting_Unit__c,
-                        General_Accounting_Unit__r.Name,
-                        General_Accounting_Unit__r.npsp__Active__c,
-                        Amount__c
-                    FROM GAU_Expendatures__r
-                    ORDER BY CreatedDate ASC
-                    LIMIT 200
-                )
-            FROM outfunds__Disbursement__c
-            WHERE Id = :disbursementId
-            LIMIT 1
-        ];
-        outfunds__Disbursement__c disbursement = disbursements.size() == 1
-            ? disbursements.get(0)
-            : null;
+        try {
+            List<outfunds__Disbursement__c> disbursements = gauExpenditureSelector.getDisbursementsById(
+                disbursementId
+            );
 
-        if (disbursement == null) {
-            return null;
+            outfunds__Disbursement__c disbursement = disbursements.size() == 1
+                ? disbursements.get(0)
+                : null;
+
+            if (disbursement == null) {
+                return null;
+            }
+
+            return new DisbursementWrapper(disbursement);
+        } catch (Exception e) {
+            // throw AuraHandledException.
         }
-
-        return new DisbursementWrapper(disbursement);
     }
     /*****************************************************************************
      * @description Receive stringified version of the gau expenditures, with the id of the parent. Upsert and delete children as needed.

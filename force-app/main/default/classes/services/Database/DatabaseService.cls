@@ -14,7 +14,8 @@ public with sharing class DatabaseService {
         // Enforce all field-level permissions by checking if any fields were removed in the accessDecision implying the user does not have the proper field-level permission for this operation.
         if (!accessDecision.getRemovedFields().isEmpty()) {
             System.NoAccessException e = new System.NoAccessException();
-            e.setMessage(System.Label.DatabaseService_NoUpdateFlsException);
+            e.setMessage(System.Label.DatabaseService_NoInsertFlsException);
+            throw e;
         }
 
         // Database.insert should set IDs on records.
@@ -37,30 +38,10 @@ public with sharing class DatabaseService {
         if (!accessDecision.getRemovedFields().isEmpty()) {
             System.NoAccessException e = new System.NoAccessException();
             e.setMessage(System.Label.DatabaseService_NoUpdateFlsException);
+            throw e;
         }
 
-        return Database.update(accessDecision.getRecords());
-    }
-
-    public List<Database.UpsertResult> upsertRecordsEnforceFls(List<SObject> records) {
-        if (records == null || records.isEmpty()) {
-            return new List<Database.UpsertResult>();
-        }
-
-        // Security.stripInaccessible verifies object-level permissions.
-        System.SObjectAccessDecision accessDecision = Security.stripInaccessible(
-            System.AccessType.UPSERTABLE,
-            records,
-            true
-        );
-
-        // Enforce all field-level permissions by checking if any fields were removed in the accessDecision implying the user does not have the proper field-level permission for this operation.
-        if (!accessDecision.getRemovedFields().isEmpty()) {
-            System.NoAccessException e = new System.NoAccessException();
-            e.setMessage(System.Label.DatabaseService_NoUpsertFlsException);
-        }
-
-        return Database.upsert(accessDecision.getRecords());
+        return Database.update(records);
     }
 
     public List<Database.DeleteResult> deleteRecords(List<SObject> records) {
@@ -68,12 +49,14 @@ public with sharing class DatabaseService {
             return new List<Database.DeleteResult>();
         }
 
+        // TODO: What do we do if records contains more than one SobjectType?
         final Schema.DescribeSObjectResult describe = records.getSObjectType()
             .getDescribe();
 
         if (!describe.isDeletable()) {
             System.NoAccessException e = new System.NoAccessException();
             e.setMessage(System.Label.DatabaseService_NoDeleteAccessException);
+            throw e;
         }
 
         return Database.delete(records);

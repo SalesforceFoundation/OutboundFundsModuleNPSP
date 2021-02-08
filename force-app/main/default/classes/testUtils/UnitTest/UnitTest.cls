@@ -1,7 +1,3 @@
-/**
- * TODO: Add documentation.
- * TODO: Add UnitTest_TEST with examples showing how to UnitTest with best practices.
- */
 @IsTest
 public with sharing class UnitTest {
     private static Integer MOCK_ID_INDEX = 0;
