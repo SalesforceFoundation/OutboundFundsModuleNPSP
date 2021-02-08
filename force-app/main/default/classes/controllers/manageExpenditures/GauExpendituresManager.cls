@@ -1,8 +1,5 @@
-/*******************************************************************************
- * @author Thom Behrens
- * @date 2020-01-25
- *
- * @description Class made in support of the manageExpenditures lwc. selector and update method made so that as much
+/**
+ * Class made in support of the manageExpenditures lwc. selector and update method made so that as much
  * logic as possible can be handle on this end, and as such, some assumptions about what is being passed from the UI
  * are made. E.g. when a list of GAU Expenditures is received along with a disbursement Id, we assume that any expenditures
  * not in that list should be deleted, since they've been deleted in the UI.
@@ -11,38 +8,38 @@ public with sharing class GauExpendituresManager {
     @TestVisible
     private static GanExpenditureSelector gauExpenditureSelector = new GanExpenditureSelector();
 
-    /*****************************************************************************
-     * @description using a disbursementId (Passed from a lightning record page), return a wrapper for the disbursement object.
+    @TestVisible
+    private static DatabaseService databaseService = new DatabaseService();
+
+    /**
+     * Using a disbursementId (Passed from a lightning record page), return a wrapper for the disbursement object.
      * One of the properties of this wrapper is a list of wrappers for the GAU Expenditure object, with the disbursements children.
-     * @param String disbursementId
-     * @return DisbursementWrapper
-     * @example
-     * GauExpendituresManager.DisbursementWrapper queriedDisbursement = GauExpendituresManager.getDisbursement(
-     *   String.valueOf(disbursement.Id)
-     * );
+     * @param  disbursementId disbursementId description
+     * @return                DisbursementWrapper of a outfunds__Disbursement__c.
      */
     @AuraEnabled
     public static DisbursementWrapper getDisbursement(String disbursementId) {
         try {
-            List<outfunds__Disbursement__c> disbursements = gauExpenditureSelector.getDisbursementsById(
+            final List<outfunds__Disbursement__c> disbursements = GauExpendituresManager.gauExpenditureSelector.getDisbursementsById(
                 disbursementId
             );
 
-            outfunds__Disbursement__c disbursement = disbursements.size() == 1
-                ? disbursements.get(0)
-                : null;
-
-            if (disbursement == null) {
+            if (disbursements.isEmpty()) {
                 return null;
             }
-
-            return new DisbursementWrapper(disbursement);
+            return new DisbursementWrapper(disbursements[0]);
         } catch (Exception e) {
-            // throw AuraHandledException.
+            // Re-throw as an AuraHandledException that Lightning Components can handle.
+            final System.AuraHandledException auraHandledException = new System.AuraHandledException(
+                e.getMessage()
+            );
+            auraHandledException.setMessage(e.getMessage());
+            throw auraHandledException;
         }
     }
+
     /*****************************************************************************
-     * @description Receive stringified version of the gau expenditures, with the id of the parent. Upsert and delete children as needed.
+     * @description
      * @param String expenditureString
      * @param String disbursementId
      * @return void
@@ -52,82 +49,70 @@ public with sharing class GauExpendituresManager {
      *   disbursement.Id
      * );
      */
+    /**
+     * Receives a JSON serialized version of the GAU Expenditures, with the id of the parent. Upsert and delete children as needed.
+     */
     @AuraEnabled
     public static void upsertGauExpenditures(
         String expendituresString,
         String disbursementId
     ) {
-        List<GauExpenditureWrapper> expenditureWrappers = (List<GauExpenditureWrapper>) JSON.deserialize(
-            expendituresString,
-            List<GauExpenditureWrapper>.class
-        );
-        List<GAU_Expenditure__c> expenditures = new List<GAU_Expenditure__c>();
-        for (GauExpenditureWrapper expenditureWrapper : expenditureWrappers) {
-            expenditures.add(
-                new GAU_Expenditure__c(
+        final DatabaseService.Savepoint savepoint = GauExpendituresManager.databaseService.setSavepoint();
+
+        try {
+            // Deserialize expendituresString and split into records to insert and update.
+            final List<Schema.GAU_Expenditure__c> expendituresToInsert = new List<Schema.GAU_Expenditure__c>();
+            final Map<Id, Schema.GAU_Expenditure__c> expendituresToUpdate = new Map<Id, Schema.GAU_Expenditure__c>();
+
+            for (
+                GauExpendituresManager.GauExpenditureWrapper expenditureWrapper : (List<GauExpendituresManager.GauExpenditureWrapper>) JSON.deserialize(
+                    expendituresString,
+                    List<GauExpendituresManager.GauExpenditureWrapper>.class
+                )
+            ) {
+                final Schema.GAU_Expenditure__c expenditure = new Schema.GAU_Expenditure__c(
                     Id = expenditureWrapper.recordId,
                     Disbursement__c = disbursementId,
                     General_Accounting_Unit__c = expenditureWrapper.gauId,
                     Amount__c = expenditureWrapper.amount
+                );
+
+                if (expenditure.Id == null) {
+                    expendituresToInsert.add(expenditure);
+                } else {
+                    expendituresToUpdate.put(expenditure.Id, expenditure);
+                }
+            }
+
+            // Delete child records not contained in expendituresString.
+            GauExpendituresManager.databaseService.deleteRecords(
+                GauExpendituresManager.gauExpenditureSelector.getExpendituresToDelete(
+                    disbursementId
                 )
             );
-        }
-        List<Gau_Expenditure__c> expendituresToDelete = queryDeletedExpenditures(
-            expenditures,
-            disbursementId
-        );
-        Savepoint sp = Database.setSavepoint();
-        try {
-            delete expendituresToDelete;
-            upsert expenditures;
+
+            // Upsert records in expendituresString.
+            GauExpendituresManager.databaseService.insertRecordsEnforceFls(
+                expendituresToInsert
+            );
+            GauExpendituresManager.databaseService.updateRecordsEnforceFls(
+                expendituresToUpdate
+            );
         } catch (Exception e) {
-            Database.rollback(sp);
-            if (Test.isRunningTest()) {
-                throw new ConstructedException(e.getMessage());
-            } else {
-                throw new AuraHandledException(e.getMessage());
-            }
+            // Rollback transaction.
+            GauExpendituresManager.databaseService.rollback(savepoint);
+
+            // Re-throw as an AuraHandledException that Lightning Components can handle.
+            final System.AuraHandledException auraHandledException = new System.AuraHandledException(
+                e.getMessage()
+            );
+            auraHandledException.setMessage(e.getMessage());
+            throw auraHandledException;
         }
-    }
-    /*****************************************************************************
-     * @description deduce which expenditures should be deleted by querying all expenditures, and checking to see which
-     * ones are not in the list of those to be preserved.
-     * @param List<GAU_Expenditure__c> remainingExpenditures
-     * @param String disbursementId
-     * @return List<GAU_Expenditure__c> - records to be deleted
-     * @example
-     * List<Gau_Expenditure__c> expendituresToDelete = queryDeletedExpenditures(
-     *   expenditures,
-     *   disbursementId
-     * );
-     */
-    private static List<GAU_Expenditure__c> queryDeletedExpenditures(
-        List<GAU_Expenditure__c> remainingExpenditures,
-        String disbursementId
-    ) {
-        Set<Id> remainingExpenditureIds = new Set<Id>();
-        for (GAU_Expenditure__c expenditure : remainingExpenditures) {
-            remainingExpenditureIds.add(expenditure.Id);
-        }
-        List<GAU_Expenditure__c> allExpenditures = [
-            SELECT Id
-            FROM GAU_Expenditure__c
-            WHERE Disbursement__c = :disbursementId
-        ];
-        List<GAU_Expenditure__c> expendituresToDelete = new List<GAU_Expenditure__c>();
-        for (GAU_Expenditure__c expenditure : allExpenditures) {
-            if (!remainingExpenditureIds.contains(expenditure.Id)) {
-                expendituresToDelete.add(expenditure);
-            }
-        }
-        return expendituresToDelete;
     }
 
-    /*******************************************************************************
-     * @author Thom Behrens
-     * @date 2020-01-25
-     *
-     * @description Wrapper class for the outfunds__Disbursement__c object
+    /**
+     * Wrapper class for the outfunds__Disbursement__c object
      */
     public class DisbursementWrapper {
         @AuraEnabled
@@ -152,11 +137,9 @@ public with sharing class GauExpendituresManager {
             }
         }
     }
-    /*******************************************************************************
-     * @author Thom Behrens
-     * @date 2020-01-25
-     *
-     * @description Wrapper class for the GAU_Expenditure__c object.
+
+    /**
+     * Wrapper class for the GAU_Expenditure__c object.
      */
     public class GauExpenditureWrapper {
         @AuraEnabled
@@ -181,8 +164,5 @@ public with sharing class GauExpendituresManager {
             this.gauIsActive = gauExpenditure.General_Accounting_Unit__r.npsp__Active__c;
             this.rowId = rowId;
         }
-    }
-
-    public class ConstructedException extends Exception {
     }
 }
