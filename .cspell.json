@@ -1,0 +1,120 @@
+{
+  // See https://github.com/streetsidesoftware/cspell/tree/master/packages/cspell#cspelljson-sections
+  // for more information.
+  // Always 0.1
+  "version": "0.1",
+  "language": "en-US",
+  "enableFiletypes": ["apex", "javascript", "html", "SQL", "python"],
+  "allowCompoundWords": true,
+  // List of words to be considered correct.
+  "words": [
+    // SFDO
+    "cumulusci",
+    "outfunds",
+    "outfundsnpspext",
+    "sfdobase",
+    "unpackaged",
+    "unmanaged",
+    // SFDC
+    "instanceof",
+    "canvasapp",
+    "flexi",
+    "flexipage",
+    "flexipages",
+    "appendable",
+    "prependable",
+    "sobject",
+    "sobjects",
+    "permset",
+    "sforce",
+    "ISBLANK",
+    "ISPICKVAL",
+    "upsert",
+    "outputdir",
+    "sfsites",
+    "valueOf",
+    "stubbable",
+    "ISNULL",
+    "noopener",
+    "noreferrer",
+    "reparentable",
+    // LWC
+    "onrowselection",
+    "onrowaction",
+    "onsearch",
+    "recordid",
+    "onremove",
+    "onupdate",
+    "ondelete",
+    // Python
+    "pylint",
+    "pytest",
+    "toprettyxml",
+    "VARCHAR",
+    "esprima",
+    "Punctuator",
+    "isupper",
+    "nargs",
+    "tostring",
+    "testdoc",
+    "mkdtemp",
+    "noyaml",
+    // HTML
+    "arial",
+    "onslotchange",
+    "iframe",
+    // Robot tests
+    "kwtable",
+    "kwrow",
+    "kwname",
+    "kwdoc",
+    "XHTTP",
+    "CUSTENT",
+    // Storytelling data
+    "Englewood",
+    "Takagawa",
+    "Atterberry",
+    "Meiko",
+    "Kumar",
+    // Local
+    "Behrens",
+    "Expendatures"
+  ],
+  // List of words to be always considered incorrect.
+  "flagWords": [],
+  // List of words to be ignored (even if they are in the flagWords).
+  "ignoreWords": [],
+  // List of globs to specify which files are to be ignored.
+  "ignorePaths": [
+    "node_modules/**",
+    "robot/**/results/**",
+    "venv/**",
+    ".github/**",
+    ".cci/**",
+    "./pytest_cache",
+    ".sfdx/**",
+    ".vscode/**",
+    "force-app/main/default/objectTranslations/**",
+    "force-app/main/default/translations/**",
+    "coverage/**"
+  ],
+  // defaults to 4 - the minimum length of a word before it is checked.
+  "minWordLength": 5,
+  "languageSettings": [
+    {
+      // Add HTML dictionary to python since robot tests contain HTML.
+      "languageId": "python",
+      "local": "*",
+      "ignoreRegExpList": [],
+      "dictionaries": ["html"],
+      "dictionaryDefinitions": []
+    }
+  ],
+  "ignoreRegExpList": [
+    // customThemeLayoutType has randomish IDs
+    "<customThemeLayoutType>[\\S\\s]+?</customThemeLayoutType>",
+    // Salesforce IDs: trying to be as restrive as possible in regex pattern
+    // See: https://help.salesforce.com/articleView?id=000325244&language=&type=1&mode=1
+    "\\b[0-9aemzkXC][A-Za-z0-9]{14,17}\\b"
+  ]
+}

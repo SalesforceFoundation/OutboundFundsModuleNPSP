@@ -1,64 +1,64 @@
 <template>
-  <!-- empty div to balance padding -->
-  <div style="height:16px;"></div>
-  <!-- align @ start so error messages dont disrupt alignment-->
-  <lightning-layout vertical-align="start">
-    <!-- 7-2-2-1 layout pattern also matches c-manage-expenditures-table-header-->
-    <!-- lookup layout item -->
-    <lightning-layout-item padding="horizontal-small" size="7">
-      <!-- lookup taken from https://github.com/pozil/sfdc-ui-lookup-lwc-->
-      <c-lookup
-        selection={prefillSelection}
-        onsearch={handleSearch}
-        onselectionchange={handleSelectionChange}
-        disabled={disabled}
-      >
-      </c-lookup>
-    </lightning-layout-item>
-    <!-- amount layout item -->
-    <lightning-layout-item padding="horizontal-small" size="2">
-      <lightning-input
-        value={gauExpenditure.amount}
-        onchange={amountChange}
-        type="number"
-        formatter="currency"
-        step="0.01"
-        min="0"
-        variant="label-hidden"
-        disabled={disabled}
-      ></lightning-input>
-    </lightning-layout-item>
-    <!-- percent layout item -->
-    <lightning-layout-item padding="horizontal-small" size="2">
-      <div class="slds-grid slds-grid_vertical-align-center">
-        <div class="slds-col">
-          <lightning-input
-            value={percent}
-            onchange={percentChange}
-            type="number"
-            step="0.0001"
-            variant="label-hidden"
-            class="percent-field"
-            disabled={disabled}
-          ></lightning-input>
-        </div>
-        <div
-          class="slds-col slds-shrink slds-text-title_caps custom-percent-style"
-        >
-          %
-        </div>
-      </div>
-    </lightning-layout-item>
-    <!-- delete button layout item -->
-    <lightning-layout-item padding="horizontal-small" size="1">
-      <lightning-button
-        variant="destructive"
-        label="Delete"
-        onclick={handleDelete}
-        disabled={disabled}
-      ></lightning-button>
-    </lightning-layout-item>
-    <!-- div used to reserve room for error messages below inputs-->
-    <div style="height:51px;"></div>
-  </lightning-layout>
+    <!-- empty div to balance padding -->
+    <div style="height: 16px"></div>
+    <!-- align @ start so error messages dont disrupt alignment-->
+    <lightning-layout vertical-align="start">
+        <!-- 7-2-2-1 layout pattern also matches c-manage-expenditures-table-header-->
+        <!-- lookup layout item -->
+        <lightning-layout-item padding="horizontal-small" size="7">
+            <!-- lookup taken from https://github.com/pozil/sfdc-ui-lookup-lwc-->
+            <c-lookup
+                selection={prefillSelection}
+                onsearch={handleSearch}
+                onselectionchange={handleSelectionChange}
+                disabled={disabled}
+            >
+            </c-lookup>
+        </lightning-layout-item>
+        <!-- amount layout item -->
+        <lightning-layout-item padding="horizontal-small" size="2">
+            <lightning-input
+                value={gauExpenditure.amount}
+                onchange={amountChange}
+                type="number"
+                formatter="currency"
+                step="0.01"
+                min="0"
+                variant="label-hidden"
+                disabled={disabled}
+            ></lightning-input>
+        </lightning-layout-item>
+        <!-- percent layout item -->
+        <lightning-layout-item padding="horizontal-small" size="2">
+            <div class="slds-grid slds-grid_vertical-align-center">
+                <div class="slds-col">
+                    <lightning-input
+                        value={percent}
+                        onchange={percentChange}
+                        type="number"
+                        step="0.0001"
+                        variant="label-hidden"
+                        class="percent-field"
+                        disabled={disabled}
+                    ></lightning-input>
+                </div>
+                <div
+                    class="slds-col slds-shrink slds-text-title_caps custom-percent-style"
+                >
+                    {labels.percentSign}
+                </div>
+            </div>
+        </lightning-layout-item>
+        <!-- delete button layout item -->
+        <lightning-layout-item padding="horizontal-small" size="1">
+            <lightning-button
+                variant="destructive"
+                label={labels.buttons.delete}
+                onclick={handleDelete}
+                disabled={disabled}
+            ></lightning-button>
+        </lightning-layout-item>
+        <!-- div used to reserve room for error messages below inputs-->
+        <div style="height: 51px"></div>
+    </lightning-layout>
 </template>
