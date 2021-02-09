@@ -1,6 +1,7 @@
 {
   "orgName": "Outbound Funds (npsp) - Dev Org",
   "edition": "Developer",
+  "instance": "cs46",
   "settings": {
     "chatterSettings": {
       "enableChatter": true

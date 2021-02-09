@@ -1,6 +1,7 @@
 {
   "orgName": "Outbound Funds (npsp) - Release Test Org",
   "edition": "Enterprise",
+  "instance": "cs46",
   "settings": {
     "chatterSettings": {
       "enableChatter": true
