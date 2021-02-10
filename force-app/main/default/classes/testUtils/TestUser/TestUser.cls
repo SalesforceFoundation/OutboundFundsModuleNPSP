@@ -573,6 +573,11 @@ public with sharing class TestUser {
             return this.permissionSetManagersById.values();
         }
 
+        public Set<Id> getPermissionSetIds() {
+            this.assertLoaded();
+            return this.permissionSetManagersById.keySet();
+        }
+
         public TestUser.PermissionSetManager getPermissionSetManager(Id permissionSetId) {
             this.assertLoaded();
             return this.permissionSetManagersById.get(permissionSetId);
