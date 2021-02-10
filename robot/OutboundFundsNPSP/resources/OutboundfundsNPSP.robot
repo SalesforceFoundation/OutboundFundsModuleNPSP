@@ -115,3 +115,29 @@ API Create Disbursement on a Funding Request
     &{disbursement} =               Salesforce Get  outfunds__Disbursement__c  ${disbursement_id}
     Store Session Record            outfunds__disbursement__c   ${disbursement_id}
     [Return]                        &{disbursement}
+
+
+API Create GAU
+    [Documentation]                Create a GAU
+    [Arguments]                    &{fields}
+    ${name} =                      Generate New String
+    ${gau_id} =                    Salesforce Insert  npsp__General_Accounting_Unit__c
+    ...                            npsp__Active__c=true
+    ...                            npsp__Total_Allocations__c=50000
+    ...                            npsp__Description__c=Robot Test
+    ...                            Name=${name}
+    &{gau} =                       Salesforce Get  npsp__General_Accounting_Unit__c  ${gau_id}
+    Store Session Record           npsp__General_Accounting_Unit__c   ${gau_id}
+    [Return]                       &{gau}
+
+API Create GAU Expenditure
+    [Documentation]                Create a GAU Expenditure on Disbursement
+    [Arguments]                    ${gau_id}    ${disbursement_id}   &{fields}
+    ${gauexpenditure_id} =         Salesforce Insert  GAU_Expenditure__c
+    ...                            Amount__c=10000
+    ...                            General_Accounting_Unit__c=${gau_id}
+    ...                            Disbursement__c=${disbursement_id}
+    &{gauexp} =                    Salesforce Get  GAU_Expenditure__c  ${gauexpenditure_id}
+    Store Session Record           GAU_Expenditure__c   ${gauexpenditure_id}
+    [Return]                       &{gauexp}
+
