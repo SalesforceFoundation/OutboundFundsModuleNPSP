@@ -24,12 +24,42 @@ public with sharing class GauExpenditureSelector_TEST {
         insert disbursement;
 
         final List<npsp__General_Accounting_Unit__c> generalAccountingUnits = new List<npsp__General_Accounting_Unit__c>{
-            new npsp__General_Accounting_Unit__c(Name = 'GAU 0', npsp__Active__c = true),
-            new npsp__General_Accounting_Unit__c(Name = 'GAU 1', npsp__Active__c = false),
-            new npsp__General_Accounting_Unit__c(Name = 'GAU 2', npsp__Active__c = true),
-            new npsp__General_Accounting_Unit__c(Name = 'GAU 3', npsp__Active__c = true),
-            new npsp__General_Accounting_Unit__c(Name = 'GAU 4', npsp__Active__c = true),
-            new npsp__General_Accounting_Unit__c(Name = 'GAU 5', npsp__Active__c = true)
+            new npsp__General_Accounting_Unit__c(
+                // Setting Test User as Owner to grant sharing access so we can test object-level and field-level permissions.
+                OwnerId = GauExpenditureSelector_TEST.minimalAccessPersona.getUser().Id,
+                Name = 'GAU 0',
+                npsp__Active__c = true
+            ),
+            new npsp__General_Accounting_Unit__c(
+                // Setting Test User as Owner to grant sharing access so we can test object-level and field-level permissions.
+                OwnerId = GauExpenditureSelector_TEST.minimalAccessPersona.getUser().Id,
+                Name = 'GAU 1',
+                npsp__Active__c = false
+            ),
+            new npsp__General_Accounting_Unit__c(
+                // Setting Test User as Owner to grant sharing access so we can test object-level and field-level permissions.
+                OwnerId = GauExpenditureSelector_TEST.minimalAccessPersona.getUser().Id,
+                Name = 'GAU 2',
+                npsp__Active__c = true
+            ),
+            new npsp__General_Accounting_Unit__c(
+                // Setting Test User as Owner to grant sharing access so we can test object-level and field-level permissions.
+                OwnerId = GauExpenditureSelector_TEST.minimalAccessPersona.getUser().Id,
+                Name = 'GAU 3',
+                npsp__Active__c = true
+            ),
+            new npsp__General_Accounting_Unit__c(
+                // Setting Test User as Owner to grant sharing access so we can test object-level and field-level permissions.
+                OwnerId = GauExpenditureSelector_TEST.minimalAccessPersona.getUser().Id,
+                Name = 'GAU 4',
+                npsp__Active__c = true
+            ),
+            new npsp__General_Accounting_Unit__c(
+                // Setting Test User as Owner to grant sharing access so we can test object-level and field-level permissions.
+                OwnerId = GauExpenditureSelector_TEST.minimalAccessPersona.getUser().Id,
+                Name = 'There\\\'s an escaped single quote in this Name.',
+                npsp__Active__c = true
+            )
         };
         insert generalAccountingUnits;
 
@@ -202,7 +232,7 @@ public with sharing class GauExpenditureSelector_TEST {
     }
 
     @IsTest
-    private static void getDisbursementsById_MissingDisbursementCrud() {
+    private static void getDisbursementsById_MissingCrud() {
         // Set arguments.
         final Id disbursementId = GauExpenditureSelector_TEST.getDisbursement().Id;
 
@@ -292,22 +322,29 @@ public with sharing class GauExpenditureSelector_TEST {
 
         final Id nullDisbursementId;
         final Id nonDisbursementId = UnitTest.mockId(Schema.SObjectType.Account);
-        final Id disbursementId = GauExpenditureSelector_TEST.getDisbursement();
+        final Id disbursementId = GauExpenditureSelector_TEST.getDisbursement().Id;
 
         final Set<Id> nullExpenditureIdsToKeep;
         final Set<Id> emptyExpenditureIdsToKeep = new Set<Id>();
         final Set<Id> firstExpenditureIdsToKeep = new Set<Id>();
 
+        final List<GAU_Expenditure__c> allChildren = new List<GAU_Expenditure__c>();
         final List<GAU_Expenditure__c> expected = new List<GAU_Expenditure__c>();
 
         {
             Boolean isFirst = true;
             for (GAU_Expenditure__c expenditure : disbursement.GAU_Expendatures__r) {
+                final GAU_Expenditure__c child = new GAU_Expenditure__c(
+                    Id = expenditure.Id
+                );
+
+                allChildren.add(child);
+
                 if (isFirst) {
                     firstExpenditureIdsToKeep.add(expenditure.Id);
                     isFirst = false;
                 } else {
-                    expected.add(new GAU_Expenditure__c(Id = expenditure.Id));
+                    expected.add(child);
                 }
             }
         }
@@ -332,7 +369,7 @@ public with sharing class GauExpenditureSelector_TEST {
                 firstExpenditureIdsToKeep
             }
         ) {
-            final List<GAU_Expenditure__c> actual = selector.getExpendituresToDelete(
+            final List<GAU_Expenditure__c> actual = service.getExpendituresToDelete(
                 nullDisbursementId,
                 expenditureIdsToKeep
             );
@@ -356,7 +393,7 @@ public with sharing class GauExpenditureSelector_TEST {
                 firstExpenditureIdsToKeep
             }
         ) {
-            final List<GAU_Expenditure__c> actual = selector.getExpendituresToDelete(
+            final List<GAU_Expenditure__c> actual = service.getExpendituresToDelete(
                 nonDisbursementId,
                 expenditureIdsToKeep
             );
@@ -372,17 +409,17 @@ public with sharing class GauExpenditureSelector_TEST {
             );
         }
 
-        final List<GAU_Expenditure__c> actualWhenNullExpenditureIdsToKeep = selector.getExpendituresToDelete(
+        final List<GAU_Expenditure__c> actualWhenNullExpenditureIdsToKeep = service.getExpendituresToDelete(
             disbursementId,
             nullExpenditureIdsToKeep
         );
 
-        final List<GAU_Expenditure__c> actualWhenEmptyExpenditureIdsToKeep = selector.getExpendituresToDelete(
+        final List<GAU_Expenditure__c> actualWhenEmptyExpenditureIdsToKeep = service.getExpendituresToDelete(
             disbursementId,
             emptyExpenditureIdsToKeep
         );
 
-        final List<GAU_Expenditure__c> actualWhenFirstExpenditureIdsToKeep = selector.getExpendituresToDelete(
+        final List<GAU_Expenditure__c> actualWhenFirstExpenditureIdsToKeep = service.getExpendituresToDelete(
             disbursementId,
             firstExpenditureIdsToKeep
         );
@@ -396,7 +433,7 @@ public with sharing class GauExpenditureSelector_TEST {
             'GauExpenditureSelector.getExpendituresToDelete should never return null.'
         );
         System.assertEquals(
-            disbursement.GAU_Expenditures__r,
+            allChildren,
             actualWhenNullExpenditureIdsToKeep,
             'GauExpenditureSelector.getExpendituresToDelete should return all list of child GAU Expenditure.'
         );
@@ -408,7 +445,7 @@ public with sharing class GauExpenditureSelector_TEST {
             'GauExpenditureSelector.getExpendituresToDelete should never return null.'
         );
         System.assertEquals(
-            disbursement.GAU_Expenditures__r,
+            allChildren,
             actualWhenEmptyExpenditureIdsToKeep,
             'GauExpenditureSelector.getExpendituresToDelete should return all list of child GAU Expenditure.'
         );
@@ -427,7 +464,7 @@ public with sharing class GauExpenditureSelector_TEST {
     }
 
     @IsTest
-    private static void getExpendituresToDelete_MissingDisbursementCrud() {
+    private static void getExpendituresToDelete_MissingCrud() {
         // Set arguments.
         final Id disbursementId = GauExpenditureSelector_TEST.getDisbursement().Id;
         final Set<Id> expenditureIdsToKeep = new Set<Id>();
@@ -446,7 +483,8 @@ public with sharing class GauExpenditureSelector_TEST {
                 Schema.GAU_Expenditure__c.SObjectType.getDescribe().isAccessible()
             );
 
-            System.assert(
+            System.assertEquals(
+                false,
                 Schema.SObjectType.GAU_Expenditure__c.fields.Disbursement__c.isAccessible()
             );
 
@@ -466,6 +504,183 @@ public with sharing class GauExpenditureSelector_TEST {
             null,
             actualException,
             'A System.QueryException should have been thrown because the user cannot read GAU_Expenditure__c.'
+        );
+    }
+
+    @IsTest
+    private static void getActiveGeneralAccountUnitsLikeName_WithPermissions_nullName() {
+        // Set arguments and expected values.
+        final List<npsp__General_Accounting_Unit__c> expected = [
+            SELECT Id, Name, npsp__Description__c
+            FROM npsp__General_Accounting_Unit__c
+            WHERE npsp__Active__c = TRUE
+            LIMIT 5
+        ];
+
+        final String nameLikeClause;
+
+        Test.startTest();
+
+        // Assert has permissions to read General Accounting Units and all fields since we are running as a user who can author Apex.
+        System.assert(Schema.SObjectType.npsp__General_Accounting_Unit__c.isAccessible());
+        System.assert(
+            Schema.SObjectType.npsp__General_Accounting_Unit__c.fields.Name.isAccessible()
+        );
+        System.assert(
+            Schema.SObjectType.npsp__General_Accounting_Unit__c.fields.npsp__Description__c.isAccessible()
+        );
+
+        // Execute the test.
+        final GauExpenditureSelector service = new GauExpenditureSelector();
+
+        final List<npsp__General_Accounting_Unit__c> actual = service.getActiveGeneralAccountUnitsLikeName(
+            nameLikeClause
+        );
+
+        Test.stopTest();
+
+        System.assertEquals(
+            expected,
+            actual,
+            'The first 5 active General Accounting Units should have been returned since name is null.'
+        );
+    }
+
+    @IsTest
+    private static void getActiveGeneralAccountUnitsLikeName_WithPermissions_blankName() {
+        // Set arguments and expected values.
+        final List<npsp__General_Accounting_Unit__c> expected = [
+            SELECT Id, Name, npsp__Description__c
+            FROM npsp__General_Accounting_Unit__c
+            WHERE npsp__Active__c = TRUE
+            LIMIT 5
+        ];
+
+        final String nameLikeClause = '';
+
+        Test.startTest();
+
+        // Assert has permissions to read General Accounting Units and all fields since we are running as a user who can author Apex.
+        System.assert(Schema.SObjectType.npsp__General_Accounting_Unit__c.isAccessible());
+        System.assert(
+            Schema.SObjectType.npsp__General_Accounting_Unit__c.fields.Name.isAccessible()
+        );
+        System.assert(
+            Schema.SObjectType.npsp__General_Accounting_Unit__c.fields.npsp__Description__c.isAccessible()
+        );
+
+        // Execute the test.
+        final GauExpenditureSelector service = new GauExpenditureSelector();
+
+        final List<npsp__General_Accounting_Unit__c> actual = service.getActiveGeneralAccountUnitsLikeName(
+            nameLikeClause
+        );
+
+        Test.stopTest();
+
+        System.assertEquals(
+            expected,
+            actual,
+            'The first 5 active General Accounting Units should have been returned since name is blank.'
+        );
+    }
+
+    @IsTest
+    private static void getActiveGeneralAccountUnitsLikeName_WithPermissions_NameWithEscapedSingleQuote() {
+        // Set arguments and expected values.
+        final List<npsp__General_Accounting_Unit__c> expected = [
+            SELECT Id, Name, npsp__Description__c
+            FROM npsp__General_Accounting_Unit__c
+            WHERE
+                Name = 'There\\\'s an escaped single quote in this Name.'
+                AND npsp__Active__c = TRUE
+            LIMIT 1
+        ];
+
+        System.assertEquals(
+            1,
+            expected.size(),
+            'Only one npsp__General_Accounting_Unit__c should be found with the name with an escaped single quote.'
+        );
+
+        // nameLikeClause should find expected since a wild card (%) is attached to the end of the like clause.
+        final String nameLikeClause = 'There\'s an escaped single quote';
+
+        Test.startTest();
+
+        // Assert has permissions to read General Accounting Units and all fields since we are running as a user who can author Apex.
+        System.assert(Schema.SObjectType.npsp__General_Accounting_Unit__c.isAccessible());
+        System.assert(
+            Schema.SObjectType.npsp__General_Accounting_Unit__c.fields.Name.isAccessible()
+        );
+        System.assert(
+            Schema.SObjectType.npsp__General_Accounting_Unit__c.fields.npsp__Description__c.isAccessible()
+        );
+
+        // Execute the test.
+        final GauExpenditureSelector service = new GauExpenditureSelector();
+
+        final List<npsp__General_Accounting_Unit__c> actual = service.getActiveGeneralAccountUnitsLikeName(
+            nameLikeClause
+        );
+
+        Test.stopTest();
+
+        System.assertEquals(
+            expected,
+            actual,
+            'The first 5 active General Accounting Units should have been returned since there is only one npsp__General_Accounting_Unit__c whose Name is starts with "GAU 1".'
+        );
+    }
+
+    @IsTest
+    private static void getActiveGeneralAccountUnitsLikeName_MissingCrud() {
+        // nameLikeClause should find expected since a wild card (%) is attached to the end of the like clause.
+        final String nameLikeClause = 'There\'s an escaped single quote';
+
+        // Load Test User without access to npsp__General_Accounting_Unit__c.
+        GauExpenditureSelector_TEST.minimalAccessPersona.load();
+
+        Test.startTest();
+
+        System.QueryException actualException;
+
+        // Assert has permissions to read General Accounting Units and all fields since we are running as a user who can author Apex.
+        System.runAs(GauExpenditureSelector_TEST.minimalAccessPersona.getUser()) {
+            System.assertEquals(
+                false,
+                Schema.npsp__General_Accounting_Unit__c.SObjectType.getDescribe()
+                    .isAccessible()
+            );
+            System.assertEquals(
+                false,
+                Schema.npsp__General_Accounting_Unit__c.SObjectType.fields.Name.getDescribe()
+                    .isAccessible()
+            );
+            System.assertEquals(
+                false,
+                Schema.npsp__General_Accounting_Unit__c.SObjectType.fields.npsp__Description__c.getDescribe()
+                    .isAccessible()
+            );
+
+            // Execute the test.
+            final GauExpenditureSelector service = new GauExpenditureSelector();
+
+            try {
+                final List<npsp__General_Accounting_Unit__c> actual = service.getActiveGeneralAccountUnitsLikeName(
+                    nameLikeClause
+                );
+            } catch (System.QueryException e) {
+                actualException = e;
+            }
+        }
+
+        Test.stopTest();
+
+        System.assertNotEquals(
+            null,
+            actualException,
+            'A System.QueryException should have been thrown calling GauExpenditureSelector.getActiveGeneralAccountUnitsLikeName since the Test User does not have read access to npsp__General_Accounting_Unit__c.'
         );
     }
 }
