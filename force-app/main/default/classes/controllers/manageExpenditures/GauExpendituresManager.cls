@@ -6,7 +6,7 @@
  */
 public with sharing class GauExpendituresManager {
     @TestVisible
-    private static GanExpenditureSelector gauExpenditureSelector = new GanExpenditureSelector();
+    private static GauExpenditureSelector gauExpenditureSelector = new GauExpenditureSelector();
 
     @TestVisible
     private static DatabaseService databaseService = new DatabaseService();
@@ -87,7 +87,8 @@ public with sharing class GauExpendituresManager {
             // Delete child records not contained in expendituresString.
             GauExpendituresManager.databaseService.deleteRecords(
                 GauExpendituresManager.gauExpenditureSelector.getExpendituresToDelete(
-                    disbursementId
+                    disbursementId,
+                    expendituresToUpdate.keySet()
                 )
             );
 
@@ -96,7 +97,7 @@ public with sharing class GauExpendituresManager {
                 expendituresToInsert
             );
             GauExpendituresManager.databaseService.updateRecordsEnforceFls(
-                expendituresToUpdate
+                expendituresToUpdate.values()
             );
         } catch (Exception e) {
             // Rollback transaction.
@@ -112,20 +113,54 @@ public with sharing class GauExpendituresManager {
     }
 
     /**
+     * Search npsp__General_Accounting_Unit__c records
+     * @param  searchTerm  String to be used to match against records
+     * @param  selectedIds Optional List of Ids to exclude (w/ multi-select lookup)
+     * @return             Wrappers to give to component
+     */
+    @AuraEnabled(cacheable=true)
+    public static List<GauExpendituresManager.LookupSearchResult> searchActiveGeneralAccountingUnitsLikeName(
+        String searchTerm
+    ) {
+        final List<GauExpendituresManager.LookupSearchResult> lookupSearchResults = new List<GauExpendituresManager.LookupSearchResult>();
+        for (
+            Schema.npsp__General_Accounting_Unit__c generalAccountingUnit : GauExpendituresManager.gauExpenditureSelector.getActiveGeneralAccountUnitsLikeName(
+                searchTerm
+            )
+        ) {
+            final GauExpendituresManager.LookupSearchResult lookupSearchResult = new GauExpendituresManager.LookupSearchResult();
+            lookupSearchResult.id = generalAccountingUnit.Id;
+            lookupSearchResult.sObjectType = Schema.SObjectType.npsp__General_Accounting_Unit__c.getName();
+            lookupSearchResult.icon = 'custom:custom87';
+            lookupSearchResult.title = generalAccountingUnit.Name;
+            lookupSearchResult.subtitle = generalAccountingUnit.npsp__Description__c;
+
+            lookupSearchResults.add(lookupSearchResult);
+        }
+
+        return lookupSearchResults;
+    }
+
+    /**
      * Wrapper class for the outfunds__Disbursement__c object
      */
     public class DisbursementWrapper {
         @AuraEnabled
         public Id recordId;
+
         @AuraEnabled
         public String name;
+
         @AuraEnabled
         public Decimal amount;
+
         @AuraEnabled
         public String status;
+
         @AuraEnabled
         public List<GauExpenditureWrapper> expenditures;
-        public DisbursementWrapper(outfunds__Disbursement__c disbursement) {
+
+        public DisbursementWrapper(Schema.outfunds__Disbursement__c disbursement) {
             this.recordId = disbursement.Id;
             this.name = disbursement.Name;
             this.amount = disbursement.outfunds__Amount__c;
@@ -144,17 +179,26 @@ public with sharing class GauExpendituresManager {
     public class GauExpenditureWrapper {
         @AuraEnabled
         public Id recordId;
+
         @AuraEnabled
         public Id gauId;
+
         @AuraEnabled
         public String gauName;
+
         @AuraEnabled
         public Decimal amount;
+
         @AuraEnabled
         public Boolean gauIsActive;
+
         @AuraEnabled
         public Integer rowId;
-        public GauExpenditureWrapper(GAU_Expenditure__c gauExpenditure, Integer rowId) {
+
+        public GauExpenditureWrapper(
+            Schema.GAU_Expenditure__c gauExpenditure,
+            Integer rowId
+        ) {
             this.recordId = gauExpenditure.Id;
             this.gauId = gauExpenditure.General_Accounting_Unit__c;
             if (this.gauId != null) {
@@ -164,5 +208,20 @@ public with sharing class GauExpendituresManager {
             this.gauIsActive = gauExpenditure.General_Accounting_Unit__r.npsp__Active__c;
             this.rowId = rowId;
         }
+    }
+
+    /**
+     * Class used to serialize a single Lookup search result item
+     * The Lookup controller returns a List<LookupSearchResult> when sending search result back to Lightning
+     */
+    public class LookupSearchResult {
+        @AuraEnabled
+        public Id id;
+
+        @AuraEnabled
+        public String sObjectType,
+            icon,
+            title,
+            subtitle;
     }
 }

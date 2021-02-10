@@ -10,6 +10,7 @@ const SEARCH_ICON_ALTERNATIVE_TEXT = "Search icon";
 const REMOVE_BUTTON_ALTERNATIVE_TEXT = "Remove selected option";
 const RESULT_ICON_ALTERNATIVE_TEXT = "Result item icon";
 const MULTI_ENTRY_ARIA_LABEL = "Selected Options:";
+
 export default class Lookup extends LightningElement {
     labels = {
         selectIcon: {

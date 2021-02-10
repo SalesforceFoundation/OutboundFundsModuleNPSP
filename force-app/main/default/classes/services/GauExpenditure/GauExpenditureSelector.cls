@@ -52,4 +52,19 @@ public with sharing class GauExpenditureSelector {
         }
         return expendituresToDelete;
     }
+
+    public List<Schema.npsp__General_Accounting_Unit__c> getActiveGeneralAccountUnitsLikeName(
+        String nameLikeClause
+    ) {
+        final String name =
+            (nameLikeClause == null ? '' : String.escapeSingleQuotes(nameLikeClause)) +
+            '%';
+        return [
+            SELECT Name, Id, npsp__Description__c
+            FROM npsp__General_Accounting_Unit__c
+            WHERE Name LIKE :name AND npsp__Active__c = TRUE
+            WITH SECURITY_ENFORCED
+            LIMIT 5
+        ];
+    }
 }

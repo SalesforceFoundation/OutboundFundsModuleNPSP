@@ -1,5 +1,5 @@
 @IsTest
-public with sharing class GauExpendituresManagerTest {
+public with sharing class GauExpendituresManager_TEST {
     /*****************************************************************************
      * @description Create records needed for test and set class-level properties
      */

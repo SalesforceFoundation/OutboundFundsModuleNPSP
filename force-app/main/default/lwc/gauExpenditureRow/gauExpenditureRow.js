@@ -1,9 +1,10 @@
 import { LightningElement, track, api } from "lwc";
-import apexSearch from "@salesforce/apex/GauLookupController.search";
+import apexSearch from "@salesforce/apex/GauExpendituresManager.searchActiveGeneralAccountingUnitsLikeName";
 
 // TODO: Localize with Custom Labels.
 const PERCENT_SIGN = "%";
 const DELETE_LABEL = "Delete";
+
 export default class GauExpenditureRow extends LightningElement {
     labels = {
         percentSign: PERCENT_SIGN,
