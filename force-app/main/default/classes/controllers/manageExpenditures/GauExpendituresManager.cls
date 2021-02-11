@@ -111,23 +111,32 @@ public with sharing class GauExpendituresManager {
     public static List<GauExpendituresManager.LookupSearchResult> searchActiveGeneralAccountingUnitsLikeName(
         String searchTerm
     ) {
-        final List<GauExpendituresManager.LookupSearchResult> lookupSearchResults = new List<GauExpendituresManager.LookupSearchResult>();
-        for (
-            Schema.npsp__General_Accounting_Unit__c generalAccountingUnit : GauExpendituresManager.gauExpenditureSelector.getActiveGeneralAccountUnitsLikeName(
-                searchTerm
-            )
-        ) {
-            final GauExpendituresManager.LookupSearchResult lookupSearchResult = new GauExpendituresManager.LookupSearchResult();
-            lookupSearchResult.id = generalAccountingUnit.Id;
-            lookupSearchResult.sObjectType = Schema.SObjectType.npsp__General_Accounting_Unit__c.getName();
-            lookupSearchResult.icon = 'custom:custom87';
-            lookupSearchResult.title = generalAccountingUnit.Name;
-            lookupSearchResult.subtitle = generalAccountingUnit.npsp__Description__c;
+        try {
+            final List<GauExpendituresManager.LookupSearchResult> lookupSearchResults = new List<GauExpendituresManager.LookupSearchResult>();
+            for (
+                Schema.npsp__General_Accounting_Unit__c generalAccountingUnit : GauExpendituresManager.gauExpenditureSelector.getActiveGeneralAccountUnitsLikeName(
+                    searchTerm
+                )
+            ) {
+                final GauExpendituresManager.LookupSearchResult lookupSearchResult = new GauExpendituresManager.LookupSearchResult();
+                lookupSearchResult.id = generalAccountingUnit.Id;
+                lookupSearchResult.sObjectType = Schema.SObjectType.npsp__General_Accounting_Unit__c.getName();
+                lookupSearchResult.icon = 'custom:custom87';
+                lookupSearchResult.title = generalAccountingUnit.Name;
+                lookupSearchResult.subtitle = generalAccountingUnit.npsp__Description__c;
 
-            lookupSearchResults.add(lookupSearchResult);
+                lookupSearchResults.add(lookupSearchResult);
+            }
+
+            return lookupSearchResults;
+        } catch (Exception e) {
+            // Re-throw as an AuraHandledException that Lightning Components can handle.
+            final System.AuraHandledException auraHandledException = new System.AuraHandledException(
+                e.getMessage()
+            );
+            auraHandledException.setMessage(e.getMessage());
+            throw auraHandledException;
         }
-
-        return lookupSearchResults;
     }
 
     /**
@@ -192,10 +201,19 @@ public with sharing class GauExpendituresManager {
             this.gauId = gauExpenditure.General_Accounting_Unit__c;
             if (this.gauId != null) {
                 this.gauName = gauExpenditure.General_Accounting_Unit__r.Name;
+                this.gauIsActive = gauExpenditure.General_Accounting_Unit__r.npsp__Active__c;
+            } else {
+                this.gauIsActive = false;
             }
             this.amount = gauExpenditure.Amount__c;
-            this.gauIsActive = gauExpenditure.General_Accounting_Unit__r.npsp__Active__c;
             this.rowId = rowId;
+        }
+
+        /**
+         * Empty constructor for unit testing.
+         */
+        @TestVisible
+        private GauExpenditureWrapper() {
         }
     }
 
