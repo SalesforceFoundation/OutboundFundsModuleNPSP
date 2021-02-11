@@ -22,6 +22,6 @@
         <language>en_US</language>
         <protected>true</protected>
         <shortDescription>The user does not have delete access to the object.</shortDescription>
-        <value>You don&apos;t have delete access to this object. Ask your Salesforce admin for help.</value>
+        <value>You don&apos;t have delete access to this object. Contact your system administrator for help.</value>
     </labels>
 </CustomLabels>
