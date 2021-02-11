@@ -1,6 +1,7 @@
 {
   "orgName": "Outbound Funds (npsp) - 2gp Org",
   "edition": "Developer",
+  "instance": "cs46",
   "settings": {
     "enhancedNotesSettings": {
       "enableEnhancedNotes": true
