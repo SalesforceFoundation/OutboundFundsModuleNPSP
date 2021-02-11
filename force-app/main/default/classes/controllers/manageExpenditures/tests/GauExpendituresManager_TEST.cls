@@ -290,6 +290,27 @@ public with sharing class GauExpendituresManager_TEST {
             Schema.SObjectType.GAU_Expenditure__c
         );
 
+        Schema.ChildRelationship gauExpenditureChildRelationship;
+        for (
+            Schema.ChildRelationship childRelationship : Schema.SObjectType.outfunds__Disbursement__c.getChildRelationships()
+        ) {
+            if (
+                Schema.GAU_Expenditure__c.SObjectType ==
+                childRelationship.getChildSObject() &&
+                Schema.GAU_Expenditure__c.SObjectType.fields.Disbursement__c ==
+                childRelationship.getField()
+            ) {
+                gauExpenditureChildRelationship = childRelationship;
+                break;
+            }
+        }
+        System.assertNotEquals(
+            null,
+            gauExpenditureChildRelationship,
+            'No outfunds__Disbursement__c Child Relationship to GAU_Expenditure__c.Disbursement__c found.'
+        );
+        final String gauExpenditureRelationshipName = gauExpenditureChildRelationship.getRelationshipName();
+
         final Id recordId = UnitTest.mockId(Schema.SObjectType.outfunds__Disbursement__c);
         final String name = 'D-00004';
         final Decimal amount = 314159.27;
@@ -367,7 +388,7 @@ public with sharing class GauExpendituresManager_TEST {
                         '"Name": "' + name + '",',
                         '"outfunds__Amount__c": ' + amount.toPlainString() + ',',
                         '"outfunds__Status__c": "' + status + '",',
-                        '"GAU_Expendatures__r": {',
+                        '"' + gauExpenditureRelationshipName + '": {',
                             '"totalSize": ' + expenditures.size() + ',',
                             '"done": true,',
                             '"records": [',
