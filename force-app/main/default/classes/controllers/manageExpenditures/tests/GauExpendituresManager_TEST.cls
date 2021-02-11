@@ -324,7 +324,7 @@ public with sharing class GauExpendituresManager_TEST {
                         '"type": "' + gauExpenditureObjectName + '",',
                         '"url": "/services/data/v51.0/sobjects/' + gauExpenditureObjectName + '/' + gauExpenditureId1 + '"',
                     '},',
-                    '"' + disbursementFieldName + '": "a0s9A000000cuCSQAY",',
+                    '"' + disbursementFieldName + '": "' + recordId + '",',
                     '"Id": "' + gauExpenditureId1 + '",',
                     '"' + gauFieldName + '": "' + gauId1 + '",',
                     '"'+ amountFieldName + '": 1234.5,',
@@ -354,7 +354,7 @@ public with sharing class GauExpendituresManager_TEST {
                         '"type": "' + gauExpenditureObjectName + '",',
                         '"url": "/services/data/v51.0/sobjects/' + gauExpenditureObjectName + '/' + gauExpenditureId2 + '"',
                     '},',
-                    '"' + disbursementFieldName+ '": "a0s9A000000cuCSQAY",',
+                    '"' + disbursementFieldName+ '": "' + recordId + '",',
                     '"Id": "' + gauExpenditureId2 + '",',
                     '"'+ amountFieldName + '": 5432.1',
                 '}'
