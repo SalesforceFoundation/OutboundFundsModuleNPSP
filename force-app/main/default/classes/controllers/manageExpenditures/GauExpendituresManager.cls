@@ -38,17 +38,6 @@ public with sharing class GauExpendituresManager {
         }
     }
 
-    /*****************************************************************************
-     * @description
-     * @param String expenditureString
-     * @param String disbursementId
-     * @return void
-     * @example
-     * GauExpendituresManager.upsertGauExpenditures(
-     *   expendituresString,
-     *   disbursement.Id
-     * );
-     */
     /**
      * Receives a JSON serialized version of the GAU Expenditures, with the id of the parent. Upsert and delete children as needed.
      */

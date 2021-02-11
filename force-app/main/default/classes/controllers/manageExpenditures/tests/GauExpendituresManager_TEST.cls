@@ -49,7 +49,7 @@ public with sharing class GauExpendituresManager_TEST {
         GauExpendituresManager.GauExpenditureWrapper expected,
         GauExpendituresManager.GauExpenditureWrapper actual
     ) {
-        GauExpendituresManager_TEST.assertEqual(expected, actual, (Integer) null);
+        GauExpendituresManager_TEST.assertEquals(expected, actual, (Integer) null);
     }
 
     public static void assertEquals(
@@ -132,9 +132,59 @@ public with sharing class GauExpendituresManager_TEST {
             );
         }
     }
-    /*
+
     @IsTest
-    private static void GauExpenditureWrapper_Constructor() {
+    private static void GauExpenditureWrapper_NonNullGauId() {
+        final Id recordId = 'a0x9A000000ASvfQAG';
+        final Id gauId = 'a0d9A0000003r1sQAA';
+        final String gauName = 'Area of most need';
+        final Decimal amount = 1250.0;
+        final Boolean gauIsActive = true;
+
+        // prettier-ignore
+        final GAU_Expenditure__c gauExpenditure = (GAU_Expenditure__c) JSON.deserialize(
+            String.join(
+                new List<String> {
+                    '{',
+                        '"attributes": {',
+                            '"type": "GAU_Expenditure__c",',
+                            '"url": "/services/data/v51.0/sobjects/GAU_Expenditure__c/a0x9A000000ASvfQAG"',
+                        '},',
+                        '"Disbursement__c": "a0s9A000000cuCSQAY",',
+                        '"Id": "' + recordId + '",',
+                        '"General_Accounting_Unit__c": "' + gauId + '",',
+                        '"Amount__c": ' + amount.toPlainString() + ',',
+                        '"General_Accounting_Unit__r": {',
+                            '"attributes": {',
+                                '"type": "npsp__General_Accounting_Unit__c",',
+                                '"url": "/services/data/v51.0/sobjects/npsp__General_Accounting_Unit__c/a0d9A0000003r1sQAA"',
+                            '},',
+                            '"Id": "a0d9A0000003r1sQAA",',
+                            '"Name": "Area of most need",',
+                            '"npsp__Active__c": ' + gauIsActive + '',
+                        '}',
+                    '}'
+                },
+                ''
+            ),
+            GAU_Expenditure__c.class
+        );
+        final Integer rowId = Crypto.getRandomInteger();
+
+        Test.startTest();
+
+        final GauExpendituresManager.GauExpenditureWrapper actual = new GauExpendituresManager.GauExpenditureWrapper(
+            gauExpenditure,
+            rowId
+        );
+
+        Test.stopTest();
+
+        System.assertEquals(recordId, actual.recordId);
+        System.assertEquals(gauId, actual.gauId);
+        System.assertEquals(gauName, actual.gauName);
+        System.assertEquals(amount, actual.amount);
+        System.assertEquals(gauIsActive, actual.gauIsActive);
+        System.assertEquals(rowId, actual.rowId);
     }
-    */
 }
