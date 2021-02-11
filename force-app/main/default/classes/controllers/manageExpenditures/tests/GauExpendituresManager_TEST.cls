@@ -169,40 +169,32 @@ public with sharing class GauExpendituresManager_TEST {
         final String gauFieldName = Schema.SObjectType.GAU_Expenditure__c.fields.General_Accounting_Unit__c.getName();
         final String gauRelationshipName = gauFieldName.removeEnd('__c') + '__r';
 
-        final Id recordId = 'a0x9A000000ASvfQAG';
-        final Id gauId = 'a0d9A0000003r1sQAA';
+        final Id recordId = UnitTest.mockId(Schema.SObjectType.GAU_Expenditure__c);
+        final Id gauId = UnitTest.mockId(
+            Schema.SObjectType.npsp__General_Accounting_Unit__c
+        );
         final String gauName = 'Area of most need';
         final Decimal amount = 1250.0;
         final Boolean gauIsActive = true;
 
-        // prettier-ignore
-        final GAU_Expenditure__c gauExpenditure = (GAU_Expenditure__c) JSON.deserialize(
-            String.join(
-                new List<String> {
-                    '{',
-                        '"attributes": {',
-                            '"type": "' + gauExpenditureObjectName + '",',
-                            '"url": "/services/data/v51.0/sobjects/' + gauExpenditureObjectName + '/' + recordId + '"',
-                        '},',
-                        '"' + disbursementFieldName+ '": "a0s9A000000cuCSQAY",',
-                        '"Id": "' + recordId + '",',
-                        '"' + gauFieldName + '": "' + gauId + '",',
-                        '"'+ amountFieldName + '": ' + amount.toPlainString() + ',',
-                        '"' + gauRelationshipName + '": {',
-                            '"attributes": {',
-                                '"type": "npsp__General_Accounting_Unit__c",',
-                                '"url": "/services/data/v51.0/sobjects/npsp__General_Accounting_Unit__c/' + gauId + '"',
-                            '},',
-                            '"Id": "' + gauId + '",',
-                            '"Name": "' + gauName + '",',
-                            '"npsp__Active__c": ' + gauIsActive + '',
-                        '}',
-                    '}'
-                },
-                ''
-            ),
-            GAU_Expenditure__c.class
+        final Id disbursementId = UnitTest.mockId(
+            Schema.SObjectType.outfunds__Disbursement__c
         );
+
+        final npsp__General_Accounting_Unit__c gau = new npsp__General_Accounting_Unit__c(
+            Id = gauId,
+            Name = gauName,
+            npsp__Active__c = gauIsActive
+        );
+
+        final GAU_Expenditure__c gauExpenditure = new GAU_Expenditure__c(
+            Id = recordId,
+            Disbursement__c = disbursementId,
+            Amount__c = amount,
+            General_Accounting_Unit__c = gauId,
+            General_Accounting_Unit__r = gau
+        );
+
         final Integer rowId = Crypto.getRandomInteger();
 
         Test.startTest();
@@ -228,29 +220,20 @@ public with sharing class GauExpendituresManager_TEST {
         final String disbursementFieldName = Schema.SObjectType.GAU_Expenditure__c.fields.Disbursement__c.getName();
         final String amountFieldName = Schema.SObjectType.GAU_Expenditure__c.fields.Amount__c.getName();
 
-        final Id recordId = 'a0x9A000000ASvfQAG';
+        final Id recordId = UnitTest.mockId(Schema.SObjectType.GAU_Expenditure__c);
         final Id gauId = null;
         final String gauName = null;
         final Decimal amount = 1250.0;
         final Boolean gauIsActive = false;
 
-        // prettier-ignore
-        final GAU_Expenditure__c gauExpenditure = (GAU_Expenditure__c) JSON.deserialize(
-            String.join(
-                new List<String> {
-                    '{',
-                        '"attributes": {',
-                            '"type": "' + gauExpenditureObjectName + '",',
-                            '"url": "/services/data/v51.0/sobjects/' + gauExpenditureObjectName + '/' + recordId + '"',
-                        '},',
-                        '"' + disbursementFieldName + '": "a0s9A000000cuCSQAY",',
-                        '"Id": "' + recordId + '",',
-                        '"' + amountFieldName + '": ' + amount.toPlainString() + '',
-                    '}'
-                },
-                ''
-            ),
-            GAU_Expenditure__c.class
+        final Id disbursementId = UnitTest.mockId(
+            Schema.SObjectType.outfunds__Disbursement__c
+        );
+
+        final GAU_Expenditure__c gauExpenditure = new GAU_Expenditure__c(
+            Id = recordId,
+            Disbursement__c = disbursementId,
+            Amount__c = amount
         );
         final Integer rowId = Crypto.getRandomInteger();
 
@@ -316,55 +299,24 @@ public with sharing class GauExpendituresManager_TEST {
         final Decimal amount = 314159.27;
         final String status = 'Scheduled';
 
-        // prettier-ignore
-        final String gauExpenditure1Json = String.join(
-            new List<String> {
-                '{',
-                    '"attributes": {',
-                        '"type": "' + gauExpenditureObjectName + '",',
-                        '"url": "/services/data/v51.0/sobjects/' + gauExpenditureObjectName + '/' + gauExpenditureId1 + '"',
-                    '},',
-                    '"' + disbursementFieldName + '": "' + recordId + '",',
-                    '"Id": "' + gauExpenditureId1 + '",',
-                    '"' + gauFieldName + '": "' + gauId1 + '",',
-                    '"'+ amountFieldName + '": 1234.5,',
-                    '"' + gauRelationshipName + '": {',
-                        '"attributes": {',
-                            '"type": "npsp__General_Accounting_Unit__c",',
-                            '"url": "/services/data/v51.0/sobjects/npsp__General_Accounting_Unit__c/' + gauId1 + '"',
-                        '},',
-                        '"Id": "' + gauId1 + '",',
-                        '"Name": "GAU 1",',
-                        '"npsp__Active__c": true',
-                    '}',
-                '}'
-            },
-            ''
-        );
-        final GAU_Expenditure__c gauExpenditure1 = (GAU_Expenditure__c) JSON.deserialize(
-            gauExpenditure1Json,
-            GAU_Expenditure__c.class
+        final GAU_Expenditure__c gauExpenditure1 = new GAU_Expenditure__c(
+            Id = gauExpenditureId1,
+            Disbursement__c = recordId,
+            Amount__c = 1234.5,
+            General_Accounting_Unit__c = gauId1,
+            General_Accounting_Unit__r = new npsp__General_Accounting_Unit__c(
+                Id = gauId1,
+                Name = 'GAU 1',
+                npsp__Active__c = true
+            )
         );
 
-        // prettier-ignore
-        final String gauExpenditure2Json = String.join(
-            new List<String> {
-                '{',
-                    '"attributes": {',
-                        '"type": "' + gauExpenditureObjectName + '",',
-                        '"url": "/services/data/v51.0/sobjects/' + gauExpenditureObjectName + '/' + gauExpenditureId2 + '"',
-                    '},',
-                    '"' + disbursementFieldName+ '": "' + recordId + '",',
-                    '"Id": "' + gauExpenditureId2 + '",',
-                    '"'+ amountFieldName + '": 5432.1',
-                '}'
-            },
-            ''
+        final GAU_Expenditure__c gauExpenditure2 = new GAU_Expenditure__c(
+            Id = gauExpenditureId2,
+            Disbursement__c = recordId,
+            Amount__c = 5432.1
         );
-        final GAU_Expenditure__c gauExpenditure2 = (GAU_Expenditure__c) JSON.deserialize(
-            gauExpenditure2Json,
-            GAU_Expenditure__c.class
-        );
+
         final List<GAU_Expenditure__c> expenditures = new List<GAU_Expenditure__c>{
             gauExpenditure1,
             gauExpenditure2
@@ -391,10 +343,7 @@ public with sharing class GauExpendituresManager_TEST {
                         '"' + gauExpenditureRelationshipName + '": {',
                             '"totalSize": ' + expenditures.size() + ',',
                             '"done": true,',
-                            '"records": [',
-                                gauExpenditure1Json + ',',
-                                gauExpenditure2Json,
-                            ']',
+                            '"records": ' + JSON.serialize(expenditures),
                         '}',
                     '}'
                 },
