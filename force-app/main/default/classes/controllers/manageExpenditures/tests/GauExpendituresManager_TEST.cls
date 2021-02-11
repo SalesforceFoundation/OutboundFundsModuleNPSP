@@ -296,49 +296,52 @@ public with sharing class GauExpendituresManager_TEST {
         final String status = 'Scheduled';
 
         // prettier-ignore
-        final GAU_Expenditure__c gauExpenditure1 = (GAU_Expenditure__c) JSON.deserialize(
-            String.join(
-                new List<String> {
-                    '{',
+        final String gauExpenditure1Json = String.join(
+            new List<String> {
+                '{',
+                    '"attributes": {',
+                        '"type": "' + gauExpenditureObjectName + '",',
+                        '"url": "/services/data/v51.0/sobjects/' + gauExpenditureObjectName + '/' + gauExpenditureId1 + '"',
+                    '},',
+                    '"' + disbursementFieldName + '": "a0s9A000000cuCSQAY",',
+                    '"Id": "' + gauExpenditureId1 + '",',
+                    '"' + gauFieldName + '": "' + gauId1 + '",',
+                    '"'+ amountFieldName + '": 1234.5,',
+                    '"' + gauRelationshipName + '": {',
                         '"attributes": {',
-                            '"type": "' + gauExpenditureObjectName + '",',
-                            '"url": "/services/data/v51.0/sobjects/' + gauExpenditureObjectName + '/' + gauExpenditureId1 + '"',
+                            '"type": "npsp__General_Accounting_Unit__c",',
+                            '"url": "/services/data/v51.0/sobjects/npsp__General_Accounting_Unit__c/' + gauId1 + '"',
                         '},',
-                        '"' + disbursementFieldName+ '": "a0s9A000000cuCSQAY",',
-                        '"Id": "' + gauExpenditureId1 + '",',
-                        '"' + gauFieldName + '": "' + gauId1 + '",',
-                        '"'+ amountFieldName + '": 1234.5,',
-                        '"' + gauRelationshipName + '": {',
-                            '"attributes": {',
-                                '"type": "npsp__General_Accounting_Unit__c",',
-                                '"url": "/services/data/v51.0/sobjects/npsp__General_Accounting_Unit__c/' + gauId1 + '"',
-                            '},',
-                            '"Id": "' + gauId1 + '",',
-                            '"Name": "GAU 1",',
-                            '"npsp__Active__c": true',
-                        '}',
-                    '}'
-                },
-                ''
-            ),
+                        '"Id": "' + gauId1 + '",',
+                        '"Name": "GAU 1",',
+                        '"npsp__Active__c": true',
+                    '}',
+                '}'
+            },
+            ''
+        );
+        final GAU_Expenditure__c gauExpenditure1 = (GAU_Expenditure__c) JSON.deserialize(
+            gauExpenditure1Json,
             GAU_Expenditure__c.class
         );
+
         // prettier-ignore
+        final String gauExpenditure2Json = String.join(
+            new List<String> {
+                '{',
+                    '"attributes": {',
+                        '"type": "' + gauExpenditureObjectName + '",',
+                        '"url": "/services/data/v51.0/sobjects/' + gauExpenditureObjectName + '/' + gauExpenditureId2 + '"',
+                    '},',
+                    '"' + disbursementFieldName+ '": "a0s9A000000cuCSQAY",',
+                    '"Id": "' + gauExpenditureId2 + '",',
+                    '"'+ amountFieldName + '": 5432.1',
+                '}'
+            },
+            ''
+        );
         final GAU_Expenditure__c gauExpenditure2 = (GAU_Expenditure__c) JSON.deserialize(
-            String.join(
-                new List<String> {
-                    '{',
-                        '"attributes": {',
-                            '"type": "' + gauExpenditureObjectName + '",',
-                            '"url": "/services/data/v51.0/sobjects/' + gauExpenditureObjectName + '/' + gauExpenditureId2 + '"',
-                        '},',
-                        '"' + disbursementFieldName+ '": "a0s9A000000cuCSQAY",',
-                        '"Id": "' + gauExpenditureId2 + '",',
-                        '"'+ amountFieldName + '": 5432.1',
-                    '}'
-                },
-                ''
-            ),
+            gauExpenditure2Json,
             GAU_Expenditure__c.class
         );
         final List<GAU_Expenditure__c> expenditures = new List<GAU_Expenditure__c>{
@@ -367,7 +370,10 @@ public with sharing class GauExpendituresManager_TEST {
                         '"GAU_Expendatures__r": {',
                             '"totalSize": ' + expenditures.size() + ',',
                             '"done": true,',
-                            '"records": '  + JSON.serialize(expenditures),
+                            '"records": [',
+                                gauExpenditure1Json + ',',
+                                gauExpenditure2Json,
+                            ']',
                         '}',
                     '}'
                 },
