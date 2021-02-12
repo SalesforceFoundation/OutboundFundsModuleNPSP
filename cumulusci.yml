@@ -19,6 +19,8 @@ orgs:
             config_file: orgs/prerelease.json
         beta_prerelease:
             config_file: orgs/beta_prerelease.json
+        2gp:
+            config_file: orgs/2gp.json
 
 tasks:
     robot:
@@ -51,3 +53,22 @@ flows:
         steps:
             3:
                 task: load_storytelling_data
+
+    config_qa:
+        steps:
+            3:
+                task: load_storytelling_data
+
+    config_managed:
+        steps:
+            3:
+                task: load_storytelling_data
+
+    2gp_org:
+        steps:
+            1:
+                flow: install_2gp_commit
+            2:
+                flow: config_managed
+            3:
+                task: snapshot_changes

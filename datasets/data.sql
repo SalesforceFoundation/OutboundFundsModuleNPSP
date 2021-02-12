@@ -27,11 +27,12 @@ CREATE TABLE "Account" (
 	"Description" VARCHAR(255), 
 	PRIMARY KEY (id)
 );
-INSERT INTO "Account" VALUES(1,'STEPS','','','Customer - Direct','Not For Profit','','','303-555-7541','','','','','','2920 Juniper Drive','Denver','Colorado','80230','United States','','','','','','');
-INSERT INTO "Account" VALUES(2,'Hillside Elementary','','','Customer - Direct','Education','','','719-555-9914','','','','','','713 S. 8th Street','Englewood','Colorado','80110','United States','','','','','','');
-INSERT INTO "Account" VALUES(3,'Grantseeker Community: Self-Registered','','','','','','','','','','','','','','','','','','','','','','','Account initially assigned to self-registered users for the Grantseeker Community');
-INSERT INTO "Account" VALUES(4,'Takagawa Institute','','','Customer - Direct','Not For Profit','','','602-555-3542','','','','','','9833 Plateau Street','Phoenix','Arizona','85310','United States','','','','','','');
-INSERT INTO "Account" VALUES(5,'Grantwood City Council','','','Customer - Direct','Government','','','970-555-9633','','','','','','445 North Peak Road','Grantwood','Colorado','80522','United States','','','','','','');
+INSERT INTO "Account" VALUES(1,'Sample Account for Entitlements','','','','','','','','','','','','','','','','','','','','','','','');
+INSERT INTO "Account" VALUES(2,'STEPS','','','Customer - Direct','Not For Profit','','','303-555-7541','','','','','','2920 Juniper Drive','Denver','Colorado','80230','United States','','','','','','');
+INSERT INTO "Account" VALUES(3,'Hillside Elementary','','','Customer - Direct','Education','','','719-555-9914','','','','','','713 S. 8th Street','Englewood','Colorado','80110','United States','','','','','','');
+INSERT INTO "Account" VALUES(4,'Grantseeker Community: Self-Registered','','','','','','','','','','','','','','','','','','','','','','','Account initially assigned to self-registered users for the Grantseeker Community');
+INSERT INTO "Account" VALUES(5,'Takagawa Institute','','','Customer - Direct','Not For Profit','','','602-555-3542','','','','','','9833 Plateau Street','Phoenix','Arizona','85310','United States','','','','','','');
+INSERT INTO "Account" VALUES(6,'Grantwood City Council','','','Customer - Direct','Government','','','970-555-9633','','','','','','445 North Peak Road','Grantwood','Colorado','80522','United States','','','','','','');
 CREATE TABLE "Contact" (
 	id INTEGER NOT NULL, 
 	"Salutation" VARCHAR(255), 
@@ -63,13 +64,32 @@ CREATE TABLE "Contact" (
 	reports_to_id VARCHAR(255), 
 	PRIMARY KEY (id)
 );
-INSERT INTO "Contact" VALUES(1,'Ms.','Ellen','Perez','Program Coordinator','ellen.perez@steps.example.com','','','','303-555-7541','','','','','','2920 Juniper Drive','Denver','Colorado','80230','United States','','','','','','','1','2');
-INSERT INTO "Contact" VALUES(2,'Ms.','Grace','Walker','Development Director','grace.walker@steps.example.com','','','','303-555-7540','','','','','','2920 Juniper Drive','Denver','Colorado','80230','United States','','','','','','','1','');
-INSERT INTO "Contact" VALUES(3,'Mr.','Jermaine','Harmon','Intern','jermaine.harmon@steps.example.com','','','','303-555-7540','','','','','','2920 Juniper Drive','Denver','Colorado','80230','United States','','','','','','','1','');
-INSERT INTO "Contact" VALUES(4,'Mr.','Devon','Berger','Literacy Coach','devon.berger@hillside-elementary.example.com','','','','719-555-9914','','','','','','713 S. 8th Street','Englewood','Colorado','80110','United States','','','','','','','2','');
-INSERT INTO "Contact" VALUES(5,'Ms.','Adriana','Atterberry','Grants Manager','adriana.atterberry@takagawa-institute.example.com','','','','602-555-3543','','','','','','9834 Plateau Street','Phoenix','Arizona','85310','United States','','','','','','','4','6');
-INSERT INTO "Contact" VALUES(6,'Dr.','Meiko','Takagawa','Executive Director','meiko.takagawa@takagawa-institute.example.com','','','','602-555-3542','','','','','','9833 Plateau Street','Phoenix','Arizona','85310','United States','','','','','','','4','');
-INSERT INTO "Contact" VALUES(7,'Mr.','Dillon','Whitaker','Assistant City Manager','dillon.whitaker@gwcity.example.com','','','','719-555-2417','','','','','','445 North Peak Road','Grantwood','Colorado','80522','United States','','','','','','','5','');
+INSERT INTO "Contact" VALUES(1,'Ms.','Ellen','Perez','Program Coordinator','ellen.perez@steps.example.com','','','','303-555-7541','','','','','','2920 Juniper Drive','Denver','Colorado','80230','United States','','','','','','','2','2');
+INSERT INTO "Contact" VALUES(2,'Ms.','Grace','Walker','Development Director','grace.walker@steps.example.com','','','','303-555-7540','','','','','','2920 Juniper Drive','Denver','Colorado','80230','United States','','','','','','','2','');
+INSERT INTO "Contact" VALUES(3,'Mr.','Jermaine','Harmon','Intern','jermaine.harmon@steps.example.com','','','','303-555-7540','','','','','','2920 Juniper Drive','Denver','Colorado','80230','United States','','','','','','','2','');
+INSERT INTO "Contact" VALUES(4,'Mr.','Devon','Berger','Literacy Coach','devon.berger@hillside-elementary.example.com','','','','719-555-9914','','','','','','713 S. 8th Street','Englewood','Colorado','80110','United States','','','','','','','3','');
+INSERT INTO "Contact" VALUES(5,'Ms.','Adriana','Atterberry','Grants Manager','adriana.atterberry@takagawa-institute.example.com','','','','602-555-3543','','','','','','9834 Plateau Street','Phoenix','Arizona','85310','United States','','','','','','','5','6');
+INSERT INTO "Contact" VALUES(6,'Dr.','Meiko','Takagawa','Executive Director','meiko.takagawa@takagawa-institute.example.com','','','','602-555-3542','','','','','','9833 Plateau Street','Phoenix','Arizona','85310','United States','','','','','','','5','');
+INSERT INTO "Contact" VALUES(7,'Mr.','Dillon','Whitaker','Assistant City Manager','dillon.whitaker@gwcity.example.com','','','','719-555-2417','','','','','','445 North Peak Road','Grantwood','Colorado','80522','United States','','','','','','','6','');
+CREATE TABLE "GAU_Expenditure__c" (
+	id INTEGER NOT NULL, 
+	"Amount__c" VARCHAR(255), 
+	general_accounting_unit__c VARCHAR(255), 
+	disbursement__c VARCHAR(255), 
+	PRIMARY KEY (id)
+);
+INSERT INTO "GAU_Expenditure__c" VALUES(1,'1250.0','1','5');
+INSERT INTO "GAU_Expenditure__c" VALUES(2,'3750.0','2','5');
+INSERT INTO "GAU_Expenditure__c" VALUES(3,'5000.0','2','4');
+INSERT INTO "GAU_Expenditure__c" VALUES(4,'4500.0','2','3');
+INSERT INTO "GAU_Expenditure__c" VALUES(5,'500.0','1','3');
+CREATE TABLE "npsp__General_Accounting_Unit__c" (
+	id INTEGER NOT NULL, 
+	"Name" VARCHAR(255), 
+	PRIMARY KEY (id)
+);
+INSERT INTO "npsp__General_Accounting_Unit__c" VALUES(1,'Area of most need');
+INSERT INTO "npsp__General_Accounting_Unit__c" VALUES(2,'Classroom needs');
 CREATE TABLE "outfunds__Disbursement__c" (
 	id INTEGER NOT NULL, 
 	"outfunds__Amount__c" VARCHAR(255), 
@@ -81,11 +101,11 @@ CREATE TABLE "outfunds__Disbursement__c" (
 	outfunds__funding_request__c VARCHAR(255), 
 	PRIMARY KEY (id)
 );
-INSERT INTO "outfunds__Disbursement__c" VALUES(1,'5000.0','2019-07-09','EFT','2019-07-09','Paid','Initial','6');
-INSERT INTO "outfunds__Disbursement__c" VALUES(2,'5000.0','2020-07-09','','2020-07-09','Paid','Interim','6');
-INSERT INTO "outfunds__Disbursement__c" VALUES(3,'5000.0','','EFT','2021-07-09','Scheduled','Final','6');
-INSERT INTO "outfunds__Disbursement__c" VALUES(4,'10000.0','2020-03-28','EFT','2020-03-28','Paid','Initial','2');
-INSERT INTO "outfunds__Disbursement__c" VALUES(5,'40000.0','2019-05-14','EFT','2019-05-14','Paid','Final','4');
+INSERT INTO "outfunds__Disbursement__c" VALUES(1,'10000.0','2020-03-28','EFT','2020-03-28','Paid','Initial','6');
+INSERT INTO "outfunds__Disbursement__c" VALUES(2,'40000.0','2019-05-14','EFT','2019-05-14','Paid','Final','3');
+INSERT INTO "outfunds__Disbursement__c" VALUES(3,'5000.0','2019-07-09','EFT','2019-07-09','Paid','Initial','5');
+INSERT INTO "outfunds__Disbursement__c" VALUES(4,'5000.0','2020-07-09','','2020-07-09','Paid','Interim','5');
+INSERT INTO "outfunds__Disbursement__c" VALUES(5,'5000.0','','EFT','2021-07-09','Scheduled','Final','5');
 CREATE TABLE "outfunds__Funding_Program__c" (
 	id INTEGER NOT NULL, 
 	"Name" VARCHAR(255), 
@@ -117,9 +137,9 @@ CREATE TABLE "outfunds__Funding_Request_Role__c" (
 	outfunds__funding_request__c VARCHAR(255), 
 	PRIMARY KEY (id)
 );
-INSERT INTO "outfunds__Funding_Request_Role__c" VALUES(1,'Grant Manager','Current','5','2');
-INSERT INTO "outfunds__Funding_Request_Role__c" VALUES(2,'Applicant','Current','6','2');
-INSERT INTO "outfunds__Funding_Request_Role__c" VALUES(3,'Applicant','Former','3','4');
+INSERT INTO "outfunds__Funding_Request_Role__c" VALUES(1,'Applicant','Former','3','3');
+INSERT INTO "outfunds__Funding_Request_Role__c" VALUES(2,'Grant Manager','Current','5','6');
+INSERT INTO "outfunds__Funding_Request_Role__c" VALUES(3,'Applicant','Current','6','6');
 CREATE TABLE "outfunds__Funding_Request__c" (
 	id INTEGER NOT NULL, 
 	"Name" VARCHAR(255), 
@@ -142,22 +162,22 @@ CREATE TABLE "outfunds__Funding_Request__c" (
 	funding_program_id VARCHAR(255), 
 	PRIMARY KEY (id)
 );
-INSERT INTO "outfunds__Funding_Request__c" VALUES(1,'Grantwood City Food Bank','','','','','','City','Below Poverty level;Economically Disadvantaged People;Homeless','','100000.0','Grantwood City Food Bank','In progress','','','','','5','4');
-INSERT INTO "outfunds__Funding_Request__c" VALUES(2,'Takagawa Institute: Relief and Reinvestment Grant','2020-03-11','10000.0','2020-03-28','2020-03-28','Fully awarded.','Country','Immigrants and Refugees','10000.0','10000.0','','Fully Disbursed','2021-03-27','2020-03-28','One time payment with one year follow up','6','4','5');
-INSERT INTO "outfunds__Funding_Request__c" VALUES(3,'STEPS to Leadership','2020-02-16','28000.0','','','','Region','Adults;Women','28000.0','28000.0','STEPS to Leadership is a proposed program that came from requests for additional leadership training for our graduates from Skills for Success, a successful program we currently offer to at-risk women in the community. After completing Skills for Success, graduates can learn leadership skills through various trainings, seminars, and one-on-one mentoring that will help prepare these future female leaders.','Submitted','','','','1','1','4');
-INSERT INTO "outfunds__Funding_Request__c" VALUES(4,'Skills for Success','2019-03-21','40000.0','2019-05-14','','','Region','Adults;Women','40000.0','40000.0','Skills for Success addresses an existing gap for at-risk women seeking to learn technical and soft skills to help them find gainful employment in the community. Participants of the program receive:
+INSERT INTO "outfunds__Funding_Request__c" VALUES(1,'Grantwood City Food Bank','','','','','','City','Below Poverty level;Economically Disadvantaged People;Homeless','','100000.0','Grantwood City Food Bank','In progress','','','','','6','4');
+INSERT INTO "outfunds__Funding_Request__c" VALUES(2,'STEPS to Leadership','2020-02-16','28000.0','','','','Region','Adults;Women','28000.0','28000.0','STEPS to Leadership is a proposed program that came from requests for additional leadership training for our graduates from Skills for Success, a successful program we currently offer to at-risk women in the community. After completing Skills for Success, graduates can learn leadership skills through various trainings, seminars, and one-on-one mentoring that will help prepare these future female leaders.','Submitted','','','','1','2','4');
+INSERT INTO "outfunds__Funding_Request__c" VALUES(3,'Skills for Success','2019-03-21','40000.0','2019-05-14','','','Region','Adults;Women','40000.0','40000.0','Skills for Success addresses an existing gap for at-risk women seeking to learn technical and soft skills to help them find gainful employment in the community. Participants of the program receive:
 
 * Vouchers for free community college courses on select topics, such as bookkeeping, computer literacy, and communication skills.
 * Help developing a resume and interview preparation. 
 * One-on-one mentoring with a female business owner in the community.
-* Ongoing support from the STEPS staff.','Awarded','2020-05-30','2019-05-31','1 year','2','1','4');
-INSERT INTO "outfunds__Funding_Request__c" VALUES(5,'Skills for Success','2020-05-31','','','','','Region','Adults;Women','','46000.0','Skills for Success addresses an existing gap for at-risk women seeking to learn technical and soft skills to help them find gainful employment in the community. Participants of the program receive:
+* Ongoing support from the STEPS staff.','Awarded','2020-05-30','2019-05-31','1 year','2','2','4');
+INSERT INTO "outfunds__Funding_Request__c" VALUES(4,'Skills for Success','2020-05-31','','','','','Region','Adults;Women','','46000.0','Skills for Success addresses an existing gap for at-risk women seeking to learn technical and soft skills to help them find gainful employment in the community. Participants of the program receive:
 
 * Vouchers for free community college courses on select topics, such as bookkeeping, computer literacy, and communication skills.
 * Help developing a resume and interview preparation. 
 * One-on-one mentoring with a female business owner in the community.
-* Ongoing support from the STEPS staff.','In progress','','','1 year','2','1','4');
-INSERT INTO "outfunds__Funding_Request__c" VALUES(6,'Eager Beavers Read!','2019-04-25','15000.0','2019-07-09','','','City','Children and Youth','15000.0','15000.0','Eager Beavers Read! is an after school program that helps foster a love of reading in our 1st - 5th grade classes and also provides a safe place for students to go between 3:00 pm and 4:30 pm. Younger children will be paired up with an older student to help expand their early literacy skills, while older students work to develop mentoring skills and confidence.','Awarded','2022-08-13','2019-08-14','3 years','4','2','2');
+* Ongoing support from the STEPS staff.','In progress','','','1 year','2','2','4');
+INSERT INTO "outfunds__Funding_Request__c" VALUES(5,'Eager Beavers Read!','2019-04-25','15000.0','2019-07-09','','','City','Children and Youth','15000.0','15000.0','Eager Beavers Read! is an after school program that helps foster a love of reading in our 1st - 5th grade classes and also provides a safe place for students to go between 3:00 pm and 4:30 pm. Younger children will be paired up with an older student to help expand their early literacy skills, while older students work to develop mentoring skills and confidence.','Awarded','2022-08-13','2019-08-14','3 years','4','3','2');
+INSERT INTO "outfunds__Funding_Request__c" VALUES(6,'Takagawa Institute: Relief and Reinvestment Grant','2020-03-11','10000.0','2020-03-28','2020-03-28','Fully awarded.','Country','Immigrants and Refugees','10000.0','10000.0','','Fully Disbursed','2021-03-27','2020-03-28','One time payment with one year follow up','6','5','5');
 CREATE TABLE "outfunds__Requirement__c" (
 	id INTEGER NOT NULL, 
 	"Name" VARCHAR(255), 
@@ -171,16 +191,16 @@ CREATE TABLE "outfunds__Requirement__c" (
 	outfunds__primary_contact__c VARCHAR(255), 
 	PRIMARY KEY (id)
 );
-INSERT INTO "outfunds__Requirement__c" VALUES(1,'Letter of Intent','2019-04-25','2019-12-30','<p><span style="font-family: Arial; font-size: 10pt; color: rgb(0, 0, 0);">Cover letter</span></p>','Accepted','Letter of Intent','','6','4');
-INSERT INTO "outfunds__Requirement__c" VALUES(2,'Application','2019-04-25','2019-12-30','<p><span style="font-family: Arial; font-size: 10pt; color: rgb(0, 0, 0);">Application</span></p>','Accepted','Final Application','','6','4');
-INSERT INTO "outfunds__Requirement__c" VALUES(3,'Outcome Report','','2022-12-30','<p>Outcome Report</p>','Open','Outcome','','6','4');
-INSERT INTO "outfunds__Requirement__c" VALUES(4,'Budget Report','','2021-12-30','<p><span style="color: rgb(0, 0, 0); font-size: 10pt; font-family: Arial;">Budget Report</span></p>','Open','Report','','6','4');
-INSERT INTO "outfunds__Requirement__c" VALUES(5,'Budget Report','','2020-09-14','<p>Budget Report</p>','Open','Report','','2','6');
-INSERT INTO "outfunds__Requirement__c" VALUES(6,'Outcome Report','','2021-03-31','<p>Outcome Report</p>','Open','Outcome','','2','6');
-INSERT INTO "outfunds__Requirement__c" VALUES(7,'Application','2020-03-11','2020-12-30','<p>Application</p>','Accepted','Final Application','','2','6');
-INSERT INTO "outfunds__Requirement__c" VALUES(8,'Application','2019-03-21','2019-12-30','<p><span style="font-family: Arial; font-size: 10pt; color: rgb(0, 0, 0);">Application</span></p>','Accepted','Final Application','','4','2');
-INSERT INTO "outfunds__Requirement__c" VALUES(9,'Outcome Report','','2020-12-30','<p>Outcome Report</p>','Open','Outcome','','4','2');
-INSERT INTO "outfunds__Requirement__c" VALUES(10,'Proposed Budget','2019-03-21','2019-12-30','<p>Proposed budget</p>','Accepted','Report','','4','2');
-INSERT INTO "outfunds__Requirement__c" VALUES(11,'Budget Report','2020-02-11','2020-12-30','<p>Budget Report</p>','Complete','Report','','4','2');
-INSERT INTO "outfunds__Requirement__c" VALUES(12,'Letter of Intent','2019-03-21','2019-12-30','<p><span style="font-family: Arial; font-size: 10pt; color: rgb(0, 0, 0);">Cover letter</span></p>','Accepted','Letter of Intent','','4','2');
+INSERT INTO "outfunds__Requirement__c" VALUES(1,'Budget Report','','2020-09-14','<p>Budget Report</p>','Open','Report','','6','6');
+INSERT INTO "outfunds__Requirement__c" VALUES(2,'Outcome Report','','2021-03-31','<p>Outcome Report</p>','Open','Outcome','','6','6');
+INSERT INTO "outfunds__Requirement__c" VALUES(3,'Application','2020-03-11','2020-12-30','<p>Application</p>','Accepted','Final Application','','6','6');
+INSERT INTO "outfunds__Requirement__c" VALUES(4,'Application','2019-03-21','2019-12-30','<p><span style="font-family: Arial; font-size: 10pt; color: rgb(0, 0, 0);">Application</span></p>','Accepted','Final Application','','3','2');
+INSERT INTO "outfunds__Requirement__c" VALUES(5,'Outcome Report','','2020-12-30','<p>Outcome Report</p>','Open','Outcome','','3','2');
+INSERT INTO "outfunds__Requirement__c" VALUES(6,'Proposed Budget','2019-03-21','2019-12-30','<p>Proposed budget</p>','Accepted','Report','','3','2');
+INSERT INTO "outfunds__Requirement__c" VALUES(7,'Budget Report','2020-02-11','2020-12-30','<p>Budget Report</p>','Complete','Report','','3','2');
+INSERT INTO "outfunds__Requirement__c" VALUES(8,'Letter of Intent','2019-03-21','2019-12-30','<p><span style="font-family: Arial; font-size: 10pt; color: rgb(0, 0, 0);">Cover letter</span></p>','Accepted','Letter of Intent','','3','2');
+INSERT INTO "outfunds__Requirement__c" VALUES(9,'Letter of Intent','2019-04-25','2019-12-30','<p><span style="font-family: Arial; font-size: 10pt; color: rgb(0, 0, 0);">Cover letter</span></p>','Accepted','Letter of Intent','','5','4');
+INSERT INTO "outfunds__Requirement__c" VALUES(10,'Application','2019-04-25','2019-12-30','<p><span style="font-family: Arial; font-size: 10pt; color: rgb(0, 0, 0);">Application</span></p>','Accepted','Final Application','','5','4');
+INSERT INTO "outfunds__Requirement__c" VALUES(11,'Outcome Report','','2022-12-30','<p>Outcome Report</p>','Open','Outcome','','5','4');
+INSERT INTO "outfunds__Requirement__c" VALUES(12,'Budget Report','','2021-12-30','<p><span style="color: rgb(0, 0, 0); font-size: 10pt; font-family: Arial;">Budget Report</span></p>','Open','Report','','5','4');
 COMMIT;
