@@ -2,7 +2,7 @@ project:
     name: OutboundFundsNPSP
     package:
         name: Outbound Funds (npsp)
-        namespace: outfundsnpspext
+        namespace: lh6uuas
         api_version: "50.0"
     dependencies:
         - github: "https://github.com/SalesforceFoundation/NPSP"
@@ -23,6 +23,11 @@ orgs:
             config_file: orgs/2gp.json
 
 tasks:
+    # Automerge Major Release Branches
+    github_automerge_feature:
+        options:
+            update_future_releases: True
+
     robot:
         options:
             suites: robot/OutboundFundsNPSP/tests
@@ -49,6 +54,23 @@ tasks:
             sql_path: datasets/data.sql
 
 flows:
+    dependencies:
+        steps:
+            1:
+                task: update_dependencies
+                options:
+                    include_beta: False
+
+    install_2gp_commit:
+        steps:
+            2:
+                flow: dependencies
+                options:
+                    update_dependencies:
+                        include_beta: False
+                        dependencies: ^^github_package_data.dependencies
+                        prefer_2gp_from_release_branch: True
+
     config_dev:
         steps:
             3:
