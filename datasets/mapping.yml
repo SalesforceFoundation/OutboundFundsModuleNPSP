@@ -169,3 +169,24 @@ outfunds__Requirement__c:
     outfunds__Primary_Contact__c:
       key_field: outfunds__primary_contact__c
       table: Contact
+
+npsp__General_Accounting_Unit__c:
+  sf_object: npsp__General_Accounting_Unit__c
+  table: npsp__General_Accounting_Unit__c
+  anchor_date: "2020-07-01"
+  fields:
+    - Name
+
+GAU_Expenditure__c:
+  sf_object: GAU_Expenditure__c
+  table: GAU_Expenditure__c
+  anchor_date: "2020-07-01"
+  fields:
+    - Amount__c
+  lookups:
+    General_Accounting_Unit__c:
+      key_field: general_accounting_unit__c
+      table: npsp__General_Accounting_Unit__c
+    Disbursement__c:
+      key_field: disbursement__c
+      table: outfunds__Disbursement__c
