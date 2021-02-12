@@ -1,0 +1,40 @@
+{
+  "orgName": "Outbound Funds (npsp) - 2gp Org",
+  "edition": "Developer",
+  "instance": "cs46",
+  "settings": {
+    "enhancedNotesSettings": {
+      "enableEnhancedNotes": true
+    },
+    "accountSettings": {
+      "enableRelateContactToMultipleAccounts": true
+    },
+    "lightningExperienceSettings": {
+      "enableS1DesktopEnabled": true
+    },
+    "mobileSettings": {
+      "enableS1EncryptedStoragePref2": false
+    },
+    "userManagementSettings": {
+      "enableEnhancedPermsetMgmt": true,
+      "enableEnhancedProfileMgmt": true,
+      "enableNewProfileUI": true,
+      "enableScrambleUserData": true
+    },
+    "chatterSettings": {
+      "enableChatter": true
+    },
+    "languageSettings": {
+      "enableTranslationWorkbench": true
+    },
+    "securitySettings": {
+      "enableAdminLoginAsAnyUser": true,
+      "sessionSettings": {
+        "forceRelogin": false
+      }
+    },
+    "sharingSettings": {
+      "enableSecureGuestAccess": true
+    }
+  }
+}
