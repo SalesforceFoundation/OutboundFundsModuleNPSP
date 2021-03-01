@@ -53,6 +53,13 @@ tasks:
             mapping: datasets/mapping.yml
             sql_path: datasets/data.sql
 
+    robot_deploy_layouts:
+        class_path: cumulusci.tasks.salesforce.Deploy
+        description: "Deploy Page Layouts for Robot Test"
+        options:
+            path: robot/OutboundFundsNPSP/resources/layouts
+
+
 flows:
     config_dev:
         steps:
@@ -63,6 +70,8 @@ flows:
         steps:
             3:
                 task: load_storytelling_data
+            4:
+                task: robot_deploy_layouts
 
     config_managed:
         steps:
