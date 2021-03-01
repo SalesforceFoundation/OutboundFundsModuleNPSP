@@ -23,6 +23,11 @@ orgs:
             config_file: orgs/2gp.json
 
 tasks:
+    # Automerge Major Release Branches
+    github_automerge_feature:
+        options:
+            update_future_releases: True
+
     robot:
         options:
             suites: robot/OutboundFundsNPSP/tests
