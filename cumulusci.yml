@@ -59,7 +59,6 @@ tasks:
         options:
             path: robot/OutboundFundsNPSP/resources/layouts
 
-
 flows:
     config_dev:
         steps:
