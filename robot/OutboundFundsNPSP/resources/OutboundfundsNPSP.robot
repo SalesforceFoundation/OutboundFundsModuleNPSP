@@ -116,7 +116,6 @@ API Create Disbursement on a Funding Request
     Store Session Record            outfunds__disbursement__c   ${disbursement_id}
     [Return]                        &{disbursement}
 
-
 API Create GAU
     [Documentation]                Create a GAU
     [Arguments]                    &{fields}
@@ -140,4 +139,3 @@ API Create GAU Expenditure
     &{gauexp} =                    Salesforce Get  GAU_Expenditure__c  ${gauexpenditure_id}
     Store Session Record           GAU_Expenditure__c   ${gauexpenditure_id}
     [Return]                       &{gauexp}
-

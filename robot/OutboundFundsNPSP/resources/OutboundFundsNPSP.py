@@ -160,3 +160,4 @@ class OutboundFundsNPSP(BaseOutboundFundsNPSPPage):
         self.selenium.wait_until_page_contains_element(locator)
         element = self.selenium.driver.find_element_by_xpath(locator)
         self.selenium.driver.execute_script("arguments[0].click()", element)
+
