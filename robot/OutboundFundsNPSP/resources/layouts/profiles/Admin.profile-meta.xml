@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Profile xmlns="http://soap.sforce.com/2006/04/metadata">
+    <userLicense>Salesforce</userLicense>
+    <custom>false</custom>
+    <layoutAssignments>
+        <layout>%%%NAMESPACE%%%GAU_Expenditure__c-%%%NAMESPACE%%%GAU Expenditure Layout</layout>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>npsp__General_Accounting_Unit__c-%%%NAMESPACE%%%GAU Outbound Funds Layout</layout>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>outfunds__Disbursement__c-%%%NAMESPACE%%%Disbursement NPSP Layout</layout>
+    </layoutAssignments>
+</Profile>
