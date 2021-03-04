@@ -153,3 +153,10 @@ class OutboundFundsNPSP(BaseOutboundFundsNPSPPage):
         )
         element = self.selenium.driver.find_element_by_xpath(locator)
         self.selenium.driver.execute_script("arguments[0].click()", element)
+
+    def click_related_list_link_with_text(self, text):
+        """Click on link with passed text in a related list table"""
+        locator = outboundfundsnpsp_lex_locators["related"]["related_link"].format(text)
+        self.selenium.wait_until_page_contains_element(locator)
+        element = self.selenium.driver.find_element_by_xpath(locator)
+        self.selenium.driver.execute_script("arguments[0].click()", element)
