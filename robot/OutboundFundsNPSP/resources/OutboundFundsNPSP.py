@@ -75,9 +75,7 @@ class OutboundFundsNPSP(BaseOutboundFundsNPSPPage):
         if not hasattr(self.cumulusci, "_describe_result"):
             self.cumulusci._describe_result = self.cumulusci.sf.describe()
         objects = self.cumulusci._describe_result["sobjects"]
-        gau_object = [o for o in objects if o["label"] == "General Accounting Unit"][
-            0
-        ]
+        gau_object = [o for o in objects if o["label"] == "General Accounting Unit"][0]
         return self.get_namespace_prefix(gau_object["name"])
 
     def _check_if_element_exists(self, xpath):
@@ -195,5 +193,3 @@ class OutboundFundsNPSP(BaseOutboundFundsNPSPPage):
         )
         self.salesforce._jsclick(locator)
         self.salesforce.wait_until_loading_is_complete()
-
-
