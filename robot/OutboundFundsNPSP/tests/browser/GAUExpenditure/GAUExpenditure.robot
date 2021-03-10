@@ -10,14 +10,18 @@ Suite Teardown  Capture Screenshot And Delete Records And Close Browser
 
 *** Keywords ***
 Setup Test Data
+    ${ns} =                            Get Outfundsnpsp Namespace Prefix
+    Set suite variable                 ${ns}
+    ${ns_npsp} =                       Get NPSP Namespace Prefix
+    Set suite variable                 ${ns_npsp}
     ${fundingprogram} =                 API Create Funding Program
-    Store Session Record                outfunds__Funding_Program__c         ${fundingprogram}[Id]
+    Store Session Record                ${ns}Funding_Program__c         ${fundingprogram}[Id]
     Set suite variable                  ${fundingprogram}
     ${contact} =                        API Create Contact
     Store Session Record                Contact                              ${contact}[Id]
     Set suite variable                  ${contact}
     ${funding_request} =                API Create Funding Request           ${fundingprogram}[Id]     ${contact}[Id]
-    Store Session Record                outfunds__Funding_Request__c         ${funding_request}[Id]
+    Store Session Record                ${ns}Funding_Request__c         ${funding_request}[Id]
     Set suite variable                  ${funding_request}
     ${disbursement}                     API Create Disbursement on a Funding Request  ${funding_request}[Id]
     Set Suite Variable                  ${disbursement}
@@ -29,7 +33,7 @@ Setup Test Data
 *** Test Case ***
 Verify GAU Expenditure created is added on Disbursement
 
-    Go To Page                                  Listing          outfunds__Funding_Request__c
+    Go To Page                                  Listing          ${ns}Funding_Request__c
     Click Link With Text                        ${funding_request}[Name]
     Click Tab                                   Disbursements
     Click Related List Link with Text           ${disbursement}[Name]

@@ -53,6 +53,33 @@ class OutboundFundsNPSP(BaseOutboundFundsNPSPPage):
         locators = locators_by_api_version[self.latest_api_version]
         outboundfundsnpsp_lex_locators.update(locators)
 
+    def get_namespace_prefix(self, name):
+        parts = name.split("__")
+        if parts[-1] == "c":
+            parts = parts[:-1]
+        if len(parts) > 1:
+            return parts[0] + "__"
+        else:
+            return ""
+
+    def get_outfundsnpsp_namespace_prefix(self):
+        if not hasattr(self.cumulusci, "_describe_result"):
+            self.cumulusci._describe_result = self.cumulusci.sf.describe()
+        objects = self.cumulusci._describe_result["sobjects"]
+        fundingprogram_object = [o for o in objects if o["label"] == "Funding Program"][
+            0
+        ]
+        return self.get_namespace_prefix(fundingprogram_object["name"])
+
+    def get_npsp_namespace_prefix(self):
+        if not hasattr(self.cumulusci, "_describe_result"):
+            self.cumulusci._describe_result = self.cumulusci.sf.describe()
+        objects = self.cumulusci._describe_result["sobjects"]
+        gau_object = [o for o in objects if o["label"] == "General Accounting Unit"][
+            0
+        ]
+        return self.get_namespace_prefix(gau_object["name"])
+
     def _check_if_element_exists(self, xpath):
         """Checks if the given xpath exists
         this is only a helper function being called from other keywords
@@ -156,7 +183,17 @@ class OutboundFundsNPSP(BaseOutboundFundsNPSPPage):
 
     def click_related_list_link_with_text(self, text):
         """Click on link with passed text in a related list table"""
-        locator = outboundfundsnpsp_lex_locators["related"]["related_link"].format(text)
+        locator = outboundfundsnpsp_lex_locators["related"]["flexi_link"].format(text)
         self.selenium.wait_until_page_contains_element(locator)
         element = self.selenium.driver.find_element_by_xpath(locator)
         self.selenium.driver.execute_script("arguments[0].click()", element)
+
+    def click_related_list_wrapper_button(self, heading, button_title):
+        """ loads the related list  and clicks on the button on the list """
+        locator = outboundfundsnpsp_lex_locators["related"]["flexi_button"].format(
+            heading, button_title
+        )
+        self.salesforce._jsclick(locator)
+        self.salesforce.wait_until_loading_is_complete()
+
+
