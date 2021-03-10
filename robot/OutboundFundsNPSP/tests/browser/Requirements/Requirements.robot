@@ -35,8 +35,8 @@ Add a Requirement on a Funding Request
     Wait Until Loading Is Complete
     Current Page Should Be                      Details          Funding_Request__c
     Click Tab                                   Requirements
-    click related list wrapper button           Requirements                               New
-    Wait For Modal                              New Requirement
+    click related list wrapper button           Requirements            New
+    Wait For Modal                              New                     Requirement
     Populate Field                              Requirement Name        ${req_name}
     Populate Lookup Field                       Primary Contact     ${contact}[Name]
     Click Save
