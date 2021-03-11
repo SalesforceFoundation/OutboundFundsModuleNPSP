@@ -3,6 +3,7 @@
 Resource       robot/OutboundFundsNPSP/resources/OutboundFundsNPSP.robot
 Library        cumulusci.robotframework.PageObjects
 ...            robot/OutboundFundsNPSP/resources/FundingRequestPageObject.py
+...            robot/OutboundFundsNPSP/resources/OutboundFundsNPSP.py
 
 Suite Setup     Run keywords
 ...             Open Test Browser
