@@ -193,3 +193,10 @@ class OutboundFundsNPSP(BaseOutboundFundsNPSPPage):
         )
         self.salesforce._jsclick(locator)
         self.salesforce.wait_until_loading_is_complete()
+
+    @capture_screenshot_on_error
+    def save_disbursement(self):
+        """Click Save Disbursement"""
+        locator = outboundfundsnpsp_lex_locators["details"]["button"].format("Save")
+        self.selenium.set_focus_to_element(locator)
+        self.selenium.get_webelement(locator).click()
