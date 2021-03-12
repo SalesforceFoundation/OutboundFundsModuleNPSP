@@ -5,25 +5,20 @@ from BaseObjects import BaseOutboundFundsNPSPPage
 from cumulusci.robotframework.utils import capture_screenshot_on_error
 
 
-@pageobject("Listing", "outfunds__Funding_Program__c")
+@pageobject("Listing", "Funding_Program__c")
 class FundingProgramListingPage(BaseOutboundFundsNPSPPage, ListingPage):
-    object_name = "outfunds__Funding_Program__c"
-
     @capture_screenshot_on_error
     def _is_current_page(self):
         """Verify we are on the Funding Program Listing page
         by verifying that the url contains '/view'
         """
         self.selenium.location_should_contain(
-            "/lightning/o/outfunds__Funding_Program__c/list?",
-            message="Current page is not a Funding Program List view",
+            "/list?", message="Current page is not a Funding Program List view",
         )
 
 
-@pageobject("Details", "outfunds__Funding_Program__c")
+@pageobject("Details", "Funding_Program__c")
 class FundingProgramDetailPage(BaseOutboundFundsNPSPPage, DetailPage):
-    object_name = "outfunds__Funding_Program__c"
-
     @capture_screenshot_on_error
     def _is_current_page(self):
         """Verify we are on the Funding Program detail page

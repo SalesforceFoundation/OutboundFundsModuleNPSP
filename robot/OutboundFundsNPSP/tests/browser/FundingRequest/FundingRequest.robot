@@ -12,6 +12,8 @@ Suite Teardown  Capture Screenshot And Delete Records And Close Browser
 
 *** Keywords ***
 Setup Test Data
+    ${ns} =                              Get Outfundsnpsp Namespace Prefix
+    Set suite variable                  ${ns}
     ${fundingprogram} =                 API Create Funding Program
     Store Session Record                outfunds__Funding_Program__c         ${fundingprogram}[Id]
     Set suite variable                  ${fundingprogram}
@@ -36,18 +38,18 @@ Create Funding Request Via API
     ...                                         Verifies that Funding Request is created and
     ...                                         displays under recently viewed Funding Request
     [tags]                                      W-8865884        feature:FundingRequest
-    Go To Page                                  Listing          outfunds__Funding_Request__c
+    Go To Page                                  Listing          ${ns}Funding_Request__c
     Click Link With Text                        ${funding_request}[Name]
     Wait Until Loading Is Complete
-    Current Page Should Be                      Details          outfunds__Funding_Request__c
+    Current Page Should Be                      Details          Funding_Request__c
     Validate Field Value                        Status  contains    In progress
     Validate Field Value                        Funding Request Name    contains    ${funding_request}[Name]
 
-Create Funding Request via UI in Grants Management
+Create Funding Request via UI
      [Documentation]                            Creates a Funding Request via UI.
      ...                                        Verifies that Funding Request is created.
      [tags]                                     W-8865897       feature:FundingRequest
-     Go To Page                                 Listing          outfunds__Funding_Request__c
+     Go To Page                                 Listing          ${ns}Funding_Request__c
      Click Object Button                        New
      wait until modal is open
      Populate Field                             Funding Request Name    ${fr_name}
@@ -55,5 +57,5 @@ Create Funding Request via UI in Grants Management
      Populate Lookup Field                      Applying Contact    ${contact}[Name]
      Click Save
      wait until modal is closed
-     Current Page Should Be                     Details           outfunds__Funding_Request__c
+     Current Page Should Be                     Details           Funding_Request__c
      Validate Field Value                       Funding Request Name           contains         ${fr_name}

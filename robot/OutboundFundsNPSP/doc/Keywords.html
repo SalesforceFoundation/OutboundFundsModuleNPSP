@@ -162,8 +162,8 @@
             <!-- this is the header for the documentation as a whole -->
             <div class="header">
                 <h1 class="title">Outbound Funds (npsp)</h1>
-                <div class="filter right">
-                    filter: <input id="filter" type="filter/" />
+                <div class="“filter" right”>
+                    filter: <input id="“filter”" type="“filter”" />
                 </div>
             </div>
 
@@ -218,6 +218,40 @@
                                 </td>
                             </tr>
 
+                            <tr
+                                class="kwrow"
+                                id="OutboundFundsNPSP.py.Click Related List Link With Text"
+                            >
+                                <td class="kwname">Click Related List Link With Text</td>
+                                <td class="kwargs">
+                                    <i>text</i>
+                                </td>
+                                <td class="kwdoc">
+                                    <p>
+                                        Click on link with passed text in a related list
+                                        table
+                                    </p>
+                                </td>
+                            </tr>
+
+                            <tr
+                                class="kwrow"
+                                id="OutboundFundsNPSP.py.Click Related List Wrapper Button"
+                            >
+                                <td class="kwname">Click Related List Wrapper Button</td>
+                                <td class="kwargs">
+                                    <i>heading</i>,
+
+                                    <i>button_title</i>
+                                </td>
+                                <td class="kwdoc">
+                                    <p>
+                                        loads the related list and clicks on the button on
+                                        the list
+                                    </p>
+                                </td>
+                            </tr>
+
                             <tr class="kwrow" id="OutboundFundsNPSP.py.Click Save">
                                 <td class="kwname">Click Save</td>
                                 <td class="kwargs"></td>
@@ -250,6 +284,35 @@
                                         prefix
                                     </p>
                                 </td>
+                            </tr>
+
+                            <tr
+                                class="kwrow"
+                                id="OutboundFundsNPSP.py.Get Namespace Prefix"
+                            >
+                                <td class="kwname">Get Namespace Prefix</td>
+                                <td class="kwargs">
+                                    <i>name</i>
+                                </td>
+                                <td class="kwdoc"></td>
+                            </tr>
+
+                            <tr
+                                class="kwrow"
+                                id="OutboundFundsNPSP.py.Get Npsp Namespace Prefix"
+                            >
+                                <td class="kwname">Get Npsp Namespace Prefix</td>
+                                <td class="kwargs"></td>
+                                <td class="kwdoc"></td>
+                            </tr>
+
+                            <tr
+                                class="kwrow"
+                                id="OutboundFundsNPSP.py.Get Outfundsnpsp Namespace Prefix"
+                            >
+                                <td class="kwname">Get Outfundsnpsp Namespace Prefix</td>
+                                <td class="kwargs"></td>
+                                <td class="kwdoc"></td>
                             </tr>
 
                             <tr class="kwrow" id="OutboundFundsNPSP.py.New Random String">
@@ -458,6 +521,31 @@
                                 </td>
                             </tr>
 
+                            <tr class="kwrow" id="OutboundFundsNPSP.robot.API Create GAU">
+                                <td class="kwname">API Create GAU</td>
+                                <td class="kwargs">
+                                    <i>**fields</i>
+                                </td>
+                                <td class="kwdoc"><p>Create a GAU</p></td>
+                            </tr>
+
+                            <tr
+                                class="kwrow"
+                                id="OutboundFundsNPSP.robot.API Create GAU Expenditure"
+                            >
+                                <td class="kwname">API Create GAU Expenditure</td>
+                                <td class="kwargs">
+                                    <i>gau_id</i>,
+
+                                    <i>disbursement_id</i>,
+
+                                    <i>**fields</i>
+                                </td>
+                                <td class="kwdoc">
+                                    <p>Create a GAU Expenditure on Disbursement</p>
+                                </td>
+                            </tr>
+
                             <tr
                                 class="kwrow"
                                 id="OutboundFundsNPSP.robot.API Create Requirement on a Funding Request"
@@ -498,6 +586,90 @@
                                     </p>
                                 </td>
                             </tr>
+
+                            <tr
+                                class="kwrow"
+                                id="OutboundFundsNPSP.robot.Change Field Permissions"
+                            >
+                                <td class="kwname">Change Field Permissions</td>
+                                <td class="kwargs">
+                                    <i>action</i>,
+
+                                    <i>objectapiname</i>,
+
+                                    <i>fieldapiname</i>,
+
+                                    <i>permset</i>
+                                </td>
+                                <td class="kwdoc">
+                                    <p>
+                                        Adds or removes the Create, Read, Edit and Delete
+                                        permissions for the specified object field on the
+                                        specified permission set.
+                                    </p>
+                                </td>
+                            </tr>
+
+                            <tr
+                                class="kwrow"
+                                id="OutboundFundsNPSP.robot.Change Object Permissions"
+                            >
+                                <td class="kwname">Change Object Permissions</td>
+                                <td class="kwargs">
+                                    <i>action</i>,
+
+                                    <i>objectapiname</i>,
+
+                                    <i>permset</i>
+                                </td>
+                                <td class="kwdoc">
+                                    <p>
+                                        Adds or removes the Create, Read, Edit and Delete
+                                        permissions for the specified object on the
+                                        specified permission set..
+                                    </p>
+                                </td>
+                            </tr>
+
+                            <tr
+                                class="kwrow"
+                                id="OutboundFundsNPSP.robot.Field Permissions Cleanup"
+                            >
+                                <td class="kwname">Field Permissions Cleanup</td>
+                                <td class="kwargs">
+                                    <i>objectapiname</i>,
+
+                                    <i>fieldapiname</i>,
+
+                                    <i>permset</i>
+                                </td>
+                                <td class="kwdoc">
+                                    <p>
+                                        Resets all field permissions in case a test fails
+                                        before they are restored. Skips the reset if the
+                                        permissions have already been added back.
+                                    </p>
+                                </td>
+                            </tr>
+
+                            <tr
+                                class="kwrow"
+                                id="OutboundFundsNPSP.robot.Object Permissions Cleanup"
+                            >
+                                <td class="kwname">Object Permissions Cleanup</td>
+                                <td class="kwargs">
+                                    <i>objectapiname</i>,
+
+                                    <i>permset</i>
+                                </td>
+                                <td class="kwdoc">
+                                    <p>
+                                        Resets all object permissions in case a test fails
+                                        before they are restored. Skips the reset if the
+                                        permissions have already been added back.
+                                    </p>
+                                </td>
+                            </tr>
                         </tbody>
                     </table>
                 </div>
@@ -518,15 +690,13 @@
                     </div>
                 </div>
 
-                <div class="section" pageobject="Details-outfunds__Funding_Program__c">
+                <div class="section" pageobject="Details-Funding_Program__c">
                     <div class="pageobject-header">
                         <table class="pageobject-header">
                             <tbody>
                                 <tr class="data">
                                     <td title="Page Type">Details</td>
-                                    <td title="Object Name">
-                                        outfunds__Funding_Program__c
-                                    </td>
+                                    <td title="Object Name">Funding_Program__c</td>
                                 </tr>
                                 <tr class="labels">
                                     <td>Page Type</td>
@@ -569,15 +739,13 @@
                     </table>
                 </div>
 
-                <div class="section" pageobject="Listing-outfunds__Funding_Program__c">
+                <div class="section" pageobject="Listing-Funding_Program__c">
                     <div class="pageobject-header">
                         <table class="pageobject-header">
                             <tbody>
                                 <tr class="data">
                                     <td title="Page Type">Listing</td>
-                                    <td title="Object Name">
-                                        outfunds__Funding_Program__c
-                                    </td>
+                                    <td title="Object Name">Funding_Program__c</td>
                                 </tr>
                                 <tr class="labels">
                                     <td>Page Type</td>
@@ -636,15 +804,13 @@
                     </div>
                 </div>
 
-                <div class="section" pageobject="Details-outfunds__Funding_Request__c">
+                <div class="section" pageobject="Details-Funding_Request__c">
                     <div class="pageobject-header">
                         <table class="pageobject-header">
                             <tbody>
                                 <tr class="data">
                                     <td title="Page Type">Details</td>
-                                    <td title="Object Name">
-                                        outfunds__Funding_Request__c
-                                    </td>
+                                    <td title="Object Name">Funding_Request__c</td>
                                 </tr>
                                 <tr class="labels">
                                     <td>Page Type</td>
@@ -687,15 +853,13 @@
                     </table>
                 </div>
 
-                <div class="section" pageobject="Listing-outfunds__Funding_Request__c">
+                <div class="section" pageobject="Listing-Funding_Request__c">
                     <div class="pageobject-header">
                         <table class="pageobject-header">
                             <tbody>
                                 <tr class="data">
                                     <td title="Page Type">Listing</td>
-                                    <td title="Object Name">
-                                        outfunds__Funding_Request__c
-                                    </td>
+                                    <td title="Object Name">Funding_Request__c</td>
                                 </tr>
                                 <tr class="labels">
                                     <td>Page Type</td>
@@ -740,7 +904,7 @@
             </div>
         </div>
         <div class="footer">
-            Generated on Friday February 05, 12:52 PM - cumulusci v3.28.0
+            Generated on Wednesday March 10, 03:47 PM - cumulusci v3.28.0
         </div>
     </body>
 </html>
