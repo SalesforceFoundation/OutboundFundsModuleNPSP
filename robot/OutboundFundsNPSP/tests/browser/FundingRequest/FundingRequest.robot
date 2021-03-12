@@ -12,20 +12,20 @@ Suite Teardown  Capture Screenshot And Delete Records And Close Browser
 
 *** Keywords ***
 Setup Test Data
-    ${ns} =                              Get Outfundsnpsp Namespace Prefix
+    ${ns} =                             Get Outfundsnpsp Namespace Prefix
     Set suite variable                  ${ns}
     ${fundingprogram} =                 API Create Funding Program
-    Store Session Record                outfunds__Funding_Program__c         ${fundingprogram}[Id]
+    Store Session Record                ${ns}Funding_Program__c         ${fundingprogram}[Id]
     Set suite variable                  ${fundingprogram}
     ${contact} =                        API Create Contact
     Store Session Record                Contact                              ${contact}[Id]
     Set suite variable                  ${contact}
     ${funding_request} =                API Create Funding Request           ${fundingprogram}[Id]     ${contact}[Id]
-    Store Session Record                outfunds__Funding_Request__c         ${funding_request}[Id]
+    Store Session Record                ${ns}Funding_Request__c             ${funding_request}[Id]
     Set suite variable                  ${funding_request}
     ${awardedfunding_request} =         API Create Funding Request           ${fundingprogram}[Id]     ${contact}[Id]
-    ...                                 outfunds__Status__c=Awarded     outfunds__Awarded_Amount__c=100000
-    Store Session Record                outfunds__Funding_Request__c         ${awardedfunding_request}[Id]
+    ...                                 ${ns}Status__c=Awarded          ${ns}Awarded_Amount__c=100000
+    Store Session Record                ${ns}Funding_Request__c         ${awardedfunding_request}[Id]
     Set suite variable                  ${awardedfunding_request}
     ${fr_name} =                        Generate New String
     Set suite variable                  ${fr_name}
@@ -59,3 +59,23 @@ Create Funding Request via UI
      wait until modal is closed
      Current Page Should Be                     Details           Funding_Request__c
      Validate Field Value                       Funding Request Name           contains         ${fr_name}
+
+Add a Disbursement on an awarded Funding Request
+    [Documentation]                             Creates a Funding Request via API.
+    ...                                         Go to Disbursements and add a new Disbursement
+    [tags]                                      feature:Funding Request    Disbursements
+    Go To Page                                  Listing          ${ns}Funding_Request__c
+    Click Link With Text                        ${awardedfunding_request}[Name]
+    Wait Until Loading Is Complete
+    Current Page Should Be                      Details          Funding_Request__c
+    Click button                                Create Disbursements
+    wait until modal is open
+    Populate Field                              Number of Disbursements     4
+    Populate Field                              Interval    4
+    Populate Field                              Amount      80000
+    click button                                Calculate
+    Wait Until Element Is Visible               text:Scheduled Date
+    Save Disbursement
+    Current Page Should Be                      Details          Funding_Request__c
+    Validate Field Value                        Unpaid Disbursements          contains         $80,000.00
+    Validate Field Value                        Available for Disbursement          contains         $20,000.00
