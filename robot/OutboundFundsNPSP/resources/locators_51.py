@@ -46,5 +46,9 @@ outboundfundsnpsp_lex_locators = {
         "flexi_button": "//div[@lst-listviewmanagerheader_listviewmanagerheader][.//span[@title='{}']]//lightning-button//button[text()='{}']",
         "flexi_link": "//a//span[contains(text(),'{}')]",
     },
+    "details": {
+        "button": "//button[contains(@class, 'slds-button') and text() = '{}']",
+        "header": "//h1//div[contains(@class, 'entityNameTitle') and contains(text(),'{}')]",
+    },
     "link": "//a[contains(text(),'{}')]",
 }
