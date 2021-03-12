@@ -1,6 +1,11 @@
 *** Settings ***
+<<<<<<< HEAD
 Documentation  Create Funding Program
 Resource       robot/OutboundFundsNPSP/resources/OutboundfundsNPSP.robot
+=======
+
+Resource       robot/OutboundFundsNPSP/resources/OutboundFundsNPSP.robot
+>>>>>>> 1a2efb9 ( Add Disbursement via Reelated list)
 Library        cumulusci.robotframework.PageObjects
 ...            robot/OutboundFundsNPSP/resources/FundingProgramPageObject.py
 ...            robot/OutboundFundsNPSP/resources/OutboundFundsNPSP.py
