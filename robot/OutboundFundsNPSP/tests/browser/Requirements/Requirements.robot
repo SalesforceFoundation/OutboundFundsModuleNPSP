@@ -1,5 +1,5 @@
 *** Settings ***
-
+Documentation  Create Requirement on a Funding Request
 Resource       robot/OutboundFundsNPSP/resources/OutboundfundsNPSP.robot
 Library        cumulusci.robotframework.PageObjects
 ...            robot/OutboundFundsNPSP/resources/FundingRequestPageObject.py
@@ -12,6 +12,7 @@ Suite Teardown  Capture Screenshot And Delete Records And Close Browser
 
 *** Keywords ***
 Setup Test Data
+    [Documentation]                   Create data to run tests
     ${ns} =                           Get Outfundsnpsp Namespace Prefix
     Set Suite Variable                ${ns}
     ${fundingprogram} =               API Create Funding Program
@@ -19,8 +20,10 @@ Setup Test Data
     ${contact} =                      API Create Contact
     Store Session Record              Contact                              ${contact}[Id]
     Set suite variable                ${contact}
-    ${funding_request} =              API Create Funding Request           ${fundingprogram}[Id]     ${contact}[Id]
-    ...                               ${ns}Status__c=In Progress          ${ns}Awarded_Amount__c=100000
+    ${funding_request} =              API Create Funding Request
+    ...                               ${fundingprogram}[Id]     ${contact}[Id]
+    ...                               ${ns}Status__c=In Progress
+    ...                               ${ns}Awarded_Amount__c=100000
     Store Session Record              ${ns}Funding_Request__c         ${funding_request}[Id]
     Set suite variable                ${funding_request}
     ${req_name} =                     Generate New String
@@ -43,5 +46,5 @@ Add a Requirement on a Funding Request
     Click Save
     wait until modal is closed
     Click Related List Link With Text           ${req_name}
-    Validate Field Value                        Requirement Name           contains         ${req_name}
+    Validate Field Value                        Requirement Name    contains    ${req_name}
     Validate Field Value                        Primary Contact    contains    ${contact}[Name]
