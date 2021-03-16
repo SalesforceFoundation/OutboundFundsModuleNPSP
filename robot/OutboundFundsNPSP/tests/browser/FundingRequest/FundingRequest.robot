@@ -1,5 +1,5 @@
 *** Settings ***
-
+Documentation  Create Funding Request, Add Disbursement on an Awarded Funding Request
 Resource       robot/OutboundFundsNPSP/resources/OutboundfundsNPSP.robot
 Library        cumulusci.robotframework.PageObjects
 ...            robot/OutboundFundsNPSP/resources/FundingRequestPageObject.py
@@ -12,20 +12,23 @@ Suite Teardown  Capture Screenshot And Delete Records And Close Browser
 
 *** Keywords ***
 Setup Test Data
+    [Documentation]                   Create data to run tests
     ${ns} =                             Get Outfundsnpsp Namespace Prefix
     Set suite variable                  ${ns}
     ${fundingprogram} =                 API Create Funding Program
     Store Session Record                ${ns}Funding_Program__c         ${fundingprogram}[Id]
     Set suite variable                  ${fundingprogram}
     ${contact} =                        API Create Contact
-    Store Session Record                Contact                              ${contact}[Id]
+    Store Session Record                Contact                   ${contact}[Id]
     Set suite variable                  ${contact}
-    ${funding_request} =                API Create Funding Request           ${fundingprogram}[Id]     ${contact}[Id]
+    ${funding_request} =                API Create Funding Request
+    ...                                 ${fundingprogram}[Id]     ${contact}[Id]
     Store Session Record                ${ns}Funding_Request__c             ${funding_request}[Id]
     Set suite variable                  ${funding_request}
-    ${awardedfunding_request} =         API Create Funding Request           ${fundingprogram}[Id]     ${contact}[Id]
-    ...                                 ${ns}Status__c=Awarded          ${ns}Awarded_Amount__c=100000
-    Store Session Record                ${ns}Funding_Request__c         ${awardedfunding_request}[Id]
+    ${awardedfunding_request} =         API Create Funding Request
+    ...                                 ${fundingprogram}[Id]     ${contact}[Id]
+    ...                                 ${ns}Status__c=Awarded  ${ns}Awarded_Amount__c=100000
+    Store Session Record                ${ns}Funding_Request__c     ${awardedfunding_request}[Id]
     Set suite variable                  ${awardedfunding_request}
     ${fr_name} =                        Generate New String
     Set suite variable                  ${fr_name}
@@ -43,7 +46,8 @@ Create Funding Request Via API
     Wait Until Loading Is Complete
     Current Page Should Be                      Details          Funding_Request__c
     Validate Field Value                        Status  contains    In progress
-    Validate Field Value                        Funding Request Name    contains    ${funding_request}[Name]
+    Validate Field Value                        Funding Request Name    contains
+    ...                                         ${funding_request}[Name]
 
 Create Funding Request via UI
      [Documentation]                            Creates a Funding Request via UI.
@@ -58,12 +62,12 @@ Create Funding Request via UI
      Click Save
      wait until modal is closed
      Current Page Should Be                     Details           Funding_Request__c
-     Validate Field Value                       Funding Request Name           contains         ${fr_name}
+     Validate Field Value                       Funding Request Name    contains    ${fr_name}
 
 Add a Disbursement on an awarded Funding Request
     [Documentation]                             Creates a Funding Request via API.
     ...                                         Go to Disbursements and add a new Disbursement
-    [tags]                                      feature:Funding Request    Disbursements
+    [tags]                                      feature:FundingRequest    Disbursements
     Go To Page                                  Listing          ${ns}Funding_Request__c
     Click Link With Text                        ${awardedfunding_request}[Name]
     Wait Until Loading Is Complete
@@ -77,5 +81,5 @@ Add a Disbursement on an awarded Funding Request
     Wait Until Element Is Visible               text:Scheduled Date
     Save Disbursement
     Current Page Should Be                      Details          Funding_Request__c
-    Validate Field Value                        Unpaid Disbursements          contains         $80,000.00
-    Validate Field Value                        Available for Disbursement          contains         $20,000.00
+    Validate Field Value                        Unpaid Disbursements    contains    $80,000.00
+    Validate Field Value                        Available for Disbursement   contains   $20,000.00
