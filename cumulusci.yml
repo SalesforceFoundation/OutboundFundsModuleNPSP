@@ -6,7 +6,9 @@ project:
         api_version: "50.0"
     dependencies:
         - github: "https://github.com/SalesforceFoundation/NPSP"
-        - github: "https://github.com/SFDO-Community/OutboundFunds"
+        - github: "https://github.com/SalesforceFoundation/OutboundFundsModule"
+    git:
+        repo_url: "https://github.com/SalesforceFoundation/OutboundFundsModuleNPSP"
     source_format: sfdx
 
 orgs:
