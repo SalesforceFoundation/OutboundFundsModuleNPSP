@@ -139,12 +139,14 @@ API Create GAU Expenditure
     [Arguments]                    ${gau_id}    ${disbursement_id}   &{fields}
     ${ns} =                        Get Outfundsnpsp Namespace Prefix
     ${ns_npsp} =                   Get NPSP Namespace Prefix
-    ${gauexpenditure_id} =         Salesforce Insert    GAU_Expenditure__c
+    ${ns_npspext} =                Get NPSPExt Namespace Prefix
+    ${gauexpenditure_id} =         Salesforce Insert    ${ns_npspext}GAU_Expenditure__c
     ...                            Amount__c=10000
     ...                            General_Accounting_Unit__c=${gau_id}
-    ...                            Disbursement__c=${disbursement_id}
-    &{gauexp} =                    Salesforce Get  GAU_Expenditure__c  ${gauexpenditure_id}
-    Store Session Record           GAU_Expenditure__c   ${gauexpenditure_id}
+    ...                            ${ns}Disbursement__c=${disbursement_id}
+    &{gauexp} =                    Salesforce Get  ${ns_npspext}GAU_Expenditure__c
+    ...                            ${gauexpenditure_id}
+    Store Session Record           ${ns_npspext}GAU_Expenditure__c   ${gauexpenditure_id}
     [Return]                       &{gauexp}
 
 Change Object Permissions
