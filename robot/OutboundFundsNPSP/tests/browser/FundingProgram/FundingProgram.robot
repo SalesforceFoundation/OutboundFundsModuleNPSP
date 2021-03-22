@@ -1,6 +1,6 @@
 *** Settings ***
 Documentation  Create Funding Program
-Resource       robot/OutboundFundsNPSP/resources/OutboundfundsNPSP.robot
+Resource       robot/OutboundFundsNPSP/resources/OutboundFundsNPSP.robot
 Library        cumulusci.robotframework.PageObjects
 ...            robot/OutboundFundsNPSP/resources/FundingProgramPageObject.py
 ...            robot/OutboundFundsNPSP/resources/OutboundFundsNPSP.py

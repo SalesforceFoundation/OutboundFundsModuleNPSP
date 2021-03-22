@@ -1,6 +1,6 @@
 *** Settings ***
 Documentation  Create Funding Request, Add Disbursement on an Awarded Funding Request
-Resource       robot/OutboundFundsNPSP/resources/OutboundfundsNPSP.robot
+Resource       robot/OutboundFundsNPSP/resources/OutboundFundsNPSP.robot
 Library        cumulusci.robotframework.PageObjects
 ...            robot/OutboundFundsNPSP/resources/FundingRequestPageObject.py
 ...            robot/OutboundFundsNPSP/resources/OutboundFundsNPSP.py

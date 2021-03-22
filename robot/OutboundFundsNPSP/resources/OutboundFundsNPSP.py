@@ -66,19 +66,18 @@ class OutboundFundsNPSP(BaseOutboundFundsNPSPPage):
         if not hasattr(self.cumulusci, "_describe_result"):
             self.cumulusci._describe_result = self.cumulusci.sf.describe()
         objects = self.cumulusci._describe_result["sobjects"]
-        gauexp_object = [o for o in objects if o["label"] == "Funding Program"][
+        fundingprogram_object = [o for o in objects if o["label"] == "Funding Program"][
             0
         ]
-        return self.get_namespace_prefix(gauexp_object["name"])
+        return self.get_namespace_prefix(fundingprogram_object["name"])
 
     def get_outfundsnpspext_namespace_prefix(self):
         if not hasattr(self.cumulusci, "_describe_result"):
             self.cumulusci._describe_result = self.cumulusci.sf.describe()
         objects = self.cumulusci._describe_result["sobjects"]
-        fundingprogram_object = [o for o in objects if o["label"] == "GAU Expenditure"][
-            0
-        ]
-        return self.get_namespace_prefix(fundingprogram_object["name"])
+        gauexp_object = [o for o in objects if o["label"] == "GAU Expenditure"][0]
+        return self.get_namespace_prefix(gauexp_object["name"])
+
     def get_npsp_namespace_prefix(self):
         if not hasattr(self.cumulusci, "_describe_result"):
             self.cumulusci._describe_result = self.cumulusci.sf.describe()

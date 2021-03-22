@@ -1,6 +1,6 @@
 *** Settings ***
 Documentation  Create Requirement on a Funding Request
-Resource       robot/OutboundFundsNPSP/resources/OutboundfundsNPSP.robot
+Resource       robot/OutboundFundsNPSP/resources/OutboundFundsNPSP.robot
 Library        cumulusci.robotframework.PageObjects
 ...            robot/OutboundFundsNPSP/resources/FundingRequestPageObject.py
 ...            robot/OutboundFundsNPSP/resources/OutboundFundsNPSP.py

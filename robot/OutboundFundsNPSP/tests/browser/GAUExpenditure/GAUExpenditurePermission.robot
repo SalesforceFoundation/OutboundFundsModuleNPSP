@@ -8,7 +8,7 @@ Library        cumulusci.robotframework.PageObjects
 Suite Setup     Run keywords
 ...             Open test browser       useralias=${test_user}      AND
 ...             Setup Test Data
-#Suite Teardown  Capture Screenshot And Delete Records And Close Browser
+Suite Teardown  Capture Screenshot And Delete Records And Close Browser
 
 *** Variables ***
 ${test_user}             permtest
@@ -45,6 +45,3 @@ Disbursement FLS Check
     Click Tab                                   Disbursements
     click related list wrapper button           Disbursements                               New
     Wait For Modal                              New                                  Disbursements
-    Populate Field                              Amount          1000
-
-

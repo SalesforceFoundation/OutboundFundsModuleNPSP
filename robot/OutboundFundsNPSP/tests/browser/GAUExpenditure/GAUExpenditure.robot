@@ -1,6 +1,6 @@
 *** Settings ***
 Documentation  Create GAU Expenditure
-Resource       robot/OutboundFundsNPSP/resources/OutboundfundsNPSP.robot
+Resource       robot/OutboundFundsNPSP/resources/OutboundFundsNPSP.robot
 Library        cumulusci.robotframework.PageObjects
 ...            robot/OutboundFundsNPSP/resources/FundingRequestPageObject.py
 
@@ -16,7 +16,7 @@ Setup Test Data
     Set suite variable                  ${ns}
     ${ns_npsp} =                        Get NPSP Namespace Prefix
     Set suite variable                  ${ns_npsp}
-    ${ns_npspext} =                     Get NPSPExt Namespace Prefix
+    ${ns_npspext} =                     Get Outfundsnpspext Namespace Prefix
     Set suite variable                  ${ns_npspext}
     ${fundingprogram} =                 API Create Funding Program
     Store Session Record                ${ns}Funding_Program__c         ${fundingprogram}[Id]
