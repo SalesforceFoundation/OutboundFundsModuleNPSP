@@ -139,7 +139,7 @@ API Create GAU Expenditure
     [Arguments]                    ${gau_id}    ${disbursement_id}   &{fields}
     ${ns} =                        Get Outfundsnpsp Namespace Prefix
     ${ns_npsp} =                   Get NPSP Namespace Prefix
-    ${ns_npspext} =                Get NPSPExt Namespace Prefix
+    ${ns_npspext} =                Get Outfundsnpspext Namespace Prefix
     ${gauexpenditure_id} =         Salesforce Insert    ${ns_npspext}GAU_Expenditure__c
     ...                            Amount__c=10000
     ...                            General_Accounting_Unit__c=${gau_id}
