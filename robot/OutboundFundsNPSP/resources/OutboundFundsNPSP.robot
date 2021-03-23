@@ -143,9 +143,9 @@ API Create GAU Expenditure
     ${ns_npsp} =                   Get NPSP Namespace Prefix
     ${ns_npspext} =                Get Outfundsnpspext Namespace Prefix
     ${gauexpenditure_id} =         Salesforce Insert    ${ns_npspext}GAU_Expenditure__c
-    ...                            Amount__c=10000
-    ...                            General_Accounting_Unit__c=${gau_id}
-    ...                            ${ns}Disbursement__c=${disbursement_id}
+    ...                            ${ns_npspext}Amount__c=10000
+    ...                            ${ns_npspext}General_Accounting_Unit__c=${gau_id}
+    ...                            ${ns_npspext}Disbursement__c=${disbursement_id}
     &{gauexp} =                    Salesforce Get  ${ns_npspext}GAU_Expenditure__c
     ...                            ${gauexpenditure_id}
     Store Session Record           ${ns_npspext}GAU_Expenditure__c   ${gauexpenditure_id}
