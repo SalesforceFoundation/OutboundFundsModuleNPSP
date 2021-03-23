@@ -1,6 +1,6 @@
 *** Settings ***
 Documentation  Create GAU Expenditure
-Resource       robot/OutboundFundsNPSP/resources/OutboundfundsNPSP.robot
+Resource       robot/OutboundFundsNPSP/resources/OutboundFundsNPSP.robot
 Library        cumulusci.robotframework.PageObjects
 ...            robot/OutboundFundsNPSP/resources/FundingRequestPageObject.py
 
