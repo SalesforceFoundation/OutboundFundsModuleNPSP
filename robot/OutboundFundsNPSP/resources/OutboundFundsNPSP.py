@@ -200,3 +200,28 @@ class OutboundFundsNPSP(BaseOutboundFundsNPSPPage):
         locator = outboundfundsnpsp_lex_locators["details"]["button"].format("Save")
         self.selenium.set_focus_to_element(locator)
         self.selenium.get_webelement(locator).click()
+
+    @capture_screenshot_on_error
+    def select_value_from_picklist(self, dropdown, value):
+        """Select given value in the dropdown field"""
+        locator = outboundfundsnpsp_lex_locators["new_record"]["dropdown_field"].format(
+            dropdown
+        )
+        self.selenium.get_webelement(locator).click()
+        popup_loc = outboundfundsnpsp_lex_locators["new_record"]["dropdown_popup"]
+        self.selenium.wait_until_page_contains_element(
+            popup_loc, error="Picklist dropdown did not open"
+        )
+        value_loc = outboundfundsnpsp_lex_locators["new_record"][
+            "dropdown_value"
+        ].format(value)
+        self.salesforce._jsclick(value_loc)
+
+    def add_date(self, title, date):
+        """ Clicks on the 'Date' field in Form and picks a date in the argument """
+        locator = outboundfundsnpsp_lex_locators["new_record"]["date_field"].format(
+            title
+        )
+        self.selenium.set_focus_to_element(locator)
+        self.selenium.clear_element_text(locator)
+        self.selenium.get_webelement(locator).send_keys(date)
