@@ -3,7 +3,6 @@ Documentation  Create Funding Request, Add Disbursement on an Awarded Funding Re
 Resource       robot/OutboundFundsNPSP/resources/OutboundFundsNPSP.robot
 Library        cumulusci.robotframework.PageObjects
 ...            robot/OutboundFundsNPSP/resources/FundingRequestPageObject.py
-...            robot/OutboundFundsNPSP/resources/OutboundFundsNPSP.py
 
 Suite Setup     Run keywords
 ...             Open Test Browser
@@ -34,6 +33,12 @@ Setup Test Data
     Set suite variable                  ${fr_name}
     ${req_name} =                       Generate New String
     Set suite variable                  ${req_name}
+    ${date_1} =                         Get current date    result_format=%m/%d/%Y  increment=1 day
+    ${date_2} =                         Get current date    result_format=%m/%d/%Y   increment=10 day
+    Set suite variable                  ${date_1}
+    Set suite variable                  ${date_2}
+
+
 
 *** Test Case ***
 Create Funding Request Via API
@@ -59,6 +64,11 @@ Create Funding Request via UI
      Populate Field                             Funding Request Name    ${fr_name}
      Populate Lookup Field                      Funding Program     ${fundingprogram}[Name]
      Populate Lookup Field                      Applying Contact    ${contact}[Name]
+     Add Date                                   Application Date      ${date_1}
+     Select Value from Picklist                 Status          Submitted
+     Select Value from Picklist                 Geographical Area Served        Region
+     Populate Field                             Requested Amount        10000
+     Populate Field                             Requested For           Robot Testing
      Click Save
      wait until modal is closed
      Current Page Should Be                     Details           Funding_Request__c
@@ -83,3 +93,25 @@ Add a Disbursement on an awarded Funding Request
     Current Page Should Be                      Details          Funding_Request__c
     Validate Field Value                        Unpaid Disbursements    contains    $80,000.00
     Validate Field Value                        Available for Disbursement   contains   $20,000.00
+    Validate Field Value                        Unpaid Disbursements          contains         $80,000.00
+    Validate Field Value                        Available for Disbursement          contains         $20,000.00
+
+Create a Disbursement on an Awarded Funding Request via Related List
+    [Documentation]                             Creates a Funding Request via API.
+    ...                                         Go to Disbursements and add a new Disbursement
+    [tags]                                      feature:Funding Request    Disbursements
+    Go To Page                                  Listing          ${ns}Funding_Request__c
+    Click Link With Text                        ${awardedfunding_request}[Name]
+    Wait Until Loading Is Complete
+    Current Page Should Be                      Details          Funding_Request__c
+    Click Tab                                   Disbursements
+    click related list wrapper button           Disbursements           New
+    Wait For Modal                              New                     Disbursement
+    Populate Field                              Amount          10000
+    Select Value from Picklist                  Status          Scheduled
+    Select Value from Picklist                  Type            Initial
+    Select Value from Picklist                  Disbursement Method         Check
+    Add Date                                    Scheduled Date              ${date_1}
+    Add Date                                    Disbursement Date           ${date_2}
+    Click Save
+
