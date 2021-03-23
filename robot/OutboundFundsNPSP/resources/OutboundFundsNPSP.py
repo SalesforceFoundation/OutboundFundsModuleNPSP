@@ -208,6 +208,15 @@ class OutboundFundsNPSP(BaseOutboundFundsNPSPPage):
         self.selenium.set_focus_to_element(locator)
         self.selenium.get_webelement(locator).click()
 
+    def verify_row_count(self, value):
+        """verifies if actual row count matches with expected value"""
+        locator = outboundfundsnpsp_lex_locators["related"]["count"]
+        actual_value = self.selenium.get_webelements(locator)
+        count = len(actual_value)
+        assert int(value) == count, "Expected value to be {} but found {}".format(
+            value, count
+        )
+
     @capture_screenshot_on_error
     def select_value_from_picklist(self, dropdown, value):
         """Select given value in the dropdown field"""
