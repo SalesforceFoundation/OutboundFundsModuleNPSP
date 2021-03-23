@@ -93,7 +93,6 @@ flows:
                 options:
                     api_names: GAU_Expenditure
 
-
     config_managed:
         steps:
             3:
