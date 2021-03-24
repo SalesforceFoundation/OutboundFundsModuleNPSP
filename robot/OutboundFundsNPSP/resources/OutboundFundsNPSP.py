@@ -274,7 +274,7 @@ class OutboundFundsNPSP(BaseOutboundFundsNPSPPage):
                 actual_value = self.selenium.get_webelement(locator).get_attribute(
                     value
                 )
-                if actual_value is None or actual_value == False:
+                if actual_value is None or actual_value is False:
                     raise Exception(
                         f"Expected {key} status to be {value} but found {actual_value}"
                     )
@@ -282,7 +282,7 @@ class OutboundFundsNPSP(BaseOutboundFundsNPSPPage):
                 actual_value = self.selenium.get_webelement(locator).get_attribute(
                     "disabled"
                 )
-                if not (actual_value is None or actual_value == False):
+                if not (actual_value is None or actual_value is False):
                     raise Exception(
                         f"Expected {key} status to be {value} but found {actual_value}"
                     )
