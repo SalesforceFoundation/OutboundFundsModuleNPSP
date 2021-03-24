@@ -8,7 +8,7 @@ Library        cumulusci.robotframework.PageObjects
 Suite Setup     Run keywords
 ...             Open test browser       useralias=${test_user}      AND
 ...             Setup Test Data
-Suite Teardown  Capture Screenshot And Delete Records And Close Browser
+#Suite Teardown  Capture Screenshot And Delete Records And Close Browser
 
 *** Variables ***
 ${test_user}             permtest
@@ -32,12 +32,16 @@ Setup Test Data
     Set suite variable                  ${funding_request}
     &{gau}=                             API Create GAU
     Set Suite Variable                  &{gau}
+    ${date_1} =                         Get current date    result_format=%m/%d/%Y  increment=1 day
+    ${date_2} =                         Get current date    result_format=%m/%d/%Y  increment=10 day
+    Set suite variable                  ${date_1}
+    Set suite variable                  ${date_2}
 
 *** Test Case ***
 Disbursement FLS Check
-    [Documentation]                            Login as User who only have read access
-    ...                                        to Disbursements Object and Verify
-    ...                                        that user cannot save a disbursement
+    [Documentation]                             Login as User who only have read access
+    ...                                         to Disbursements Object and Verify
+    ...                                         that user cannot save a disbursement
     [tags]                                      feature:GAU
     Go To Page                                  Details     Funding_Request__c
     ...                                         object_id=${funding_request}[Id]
@@ -45,3 +49,16 @@ Disbursement FLS Check
     Click Tab                                   Disbursements
     click related list wrapper button           Disbursements                               New
     Wait For Modal                              New                                  Disbursements
+    Populate Field                              Amount          10000
+    Select Value from Picklist                  Status          Scheduled
+    Select Value from Picklist                  Type            Initial
+    Select Value from Picklist                  Disbursement Method         Check
+    Add Date                                    Scheduled Date              ${date_1}
+    Add Date                                    Disbursement Date           ${date_2}
+    Click Save
+    Click Link With Text                        D-
+    Click Tab                                   GAU Expenditures
+    Wait Until Element Is Not Visible           New
+    Click Button                                Add Row
+    Populate Field With Id                      input           10000
+    Verify Button Status                        Save Updates=disabled
