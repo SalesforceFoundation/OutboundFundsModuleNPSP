@@ -261,10 +261,9 @@ class OutboundFundsNPSP(BaseOutboundFundsNPSPPage):
         self.selenium.wait_until_page_does_not_contain_element(main_loc, timeout=60)
 
     def verify_button_status(self, **kwargs):
-        """ Verify the link is disabled/enabled, pass the name of the link
-        and the expected status of the link as either enabled or disabled
-        Eg: |Verify Link Status  |  Update this Payment=enabled
-             ...                    Update this Opportunity=disabled  |"""
+        """ Verify the button is disabled/enabled, pass the name of the buttin
+        and the expected status of the buttin as either enabled or disabled"""
+
         for key, value in kwargs.items():
             locator = outboundfundsnpsp_lex_locators["button-with-text"].format(key)
             self.selenium.wait_until_element_is_visible(
@@ -288,6 +287,7 @@ class OutboundFundsNPSP(BaseOutboundFundsNPSPPage):
                     )
 
     def populate_field_with_id(self, id, value):
+        """Populate field with id on manage expenditure page"""
         locator = outboundfundsnpsp_lex_locators["id"].format(id)
         if value == "null":
             field = self.selenium.get_webelement(locator)
