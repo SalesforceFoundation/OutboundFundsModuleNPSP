@@ -137,7 +137,7 @@ class OutboundFundsNPSP(BaseOutboundFundsNPSPPage):
     @capture_screenshot_on_error
     def click_link_with_text(self, text):
         """Click on link with passed text"""
-        locator = outboundfundsnpsp_lex_locators["related"]["flexi_link"].format(text)
+        locator = outboundfundsnpsp_lex_locators["link"].format(text)
         self.selenium.wait_until_page_contains_element(locator)
         element = self.selenium.driver.find_element_by_xpath(locator)
         self.selenium.driver.execute_script("arguments[0].click()", element)
