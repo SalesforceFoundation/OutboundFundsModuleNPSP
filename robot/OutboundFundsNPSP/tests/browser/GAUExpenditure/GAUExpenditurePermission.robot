@@ -56,7 +56,7 @@ Disbursement FLS Check
     Add Date                                    Scheduled Date              ${date_1}
     Add Date                                    Disbursement Date           ${date_2}
     Click Save
-    Click Link With Text                        D-
+    Click Related List Link With Text           D-
     Click Tab                                   GAU Expenditures
     Wait Until Element Is Not Visible           New
     Click Button                                Add Row
