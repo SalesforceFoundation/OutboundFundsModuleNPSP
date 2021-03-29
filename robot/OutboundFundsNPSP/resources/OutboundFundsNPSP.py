@@ -53,6 +53,17 @@ class OutboundFundsNPSP(BaseOutboundFundsNPSPPage):
         locators = locators_by_api_version[self.latest_api_version]
         outboundfundsnpsp_lex_locators.update(locators)
 
+    def get_outboundfundsnpsp_lex_locators(self, path, *args, **kwargs):
+        """ Returns a rendered locator string from the outboundfundsnpsp_lex_locators
+            dictionary.  This can be useful if you want to use an element in
+            a different way than the built in keywords allow.
+        """
+        locator = outboundfundsnpsp_lex_locators
+        for key in path.split("."):
+            locator = locator[key]
+        main_loc = locator.format(*args, **kwargs)
+        return main_loc
+
     def get_namespace_prefix(self, name):
         parts = name.split("__")
         if parts[-1] == "c":
@@ -70,6 +81,13 @@ class OutboundFundsNPSP(BaseOutboundFundsNPSPPage):
             0
         ]
         return self.get_namespace_prefix(fundingprogram_object["name"])
+
+    def get_outfundsnpspext_namespace_prefix(self):
+        if not hasattr(self.cumulusci, "_describe_result"):
+            self.cumulusci._describe_result = self.cumulusci.sf.describe()
+        objects = self.cumulusci._describe_result["sobjects"]
+        gauexp_object = [o for o in objects if o["label"] == "GAU Expenditure"][0]
+        return self.get_namespace_prefix(gauexp_object["name"])
 
     def get_npsp_namespace_prefix(self):
         if not hasattr(self.cumulusci, "_describe_result"):
@@ -201,6 +219,15 @@ class OutboundFundsNPSP(BaseOutboundFundsNPSPPage):
         self.selenium.set_focus_to_element(locator)
         self.selenium.get_webelement(locator).click()
 
+    def verify_row_count(self, value):
+        """verifies if actual row count matches with expected value"""
+        locator = outboundfundsnpsp_lex_locators["related"]["count"]
+        actual_value = self.selenium.get_webelements(locator)
+        count = len(actual_value)
+        assert int(value) == count, "Expected value to be {} but found {}".format(
+            value, count
+        )
+
     @capture_screenshot_on_error
     def select_value_from_picklist(self, dropdown, value):
         """Select given value in the dropdown field"""
@@ -217,6 +244,7 @@ class OutboundFundsNPSP(BaseOutboundFundsNPSPPage):
         ].format(value)
         self.salesforce._jsclick(value_loc)
 
+    @capture_screenshot_on_error
     def add_date(self, title, date):
         """ Clicks on the 'Date' field in Form and picks a date in the argument """
         locator = outboundfundsnpsp_lex_locators["new_record"]["date_field"].format(
@@ -225,3 +253,44 @@ class OutboundFundsNPSP(BaseOutboundFundsNPSPPage):
         self.selenium.set_focus_to_element(locator)
         self.selenium.clear_element_text(locator)
         self.selenium.get_webelement(locator).send_keys(date)
+
+    @capture_screenshot_on_error
+    def page_should_not_contain_locator(self, path, *args, **kwargs):
+        """Waits for the locator specified to be not present on the page"""
+        main_loc = self.get_outboundfundsnpsp_lex_locators(path, *args, **kwargs)
+        self.selenium.wait_until_page_does_not_contain_element(main_loc, timeout=60)
+
+    def verify_button_status(self, **kwargs):
+        """ Verify the button is disabled/enabled, pass the name of the buttin
+        and the expected status of the buttin as either enabled or disabled"""
+
+        for key, value in kwargs.items():
+            locator = outboundfundsnpsp_lex_locators["button-with-text"].format(key)
+            self.selenium.wait_until_element_is_visible(
+                locator, error=f"'{key}' is not displayed on the page"
+            )
+            if value == "disabled":
+                actual_value = self.selenium.get_webelement(locator).get_attribute(
+                    value
+                )
+                if actual_value is None or actual_value is False:
+                    raise Exception(
+                        f"Expected {key} status to be {value} but found {actual_value}"
+                    )
+            elif value == "enabled":
+                actual_value = self.selenium.get_webelement(locator).get_attribute(
+                    "disabled"
+                )
+                if not (actual_value is None or actual_value is False):
+                    raise Exception(
+                        f"Expected {key} status to be {value} but found {actual_value}"
+                    )
+
+    def populate_field_with_id(self, id, value):
+        """Populate field with id on manage expenditure page"""
+        locator = outboundfundsnpsp_lex_locators["id"].format(id)
+        if value == "null":
+            field = self.selenium.get_webelement(locator)
+            self.salesforce._clear(field)
+        else:
+            self.salesforce._populate_field(locator, value)

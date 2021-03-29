@@ -51,4 +51,6 @@ outboundfundsnpsp_lex_locators = {
         "header": "//h1//div[contains(@class, 'entityNameTitle') and contains(text(),'{}')]",
     },
     "link": "//a[contains(text(),'{}')]",
+    "id": "//input[@type='text' and @inputmode='decimal' and @step='0.01']",
+    "button-with-text": "//button[contains(text(),'{}')]",
 }
