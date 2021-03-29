@@ -26,6 +26,8 @@ Setup Test Data
     Set suite variable                  ${contact}
     ${funding_request} =                API Create Funding Request           ${fundingprogram}[Id]
     ...                                 ${contact}[Id]
+    ...                                 ${ns}Awarded_Amount__c=10000
+    ...                                 ${ns}Status__c=Awarded
     Store Session Record                ${ns}Funding_Request__c         ${funding_request}[Id]
     Set suite variable                  ${funding_request}
     ${disbursed_request} =              API Create Funding Request           ${fundingprogram}[Id]
@@ -70,5 +72,20 @@ Verify GAU Expenditure on Paid Disbursement
     Click Link With Text                        ${disbursed_request}[Name]
     Click Tab                                   Disbursements
     Click Related List Link with Text           ${fully_disbursed}[Name]
+    Click Tab                                   GAU Expenditures
+    Verify Button Status                        Save Updates=disabled
+
+
+Verify GAU Expenditure on Canceled Disbursement
+    [Documentation]                   Create a Disbursement and set status to Canceled
+    ...                               Verify Manage Expenditure is disabled
+    ${cancel_disbursed}                 API Create Disbursement on a Funding Request
+    ...                                 ${disbursed_request}[Id]
+    ...                                 ${ns}Status__c=Cancelled
+    Set Suite Variable                  ${cancel_disbursed}
+    Go To Page                                  Listing          ${ns}Funding_Request__c
+    Click Link With Text                        ${disbursed_request}[Name]
+    Click Tab                                   Disbursements
+    Click Related List Link with Text           ${cancel_disbursed}[Name]
     Click Tab                                   GAU Expenditures
     Verify Button Status                        Save Updates=disabled
