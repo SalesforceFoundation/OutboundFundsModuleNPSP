@@ -16,6 +16,8 @@ Setup Test Data
     Set suite variable                  ${ns}
     ${ns_npsp} =                        Get NPSP Namespace Prefix
     Set suite variable                  ${ns_npsp}
+    ${ns_npspext} =                     Get Outfundsnpspext Namespace Prefix
+    Set suite variable                  ${ns_npspext}
     ${fundingprogram} =                 API Create Funding Program
     Store Session Record                ${ns}Funding_Program__c         ${fundingprogram}[Id]
     Set suite variable                  ${fundingprogram}

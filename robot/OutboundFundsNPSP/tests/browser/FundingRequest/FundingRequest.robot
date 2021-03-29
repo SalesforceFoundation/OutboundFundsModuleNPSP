@@ -34,7 +34,7 @@ Setup Test Data
     ${req_name} =                       Generate New String
     Set suite variable                  ${req_name}
     ${date_1} =                         Get current date    result_format=%m/%d/%Y  increment=1 day
-    ${date_2} =                         Get current date    result_format=%m/%d/%Y   increment=10 day
+    ${date_2} =                         Get current date    result_format=%m/%d/%Y  increment=10 day
     Set suite variable                  ${date_1}
     Set suite variable                  ${date_2}
 
@@ -93,13 +93,13 @@ Add a Disbursement on an awarded Funding Request
     Current Page Should Be                      Details          Funding_Request__c
     Validate Field Value                        Unpaid Disbursements    contains    $80,000.00
     Validate Field Value                        Available for Disbursement   contains   $20,000.00
-    Validate Field Value                        Unpaid Disbursements          contains         $80,000.00
-    Validate Field Value                        Available for Disbursement          contains         $20,000.00
+    Validate Field Value                        Unpaid Disbursements    contains    $80,000.00
+    Validate Field Value                        Available for Disbursement  contains    $20,000.00
 
 Create a Disbursement on an Awarded Funding Request via Related List
     [Documentation]                             Creates a Funding Request via API.
     ...                                         Go to Disbursements and add a new Disbursement
-    [tags]                                      feature:Funding Request    Disbursements
+    [tags]                                      feature:FundingRequest    Disbursements
     Go To Page                                  Listing          ${ns}Funding_Request__c
     Click Link With Text                        ${awardedfunding_request}[Name]
     Wait Until Loading Is Complete
@@ -114,4 +114,3 @@ Create a Disbursement on an Awarded Funding Request via Related List
     Add Date                                    Scheduled Date              ${date_1}
     Add Date                                    Disbursement Date           ${date_2}
     Click Save
-
