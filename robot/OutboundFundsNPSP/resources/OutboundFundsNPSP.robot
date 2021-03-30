@@ -111,7 +111,7 @@ API Create Disbursement on a Funding Request
     ${disbursement_date} =          Get Current Date  result_format=%Y-%m-%d    increment=10 days
     ${disbursement_id} =            Salesforce Insert  ${ns}Disbursement__c
     ...                             ${ns}Funding_Request__c=${funding_request_id}
-    ...                             ${ns}Amount__c=5000
+    ...                             ${ns}Amount__c=10000
     ...                             ${ns}Status__c=Scheduled
     ...                             ${ns}Scheduled_Date__c=${scheduled_date}
     ...                             ${ns}Type__c=Initial
