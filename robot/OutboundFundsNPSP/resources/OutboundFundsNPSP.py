@@ -96,6 +96,17 @@ class OutboundFundsNPSP(BaseOutboundFundsNPSPPage):
         gau_object = [o for o in objects if o["label"] == "General Accounting Unit"][0]
         return self.get_namespace_prefix(gau_object["name"])
 
+    def get_outboundfundsnpsp_locator(self, path, *args, **kwargs):
+        """ Returns a rendered locator string from the npsp_lex_locators
+            dictionary.  This can be useful if you want to use an element in
+            a different way than the built in keywords allow.
+        """
+        locator = outboundfundsnpsp_lex_locators
+        for key in path.split('.'):
+            locator = locator[key]
+        main_loc = locator.format(*args, **kwargs)
+        return main_loc
+
     def _check_if_element_exists(self, xpath):
         """Checks if the given xpath exists
         this is only a helper function being called from other keywords
@@ -150,6 +161,7 @@ class OutboundFundsNPSP(BaseOutboundFundsNPSPPage):
         )
         self.selenium.scroll_element_into_view(locator)
         self.salesforce._jsclick(locator)
+        self.salesforce.wait_until_loading_is_complete()
 
     @capture_screenshot_on_error
     def validate_field_value(self, field, status, value, section=None):

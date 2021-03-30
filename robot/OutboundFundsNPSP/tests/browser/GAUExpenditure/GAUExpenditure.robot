@@ -7,7 +7,7 @@ Library        cumulusci.robotframework.PageObjects
 Suite Setup     Run keywords
 ...             Open Test Browser
 ...             Setup Test Data
-Suite Teardown  Capture Screenshot And Delete Records And Close Browser
+#Suite Teardown  Capture Screenshot And Delete Records And Close Browser
 
 *** Keywords ***
 Setup Test Data
@@ -49,13 +49,14 @@ Setup Test Data
     ...                                 ${ns}Status__c=Paid
     Set Suite Variable                  ${fully_disbursed}
     &{gau_paid}=                        API Create GAU Expenditure          ${gau}[Id]
-     ...                                ${fully_disbursed}[Id]
-     Set Suite Variable                 ${gau_paid}
+    ...                                ${fully_disbursed}[Id]
+    Set Suite Variable                 ${gau_paid}
 
 *** Test Case ***
 Verify GAU Expenditure created is added on Disbursement
     [Documentation]                   Create GAU Expenditure via API and
     ...                               verify record is added on Disbursement Record
+    [tags]                                      feature:GAUExpenditure
     Go To Page                                  Listing          ${ns}Funding_Request__c
     Click Link With Text                        ${funding_request}[Name]
     Click Tab                                   Disbursements
@@ -68,6 +69,7 @@ Verify GAU Expenditure created is added on Disbursement
 Verify GAU Expenditure on Paid Disbursement
     [Documentation]                   Create a Disbursement and set status to Paid
     ...                               Verify Manage Expenditure is disabled
+    [tags]                                      feature:GAUExpenditure
     Go To Page                                  Listing          ${ns}Funding_Request__c
     Click Link With Text                        ${disbursed_request}[Name]
     Click Tab                                   Disbursements
@@ -79,6 +81,7 @@ Verify GAU Expenditure on Paid Disbursement
 Verify GAU Expenditure on Canceled Disbursement
     [Documentation]                   Create a Disbursement and set status to Canceled
     ...                               Verify Manage Expenditure is disabled
+    [tags]                                      feature:GAUExpenditure
     ${cancel_disbursed}                 API Create Disbursement on a Funding Request
     ...                                 ${disbursed_request}[Id]
     ...                                 ${ns}Status__c=Cancelled
@@ -89,3 +92,27 @@ Verify GAU Expenditure on Canceled Disbursement
     Click Related List Link with Text           ${cancel_disbursed}[Name]
     Click Tab                                   GAU Expenditures
     Verify Button Status                        Save Updates=disabled
+
+Verify error if GAU Expenditure > GAU available
+    [Documentation]                   Create a Disbursement and set status to Canceled
+    ...                               Verify Manage Expenditure is disabled
+    [tags]                                      feature:GAUExpenditure
+    ${scheduled_disbursement}         API Create Disbursement on a Funding Request
+    ...                                 ${funding_request}[Id]
+    ...                                 ${ns}Status__c=Scheduled
+    &{gau_new}=                         API Create GAU
+    ...                                 ${ns_npsp}Total_Allocations__c=10000
+    Go To Page                                  Listing          ${ns}Funding_Request__c
+    Click Link With Text                        ${funding_request}[Name]
+    Click Tab                                   Disbursements
+    Click Related List Link with Text           ${scheduled_disbursement}[Name]
+    Click Tab                                   GAU Expenditures
+    click related list wrapper button           GAU Expenditures           New
+    Populate Lookup Field                       General Accounting Unit     ${gau_new}[Name]
+    Populate Field                              Amount          11000
+    Click Save
+    Reload Page
+    Click Tab                                   GAU Expenditures
+    Verify Button Status                        Save Updates=disabled
+    ${field}                            Get Outboundfundsnpsp Locator    error_locator
+    Page Should Contain Element         ${field}
