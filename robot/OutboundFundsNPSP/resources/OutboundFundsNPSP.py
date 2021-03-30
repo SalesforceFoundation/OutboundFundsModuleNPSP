@@ -102,7 +102,7 @@ class OutboundFundsNPSP(BaseOutboundFundsNPSPPage):
             a different way than the built in keywords allow.
         """
         locator = outboundfundsnpsp_lex_locators
-        for key in path.split('.'):
+        for key in path.split("."):
             locator = locator[key]
         main_loc = locator.format(*args, **kwargs)
         return main_loc

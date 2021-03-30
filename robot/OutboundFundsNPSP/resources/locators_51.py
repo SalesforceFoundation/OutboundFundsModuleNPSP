@@ -53,5 +53,5 @@ outboundfundsnpsp_lex_locators = {
     "link": "//a[contains(text(),'{}')]",
     "id": "//input[@type='text' and @inputmode='decimal' and @step='0.01']",
     "button-with-text": "//button[contains(text(),'{}')]",
-    "error_locator": "//div[@class='INVALID']//lightning-formatted-number[contains(text(),'-')]"
+    "error_locator": "//div[@class='INVALID']//lightning-formatted-number[contains(text(),'-')]",
 }
