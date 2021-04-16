@@ -7,6 +7,8 @@ project:
     dependencies:
         - github: "https://github.com/SalesforceFoundation/NPSP"
         - github: "https://github.com/SalesforceFoundation/OutboundFundsModule"
+    dependency_resolutions:
+        preproduction: include_beta
     git:
         repo_url: "https://github.com/SalesforceFoundation/OutboundFundsModuleNPSP"
     source_format: sfdx
