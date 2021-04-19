@@ -16,7 +16,9 @@
                     size="x-small"
                 ></lightning-icon>
             </span>
-            <h2>{message}</h2>
+            <template if:true={message}>
+                <h2>{message}</h2>
+            </template>
         </div>
     </template>
     <template if:true={info}>
@@ -36,7 +38,9 @@
                     size="x-small"
                 ></lightning-icon>
             </span>
-            <h2>{message}</h2>
+            <template if:true={message}>
+                <h2>{message}</h2>
+            </template>
             <lightning-icon
                 icon-name="utility:close"
                 alternative-text={labels.close.icon.alternativeText}
