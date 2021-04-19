@@ -112,7 +112,7 @@ describe.each([
             expect(closeIcon.size).toEqual("x-small");
         });
 
-        it("clicking close icon hids info alert", () => {
+        it("clicking close icon hides info alert", () => {
             const closeIcons = component.shadowRoot.querySelectorAll(
                 `div.slds-notify.slds-theme_info > lightning-icon.slds-notify__close`
             );
