@@ -1,15 +1,13 @@
 import { LightningElement, api, track } from "lwc";
 
 // TODO: Localize with Custom Labels.
-const WARNING_ASSISTIVE_TEXT = "warning";
-const WARNING_TITLE = "Description of icon when needed";
-const WARNING_ICON_ALTERNATIVE_TEXT = "Warning!";
-
-const INFO_ASSISTIVE_TEXT = "info";
-const INFO_TITLE = "Description of icon when needed";
-const INFO_ICON_ALTERNATIVE_TEXT = "Information";
-
-const CLOSE_ICON_ALTERNATIVE_TEXT = "close";
+export const WARNING_ASSISTIVE_TEXT = "warning";
+export const WARNING_TITLE = "Description of icon when needed";
+export const WARNING_ICON_ALTERNATIVE_TEXT = "Warning!";
+export const INFO_ASSISTIVE_TEXT = "info";
+export const INFO_TITLE = "Description of icon when needed";
+export const INFO_ICON_ALTERNATIVE_TEXT = "Information";
+export const CLOSE_ICON_ALTERNATIVE_TEXT = "close";
 
 export default class WarningBanner extends LightningElement {
     labels = {
