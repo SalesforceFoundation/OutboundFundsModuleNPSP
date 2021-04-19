@@ -12,7 +12,7 @@ import WarningBanner, {
 describe.each([
     ["with message", `random number: ${Math.random()}`, "should display message"],
     ["without message", null, "should not display message"],
-])("warning-banning %s", (_, message, shouldDisplayMessageTitle) => {
+])("warning-banner %s", (_, message, shouldDisplayMessageTitle) => {
     let component;
 
     beforeEach(() => {
