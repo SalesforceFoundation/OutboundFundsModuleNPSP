@@ -1,5 +1,5 @@
 {
-  "name": "OutboundFundsNPSP",
+  "name": "outboundfundsmodulenpsp",
   "license": "UNLICENSED",
   "author": "Salesforce.org Impact Engineering",
   "devDependencies": {
