@@ -5,13 +5,13 @@ import warnings
 
 from BaseObjects import BaseOutboundFundsNPSPPage
 from robot.libraries.BuiltIn import RobotNotRunningError
+from locators_52 import outboundfundsnpsp_lex_locators as locators_52
 from locators_51 import outboundfundsnpsp_lex_locators as locators_51
-from locators_50 import outboundfundsnpsp_lex_locators as locators_50
 from cumulusci.robotframework.utils import selenium_retry, capture_screenshot_on_error
 
 locators_by_api_version = {
-    50.0: locators_50,  # winter '21
     51.0: locators_51,  # Spring '21
+    52.0: locators_52,  # Summer '21
 }
 # will get populated in _init_locators
 outboundfundsnpsp_lex_locators = {}
