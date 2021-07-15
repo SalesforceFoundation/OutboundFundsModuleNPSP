@@ -8,7 +8,7 @@ project:
         - github: "https://github.com/SalesforceFoundation/NPSP"
         - github: "https://github.com/SalesforceFoundation/OutboundFundsModule"
     dependency_resolutions:
-        preproduction: include_beta
+        preproduction: commit_status
     git:
         repo_url: "https://github.com/SalesforceFoundation/OutboundFundsModuleNPSP"
     source_format: sfdx
@@ -106,3 +106,11 @@ flows:
                 flow: config_managed
             3:
                 task: snapshot_changes
+
+    ci_beta:
+        steps:
+            1:
+                flow: dependencies
+                options:
+                    update_dependencies:
+                        resolution_strategy: include_beta

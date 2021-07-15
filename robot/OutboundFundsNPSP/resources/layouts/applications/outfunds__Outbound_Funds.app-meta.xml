@@ -37,6 +37,7 @@
     <tabs>outfunds__Funding_Program__c</tabs>
     <tabs>outfunds__Funding_Request__c</tabs>
     <tabs>outfunds__Requirement__c</tabs>
+    <tabs>outfunds__Review__c</tabs>
     <tabs>standard-report</tabs>
     <tabs>standard-Dashboard</tabs>
     <uiType>Lightning</uiType>
