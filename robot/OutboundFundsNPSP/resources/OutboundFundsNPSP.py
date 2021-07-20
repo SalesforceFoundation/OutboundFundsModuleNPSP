@@ -159,7 +159,7 @@ class OutboundFundsNPSP(BaseOutboundFundsNPSPPage):
         locator = outboundfundsnpsp_lex_locators["new_record"]["footer_button"].format(
             "Save"
         )
-        self.selenium.scroll_element_into_view(locator)
+        self.salesforce.scroll_element_into_view(locator)
         self.salesforce._jsclick(locator)
         self.salesforce.wait_until_loading_is_complete()
 
@@ -170,7 +170,7 @@ class OutboundFundsNPSP(BaseOutboundFundsNPSPPage):
         """
         if section is not None:
             section = "text:" + section
-            self.selenium.scroll_element_into_view(section)
+            self.salesforce.scroll_element_into_view(section)
         list_found = False
         locators = outboundfundsnpsp_lex_locators["confirm"].values()
         if status == "contains":
