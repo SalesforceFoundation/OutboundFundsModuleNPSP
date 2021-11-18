@@ -22,7 +22,7 @@ const ERROR_TOAST_VARIANT = "error";
 const ERROR_TOAST_MODE = "dismissable";
 
 const IS_NOT_DISBURSEMENT_WARNING_BANNER_MESSAGE =
-    "This component is meant for use on a Disbursement lightning page. Questions? Visit the Power Of Us Hub.";
+    "This component is meant for use on a Disbursement lightning page. Questions? Visit the Trailblazer Community";
 const IS_DISBURSEMENT_WARNING_BANNER_MESSAGE =
     "Click 'Refresh List' to start with the latest data.";
 const ELIGIBLE_STATUS_WARNING_BANNER_MESSAGE =
