@@ -1,3 +1,4 @@
+/* eslint jest/valid-title:off, jest/no-conditional-expect:off*/
 import { createElement } from "lwc";
 import WarningBanner, {
     WARNING_ASSISTIVE_TEXT,
