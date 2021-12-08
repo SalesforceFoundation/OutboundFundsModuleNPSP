@@ -84,13 +84,18 @@ describe.each([
             expect(icon.size).toEqual("x-small");
         });
 
-        it("shouldDisplayMessageTitle", () => {
+        it(shouldDisplayMessageTitle, () => {
             const messages = component.shadowRoot.querySelectorAll(
                 "div.slds-notify.slds-theme_info h2"
             );
             expect(messages).not.toBeNull();
-            expect(messages.length).toEqual(1);
-            expect(messages[0].textContent).toEqual(message);
+
+            if (message) {
+                expect(messages.length).toEqual(1);
+                expect(messages[0].textContent).toEqual(message);
+            } else {
+                expect(messages.length).toEqual(0);
+            }
         });
 
         it("should display close icon", () => {
@@ -185,13 +190,18 @@ describe.each([
             expect(icon.size).toEqual("x-small");
         });
 
-        it("shouldDisplayMessageTitle", () => {
+        it(shouldDisplayMessageTitle, () => {
             const messages = component.shadowRoot.querySelectorAll(
                 "div.slds-notify.slds-theme_warning h2"
             );
             expect(messages).not.toBeNull();
-            expect(messages.length).toEqual(1);
-            expect(messages[0].textContent).toEqual(message);
+
+            if (message) {
+                expect(messages.length).toEqual(1);
+                expect(messages[0].textContent).toEqual(message);
+            } else {
+                expect(messages.length).toEqual(0);
+            }
         });
 
         it("should not display close icon", () => {
