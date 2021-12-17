@@ -38,6 +38,7 @@
     "noopener",
     "noreferrer",
     "reparentable",
+    "Astro",
     // LWC
     "onrowselection",
     "onrowaction",
