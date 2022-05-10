@@ -36,7 +36,7 @@ const REFRESH_LABEL = "Refresh List";
 const SAVE_UPDATES_LABEL = "Save Updates";
 const LOADING_ALTERNATIVE_TEXT = "Loading";
 
-export default class ManageExpenditures extends LightningElement(LightningElement) {
+export default class ManageExpenditures extends LightningElement {
     labels = {
         isNotDisbursement: {
             warningBanner: {
