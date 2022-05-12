@@ -2,4 +2,4 @@
 
 ## Latest Release
 
-Summer '21 🌞 ⛵ 🌊
+Winter '23 🌞 ⛵ 🌊
