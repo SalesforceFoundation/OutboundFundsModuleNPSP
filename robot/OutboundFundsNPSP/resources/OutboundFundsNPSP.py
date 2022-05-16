@@ -2,16 +2,17 @@ import logging
 import random
 import string
 import warnings
+import time
 
 from BaseObjects import BaseOutboundFundsNPSPPage
 from robot.libraries.BuiltIn import RobotNotRunningError
-from locators_52 import outboundfundsnpsp_lex_locators as locators_52
+from locators_54 import outboundfundsnpsp_lex_locators as locators_54
 from locators_51 import outboundfundsnpsp_lex_locators as locators_51
 from cumulusci.robotframework.utils import selenium_retry, capture_screenshot_on_error
 
 locators_by_api_version = {
     51.0: locators_51,  # Spring '21
-    52.0: locators_52,  # Summer '21
+    54.0: locators_54,  
 }
 # will get populated in _init_locators
 outboundfundsnpsp_lex_locators = {}
@@ -239,6 +240,30 @@ class OutboundFundsNPSP(BaseOutboundFundsNPSPPage):
         assert int(value) == count, "Expected value to be {} but found {}".format(
             value, count
         )
+
+    @capture_screenshot_on_error
+    def select_tab(self, title):
+        """ Switch between different tabs on a record page like Related, Details, News, Activity and Chatter
+            Pass title of the tab
+        """
+        tab_found = False
+        locators = outboundfundsnpsp_lex_locators["tabs"].values()
+        for i in locators:
+            locator = i.format(title)
+            if self.check_if_element_exists(locator):
+                print(locator)
+                buttons = self.selenium.get_webelements(locator)
+                for button in buttons:
+                    print(button)
+                    if button.is_displayed():
+                        print("button displayed is {}".format(button))
+                        self.salesforce._focus(button)
+                        button.click()
+                        time.sleep(5)
+                        tab_found = True
+                        break
+
+        assert tab_found, "tab not found"
 
     @capture_screenshot_on_error
     def select_value_from_picklist(self, dropdown, value):

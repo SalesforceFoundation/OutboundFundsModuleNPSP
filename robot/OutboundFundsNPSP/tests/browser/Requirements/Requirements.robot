@@ -45,5 +45,6 @@ Add a Requirement on a Funding Request
     Click Save
     wait until modal is closed
     Click Related List Link With Text           ${req_name}
+    Select Tab                                  Details
     Validate Field Value                        Requirement Name    contains    ${req_name}
     Validate Field Value                        Primary Contact    contains    ${contact}[Name]
