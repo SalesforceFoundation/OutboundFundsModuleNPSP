@@ -12,7 +12,7 @@ from cumulusci.robotframework.utils import selenium_retry, capture_screenshot_on
 
 locators_by_api_version = {
     51.0: locators_51,  # Spring '21
-    54.0: locators_54,  
+    54.0: locators_54,
 }
 # will get populated in _init_locators
 outboundfundsnpsp_lex_locators = {}
