@@ -1,4 +1,4 @@
-# Summer '21 locators
+# Spring '22 locators
 outboundfundsnpsp_lex_locators = {
     "app_launcher": {
         "view_all_button": "//button[text()='View All']",
@@ -13,7 +13,7 @@ outboundfundsnpsp_lex_locators = {
         "edit_title": "//h2[contains(@class, 'title') and text()='{}']",
         "list": "//div[contains(@class,'forcePageBlockSectionRow')]/div[contains(@class,'forcePageBlockItem')]/div[contains(@class,'slds-hint-parent')]/div[@class='slds-form-element__control']/div[.//span[text()='{}']][//div[contains(@class,'uiMenu')]//a[@class='select']]",
         "text_field": "//div[contains(@class, 'uiInput')][.//label[contains(@class, 'uiLabel')][.//span[text()='{}']]]//*[self::input or self::textarea]",
-        "dropdown_field": "//lightning-combobox[./label[text()='{}']]/div//input[contains(@class,'combobox__input')]",
+        "dropdown_field": "//lightning-combobox[./label[text()='{}']]/div//button[contains(@class,'slds-combobox__input')]",
         "dropdown_popup": "//div[contains(@class, 'slds-dropdown-trigger')]/div[contains(@class, 'slds-listbox')]",
         "dropdown_value": "//div[contains(@class,'slds-listbox')]//lightning-base-combobox-item//span[text()='{}']",
         "dd_selection": "//lightning-base-combobox-item[@data-value='{}']",
@@ -38,6 +38,10 @@ outboundfundsnpsp_lex_locators = {
         "record_detail_tab": "//a[contains(@data-label,'{}')]",
         "verify_header": "//div[contains(@class, 'entityNameTitle')]",
         "verify_details": "//div[contains(@class, 'slds-form-element')][.//span[text()='{}']]//following-sibling::div[.//span[contains(@class, 'test-id__field-value')]]/span",
+    },
+    "tabs": {
+        "tab": "//div[@class='uiTabBar']/ul[@class='tabs__nav']/li[contains(@class,'uiTabItem')]/a[@class='tabHeader']/span[contains(text(), '{}')]",
+        "spl-tab": "//div[@class='slds-tabs_default']//ul[@class='slds-tabs_default__nav']/li[contains(@class,'slds-tabs_default__item')]/a[text()= '{}']",
     },
     "related": {
         "title": '//div[contains(@class, "slds-card")]/header[.//span[@title="{}"]]',
