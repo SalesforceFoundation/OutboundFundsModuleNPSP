@@ -3,5 +3,5 @@
 }
 
 .INVALID {
-    color: #eb001f;
+    color: var(--slds-g-color-error-base-50, #ea001e);
 }
